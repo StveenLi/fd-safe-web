@@ -42,10 +42,9 @@ class StaticsPage extends React.Component{
     }
     render(){
         const tabs = [
-            { title: '总体' },
-            { title: '分类' },
-            { title: '门店' },
-            { title: '对比' },
+            { title: '门店排名' },
+            { title: '趋势分析' },
+            { title: '数据对比' },
         ];
         return <div>
 
@@ -71,9 +70,6 @@ class StaticsPage extends React.Component{
                             </div>
                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', }}>
                                 <StaticsType></StaticsType>
-                            </div>
-                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', }}>
-                                <StaticsStore></StaticsStore>
                             </div>
                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', }}>
                                 <StaticsCompare></StaticsCompare>

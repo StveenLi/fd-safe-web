@@ -7,7 +7,9 @@ import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/title';
 import 'echarts/lib/chart/bar';
 import 'echarts/lib/chart/pie';
-
+import {List,DatePicker,Icon,Drawer,Picker} from 'antd-mobile'
+import SearchComponent from '../common/searchComponent'
+import {BLUE} from '../config/style'
 class StaticsType extends React.Component{
 
 
@@ -17,13 +19,107 @@ class StaticsType extends React.Component{
           super(props);
           // 初始状态
           this.state = {
+              startDate: '',
+              endDate: '',
+              open: false,
+              docked: false,
+              searchDisplay: 'none',
               option: {
-                  color: ['#3398DB'],
+
+                  title: {
+                      text: '类目平均分'
+                  },
+                  legend: {
+                      data: ['']
+                  },
+                  radar: [
+                      {
+                          center: ['50%'],
+                          radius: 120,
+                          startAngle: 90,
+                          splitNumber: 4,
+                          shape: 'circle',
+                          name: {
+                              formatter:'【{value}】',
+                              textStyle: {
+                                  color:'#72ACD1'
+                              }
+                          },
+                          splitArea: {
+                              areaStyle: {
+                                  color: ['rgba(114, 172, 209, 1)'],
+                                  shadowColor: 'rgba(0, 0, 0, 0.3)',
+                                  shadowBlur: 10
+                              }
+                          },
+                          axisLine: {
+                              lineStyle: {
+                                  color: 'rgba(255, 255, 255, 0.5)'
+                              }
+                          },
+                          splitLine: {
+                              lineStyle: {
+                                  color: 'rgba(255, 255, 255, 0.5)'
+                              }
+                          }
+                      },
+                      {
+                          indicator: [
+                              { text: '虫害控制与废弃物管理', max: 150 },
+                              { text: '食品接收', max: 150 },
+                              { text: '用餐区域卫生', max: 150 },
+                              { text: '食品加工与服务', max: 120 },
+                              { text: '个人卫生', max: 108 },
+                              { text: '服务', max: 72 }
+                          ],
+                          center: ['50%', '50%'],
+                          radius: 120
+                      }
+                  ],
+                  series: [
+                      {
+                          name: '成绩单',
+                          type: 'radar',
+                          radarIndex: 1,
+                          data: [
+                              {
+                                  value: [120, 118, 130, 100, 99, 70],
+                                  name: '张三',
+                                  label: {
+                                      normal: {
+                                          show: true,
+                                          formatter:function(params) {
+                                              return params.value;
+                                          }
+                                      }
+                                  }
+                              },
+
+                          ],
+                          lineStyle:{
+                              color:BLUE
+                          },
+                          itemStyle:{
+                              color:BLUE
+                          }
+                      }
+                  ]
+              },
+              circleOption:{
+                  title: {
+                      text: '总体平均分趋势'
+                  },
                   tooltip : {
                       trigger: 'axis',
-                      axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-                          type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                      axisPointer: {
+                          type: 'cross',
+                          label: {
+                              backgroundColor: '#e9f3ff'
+                          }
                       }
+                  },
+                  legend: {
+                      data:['邮件营销']
                   },
                   grid: {
                       left: '3%',
@@ -34,10 +130,8 @@ class StaticsType extends React.Component{
                   xAxis : [
                       {
                           type : 'category',
-                          data : ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-                          axisTick: {
-                              alignWithLabel: true
-                          }
+                          boundaryGap : false,
+                          data : ['03-01','03-01','03-01','03-01','03-01']
                       }
                   ],
                   yAxis : [
@@ -47,59 +141,28 @@ class StaticsType extends React.Component{
                   ],
                   series : [
                       {
-                          name:'直接访问',
-                          type:'bar',
-                          barWidth: '60%',
-                          data:[10, 52, 200, 334, 390, 330, 220]
-                      }
-                  ]
-              },
-              circleOption:{
-                  tooltip: {
-                      trigger: 'item',
-                      formatter: "{a} <br/>{b}: {c} ({d}%)"
-                  },
-                  legend: {
-                      orient: 'vertical',
-                      x: 'left',
-                      data:['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
-                  },
-                  series: [
-                      {
-                          name:'访问来源',
-                          type:'pie',
-                          radius: ['50%', '70%'],
-                          avoidLabelOverlap: false,
-                          label: {
-                              normal: {
-                                  show: false,
-                                  position: 'center'
-                              },
-                              emphasis: {
-                                  show: true,
-                                  textStyle: {
-                                      fontSize: '30',
-                                      fontWeight: 'bold'
-                                  }
-                              }
+                          name:'邮件营销',
+                          type:'line',
+                          stack: '总量',
+                          areaStyle: {normal: {color:'#dfedff'}},
+                          lineStyle:{
+                              color:'#81B7FF'
                           },
-                          labelLine: {
-                              normal: {
-                                  show: false
-                              }
+                          itemStyle:{
+                              color:'#81B7FF'
                           },
-                          data:[
-                              {value:335, name:'直接访问'},
-                              {value:310, name:'邮件营销'},
-                              {value:234, name:'联盟广告'},
-                              {value:135, name:'视频广告'},
-                              {value:1548, name:'搜索引擎'}
-                          ]
+                          data:[120, 132, 101, 134, 90]
                       }
                   ]
               }
           }
       }
+    onDock (d){
+        this.state.searchDisplay == 'none'? this.setState({searchDisplay:''}):this.setState({searchDisplay:'none'})
+        this.setState({
+            docked:!this.state.docked
+        });
+    }
     componentDidMount() {
         var myChart = echarts.init(document.getElementById("typeStatics"));
         var myCircleChart = echarts.init(document.getElementById("typeCircleStatics"));
@@ -107,8 +170,36 @@ class StaticsType extends React.Component{
         myCircleChart.setOption(this.state.circleOption);
     }
     render(){
+        const sidebar = (<List style={{marginLeft:-15}}>
+            <Picker>
+                <List.Item arrow="horizontal">集团</List.Item>
+            </Picker>
+            <Picker>
+                <List.Item arrow="horizontal">品牌</List.Item>
+            </Picker>
+            <Picker>
+                <List.Item arrow="horizontal">区域</List.Item>
+            </Picker>
+            <Picker>
+                <List.Item arrow="horizontal">品类</List.Item>
+            </Picker>
+            <Picker>
+                <List.Item arrow="horizontal">门店</List.Item>
+            </Picker>
+        </List>);
         return <div style={{width:'100%'}}>
-            <div id="typeStatics" style={{height:300,padding:15,backgroundColor: '#fff' }}></div>
+            <SearchComponent
+                startDate={this.state.startDate}
+                endDate={this.state.endDate}
+                onDock={() => this.onDock()}
+                searchDisplay={this.state.searchDisplay}
+                sidebar={sidebar}
+                docked={this.state.docked}
+                setStartDate={date => this.setState({ startDate:date })}
+                setEndDate={date => this.setState({ endDate:date })}
+            />
+            <div id="typeStatics" style={{height:400,padding:15,backgroundColor: '#fff',marginTop:10 }}>
+            </div>
             <div id="typeCircleStatics" style={{marginTop:10,marginBottom:100,height:300,padding:15,backgroundColor: '#fff' }}></div>
         </div>
     }

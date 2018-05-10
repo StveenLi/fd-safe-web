@@ -4,9 +4,11 @@
 
 
 import React from 'react'
-import styles from '../config/style'
-
-
+import styles,{BLUE} from '../config/style'
+import {Button} from 'antd-mobile'
+import {
+    NavLink
+} from 'react-router-dom'
 class PersonalIndex extends React.Component{
 
     // 构造
@@ -25,9 +27,9 @@ class PersonalIndex extends React.Component{
             <div>
                 <div style={{display:'flex',backgroundColor: '#4077f8', flexDirection: 'column'}} >
                     <div style={{padding: 10,textAlign: 'center'}}>
-                        <div><img src={require('../assets/images/user4.jpg')} style={styles.lg_avatar}/></div>
-                        <div style={{marginTop: 10, fontSize: 17}}>小强</div>
-                        <div style={{marginTop: 10, fontSize: 17}}>审核人员</div>
+                        <div style={{marginTop:30}}><img src={require('../assets/images/user4.jpg')} style={styles.lg_avatar}/></div>
+                        <div style={{marginTop: 10, fontSize: 17,color:'#fff'}}>小强</div>
+                        <div style={{marginTop: 10, fontSize: 17,color:'#fff'}}>审核人员</div>
                     </div>
                     <div style={{display:'flex',textAlign: 'center',flexDirection:'row',backgroundColor:"rgba(255,255,255,0.5)",padding:10,marginTop:10}}>
                         <div style={{flex:1,color:'#fff',marginTop:5}}>
@@ -43,10 +45,16 @@ class PersonalIndex extends React.Component{
                 </div>
                 <div style={styles.personal_item}>
                     <div sytle={{display:'flex',flexDirection: 'row'}}>
-                        <div>food</div>
+                        <div>分享</div>
                     </div>
                 </div>
-                <div style={{marginTop:10,padding: 15, alignItems: 'center', backgroundColor: 'white'}}><div>bye</div></div>
+                <div style={{marginTop:10,padding: 15, alignItems: 'center', backgroundColor: 'white'}}><div>设置</div></div>
+                    <div style={{marginTop:30}}>
+                        <NavLink to="/">
+                            <Button type="primary" style={{margin:'15px 30px',backgroundColor:BLUE}}
+                            >退出</Button>
+                        </NavLink>
+                    </div>
             </div>
         )
 

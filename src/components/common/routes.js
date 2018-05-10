@@ -27,31 +27,41 @@ import Remarks from '../audits/remarks'
 import CheckQuestion from '../check/checkQuestion'
 import Report from '../audits/report'
 import ReportDetail from '../audits/reportDetail'
+import ReportList from '../audits/reportList'
+import AuditComplete from '../audits/auditComplete'
+import Login from '../user/login'
+import PrivateRoute from './PrivateRoute'
+
+
+
+
 const Routes = () => (
-
             <Switch>
-                <Route exact path="/" component={HomeIndex}/>
 
-                <Route  path="/audits" component={AuditPage}/>
+                <Route exact path="/" component={Login}/>
+                <PrivateRoute exact path="/home" component={HomeIndex}/>
 
-                <Route  path="/startAudit" component={StartAuditPage}/>
-                <Route  path="/auditQuestions" component={AuditQuestions}/>
+                <PrivateRoute path="/audits" component={AuditPage}/>
 
-                <Route path="/law" component={LawList}/>
-                <Route path="/auditsPlan" component={PlanPage}/>
-                <Route path="/auditsStatics" component={StaticPage}/>
-                <Route path="/radar" component={StaticsRadar}/>
-                <Route path="/questionDetail" component={QuestionDetail}/>
-                <Route path="/train" component={TrainIndex}/>
-                <Route path="/message" component={Message}/>
-                <Route path="/check" component={CheckIndex}/>
-                <Route path="/func" component={FuncPage}/>
-                <Route path="/signature" component={Signature}/>
-                <Route path="/lawDetail" component={LawDetail}/>
-                <Route path="/remarks" component={Remarks}/>
-                <Route path="/checkQuestion" component={CheckQuestion}/>
-                <Route path="/report" component={Report}/>
-                <Route path="/reportDetail" component={ReportDetail}/>
+                <PrivateRoute path="/startAudit" component={StartAuditPage}/>
+                <PrivateRoute path="/auditQuestions" component={AuditQuestions}/>
+                <PrivateRoute path="/law" component={LawList}/>
+                <PrivateRoute path="/auditsPlan" component={PlanPage}/>
+                <PrivateRoute path="/auditsStatics" component={StaticPage}/>
+                <PrivateRoute path="/radar" component={StaticsRadar}/>
+                <PrivateRoute path="/questionDetail" component={QuestionDetail}/>
+                <PrivateRoute path="/train" component={TrainIndex}/>
+                <PrivateRoute path="/message" component={Message}/>
+                <PrivateRoute path="/check" component={CheckIndex}/>
+                <PrivateRoute path="/func" component={FuncPage}/>
+                <PrivateRoute path="/signature" component={Signature}/>
+                <PrivateRoute path="/lawDetail" component={LawDetail}/>
+                <PrivateRoute path="/remarks" component={Remarks}/>
+                <PrivateRoute path="/checkQuestion" component={CheckQuestion}/>
+                <PrivateRoute path="/report" component={Report}/>
+                <PrivateRoute path="/reportDetail" component={ReportDetail}/>
+                <PrivateRoute path="/reportList" component={ReportList}/>
+                <PrivateRoute path="/auditComplete" component={AuditComplete}/>
             </Switch>
 )
 

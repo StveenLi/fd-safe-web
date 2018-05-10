@@ -36,6 +36,20 @@
         color: #999999;
         text-decoration: underline;
       }
+      .am-list-item .am-list-line .am-list-extra{
+        overflow: visible!important;
+      }
+      .am-list-body::before {
+     background-color: #fff!important;
+    }
+      .am-list-line::after {
+        background-color: #fff!important;
+
+      }
+      .am-list-content-more{
+        white-space: normal!important;
+        overflow: visible!important;
+      }
     </style>
     <title>食品安全</title>
   </head>
@@ -58,6 +72,7 @@
     <script src="echarts.js"></script>
 
     <script>
+
       if ('addEventListener' in document) {
         document.addEventListener('DOMContentLoaded', function() {
           FastClick.attach(document.body);

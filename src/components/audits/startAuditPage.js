@@ -4,9 +4,9 @@
 
 
 import React from 'react'
-import { NavBar,Icon,Picker, List,DatePicker} from 'antd-mobile';
+import { NavBar,Icon,Picker, List,DatePicker,Toast} from 'antd-mobile';
 import {BLUE} from '../config/style'
-
+import {getResByUserId,getAuditsType,user} from '../config/api'
 
 
 class StartAuditPage extends React.Component{
@@ -18,18 +18,72 @@ class StartAuditPage extends React.Component{
         super(props);
         // 初始状态
         this.state = {
-            date:''
+            date:new Date(),
+            resOptions:[],
+            typeDisable:true,
+            typeOptions:[],
+            sValue:'',
+            transmitParam:{},
+            tValue:''
         };
       }
     back = e => {
         const {history} = this.props
-
-        console.log(history)
         history.goBack();
     };
 
+    componentDidMount() {
+        getResByUserId().then(data => {
+            console.log(data)
+            if(data.success){
+                let arr = [];
+                for(let op of data.list){
+                    console.log(op);
+                    arr.push({label:op.name,value:op.id});
+                }
+                this.setState({
+                    resOptions:arr
+                })
+            }else{
+                Toast.fail(data.msg, 1);
+            }
+        })
+    }
+
+    //根据该饭店审核类型
+    getAuditsType(resId){
+        getAuditsType(resId).then(data => {
+            if(data.success){
+                for(let op of data.list){
+                    this.state.typeOptions.push({label:op.name,value:op.value})
+                }
+            }else{
+                Toast.fail(data.msg, 1);
+            }
+        })
+    }
+
+    selectResTrue(v){
+        this.setState({sValue: v,typeDisable:false,typeOptions:[],tValue:''})
+        this.getAuditsType(v)
+
+    }
+
+    //TO审核类目
+    toAuditQuestions(){
+        const {transmitParam,sValue,tValue} = this.state
+        if(sValue == '') {Toast.fail('请选择门店', 1); return;}
+        if(tValue == '') {Toast.fail('请选择审核类型', 1); return;}
+
+        transmitParam.resId = sValue;
+        transmitParam.typeId = tValue;
+        this.props.history.push('/auditQuestions',[{transmitParam:transmitParam}]);
+    }
+
     render(){
-        const district = ['肇嘉浜路小南门','体育场上上签']
+        const {resOptions,typeOptions,typeDisable} = this.state
+         //resOptions = [{label:'设法路上的风景里',value:'1'}]
+
         return <div style={{display:'flex',flexDirection:'column',position:'fixed',height:'100%',width:'100%',fontSize:17}}>
 
                     <div><NavBar
@@ -41,7 +95,7 @@ class StartAuditPage extends React.Component{
                         <List>
                         <div style={{display:'flex',flexDirection:'row',backgroundColor:'#fff',padding:15,borderBottomColor:'#eaeefe',borderBottomWidth:1,borderBottomStyle:'solid'}}>
                             <div style={{textAlign:'left'}}>审核员</div>
-                            <div style={{flex:1,textAlign:'right'}}>王进</div>
+                            <div style={{flex:1,textAlign:'right'}}>{user.name}</div>
                         </div>
                         <DatePicker
                             mode="date"
@@ -49,21 +103,34 @@ class StartAuditPage extends React.Component{
                             extra="请选择日期"
                             value={this.state.date}
                             onChange={date => this.setState({ date })}
+                            disabled={true}
                         >
                             <List.Item arrow="horizontal">审核日期</List.Item>
                         </DatePicker>
-                        <Picker data={district}>
-
+                        <Picker
+                            cols={1}
+                            data={resOptions}
+                            value={this.state.sValue}
+                            onOk={(v) => this.selectResTrue(v)}
+                            onChange={v => this.setState({ sValue: v })}
+                        >
                             <List.Item arrow="horizontal">选择门店</List.Item>
                         </Picker>
 
-                        <Picker data={district}>
+                        <Picker
+                            cols={1}
+                            disabled={typeDisable}
+                            data={typeOptions}
+                            value={this.state.tValue}
+                            onOk={(v) => this.setState({ tValue: v })}
+                            onChange={v => this.setState({ tValue: v })}
+                        >
                             <List.Item arrow="horizontal">审核类型</List.Item>
                         </Picker>
                         </List>
                     </div>
                     <div style={{fontSize:18,color:'#fff',padding: 15,textAlign:'center',backgroundColor:BLUE}}
-                        onClick={() => this.props.history.push('/auditQuestions')}
+                        onClick={() => this.toAuditQuestions()}
                     >开始审核</div>
 
 

@@ -2,15 +2,13 @@
  * Created by lixin on 2018/4/10.
  */
 import React from 'react'
-import { NavBar, Icon,Tabs, WhiteSpace, Badge ,List} from 'antd-mobile';
+import { NavBar, Icon,Tabs, WhiteSpace, Badge } from 'antd-mobile';
 import { StickyContainer, Sticky } from 'react-sticky';
 import {
     NavLink
 } from 'react-router-dom'
-import {GREY,BLUE} from '../config/style'
+import styles,{GREY,BLUE,screenWidth,FONTGREY} from '../config/style'
 
-const Item = List.Item;
-const Brief = Item.Brief;
 class mainComponent extends React.Component{
 
 
@@ -20,7 +18,6 @@ class mainComponent extends React.Component{
         // 初始状态
         this.state = {};
       }
-
     renderTabBar(props) {
         return (
             <Sticky>
@@ -29,21 +26,15 @@ class mainComponent extends React.Component{
             </Sticky>
         );
     }
-
     componentDidMount() {
-        console.log(this.props.history)
     }
-
     toLawPage(){
-
     }
-
-
     render(){
         const tabs = [
             { title: 'First Tab' },
         ];
-        return <div style={{ backgroundColor: '#fbfbff', paddingBottom:50,textAlign: 'center' }}>
+        return <div style={styles.page_box}>
             <NavBar
                 mode="light"
                 onLeftClick={() => console.log('onLeftClick')}
@@ -58,18 +49,41 @@ class mainComponent extends React.Component{
                               initalPage={'t2'}
                               renderTabBar={this.renderTabBar}
                         >
-                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#21a9fd' }}>
-                                <img src={require('../assets/images/banner.jpg')} height="100%" width="100%" />
+                            <div style={styles.home_banner}>
+                                <img alt="" src={require('../assets/images/banner.jpg')} height="100%" width="100%" />
                             </div>
                         </Tabs>
                     </StickyContainer>
-                <WhiteSpace />
             </div>
-            <div style={{display:'flex',alignItems: 'center', justifyContent: 'center',flexDirection:'row',backgroundColor:'#fff',paddingBottom:10}}>
-                <div style={{flex:1,marginTop:'5px'}}><NavLink to="/audits"><img src={require('../assets/icon/ic_shenhe.png')} height="30px"/><div style={{marginTop:'5px'}}></div></NavLink>审核</div>
-                <div style={{flex:1,marginTop:'5px'}}><NavLink to="/train"><img src={require('../assets/icon/ic_peixun.png')} height="30px"/><div style={{marginTop:'5px'}}></div></NavLink>培训</div>
-                <div style={{flex:1,marginTop:'5px'}}><NavLink to="/check"><img src={require('../assets/icon/ic_kaohe.png')} height="30px"/><div style={{marginTop:'5px'}}>考核</div></NavLink></div>
-                <div style={{flex:1,marginTop:'5px'}}><NavLink to="/law"><img src={require('../assets/icon/ic_law.png')} height="30px"/><div style={{marginTop:'5px'}}></div></NavLink>法律</div>
+            <div style={styles.home_func}>
+                <div style={styles.func_list}>
+                    <div style={{padding:10,position: 'relative'}}>
+                        <NavLink to="/audits">
+                        <img style={{maxWidth:'100%'}}  alt="" src={require('../assets/icon/nav01.png')}></img>
+                        <span style={styles.home_func_item}>审核</span></NavLink>
+                    </div>
+                    <div style={{padding:10,position: 'relative'}}>
+                        <NavLink to="/train">
+                            <img style={{maxWidth:'100%'}}  alt="" src={require('../assets/icon/nav02.png')}></img>
+                            <span style={styles.home_func_item}>培训</span></NavLink>
+                    </div>
+                </div>
+                <div style={{flex:1,display:'flex',flexDirection:'row'}}>
+                    <div style={{padding:'0px 10px 10px 10px',position: 'relative'}}>
+                        <NavLink to="/check">
+                            <img style={{maxWidth:'100%'}}  alt="" src={require('../assets/icon/nav03.png')}></img>
+                            <span style={styles.home_func_item}>考核</span></NavLink>
+                    </div>
+                    <div style={{padding:'0px 10px 10px 10px',position: 'relative'}}>
+                        <NavLink to="/law">
+                            <img style={{maxWidth:'100%'}}  alt="" src={require('../assets/icon/nav04.png')}></img>
+                            <span style={styles.home_func_item}>法律</span></NavLink>
+                    </div>
+                </div>
+                {/*<div style={{flex:1,marginTop:'5px'}}><NavLink to="/audits"><img alt="" src={require('../assets/icon/ic_shenhe.png')} height="30px"/><div style={{marginTop:'5px'}}></div></NavLink>审核</div>
+                <div style={{flex:1,marginTop:'5px'}}><NavLink to="/train"><img alt="" src={require('../assets/icon/ic_peixun.png')} height="30px"/><div style={{marginTop:'5px'}}></div></NavLink>培训</div>
+                <div style={{flex:1,marginTop:'5px'}}><NavLink to="/check"><img alt="" src={require('../assets/icon/ic_kaohe.png')} height="30px"/><div style={{marginTop:'5px'}}>考核</div></NavLink></div>
+                <div style={{flex:1,marginTop:'5px'}}><NavLink to="/law"><img alt="" src={require('../assets/icon/ic_law.png')} height="30px"/><div style={{marginTop:'5px'}}></div></NavLink>法律</div>*/}
             </div>
 
             <div style={{display:'flex',padding:15}}>
@@ -83,23 +97,23 @@ class mainComponent extends React.Component{
             </div>
 
             <div style={{marginLeft:15,marginRight:15}}>
-                <div style={{borderTopRightRadius:5,borderTopLeftRadius:5,display:'flex',flexDirection:'row',backgroundColor:'#fff',padding:15,borderBottomColor:'#eaeefe',borderBottomWidth:1,borderBottomStyle:'solid'}}>
-                    <Badge text="N" style={{ marginLeft: 12, padding: '0 3px', backgroundColor: '#21b68a', borderRadius: 2 }} />
-                    <div style={{flex:1}}>
-                        <div>恭喜你，您的审核通过了</div>
-                        <div>2018-04-08</div>
-                    </div>
-                </div>
-                <div style={{borderBottomRightRadius:5,borderBottomLeftRadius:5,display:'flex',flexDirection:'row',backgroundColor:'#fff',padding:15,borderBottomColor:'#707070',borderWidth:1}}>
-                    <Badge text="N" style={{ marginLeft: 12, padding: '0 3px', backgroundColor: '#21b68a', borderRadius: 2 }} />
-                    <div style={{flex:1}}>
-                        <div>恭喜你，您的审核通过了</div>
-                        <div>2018-04-08</div>
-                    </div>
-                </div>
+
+                {
+                    this.props.noticeList.map((noticeItem,index) => {
+                        return <div key={index} style={{borderTopRightRadius:5,borderTopLeftRadius:5,display:'flex',flexDirection:'row',backgroundColor:'#fff',padding:15,borderBottomColor:'#eaeefe',borderBottomWidth:1,borderBottomStyle:'solid'}}>
+                            <Badge dot style={{ marginLeft: 12, padding: '3px 3px',marginTop:3, backgroundColor: GREY }} />
+                            <div style={{flex:1,textAlign:'left',marginLeft:20}}>
+                                <div>{noticeItem.title}</div>
+                                <div style={{marginTop:10,fontSize:13,color:FONTGREY}}>{noticeItem.createDate}</div>
+                            </div>
+                        </div>
+                    })
+                }
+
+
             </div>
 
-            <div style={{display:'flex',padding:15}}>
+            {/*<div style={{display:'flex',padding:15}}>
                 <div style={{marginLeft:15,marginRight:15}}>咨询</div>
                 <div style={{flex:1}}></div>
                 <div style={{marginLeft:15,marginRight:15}}>查看更多 ></div>
@@ -129,7 +143,7 @@ class mainComponent extends React.Component{
                     </div>
 
                 </div>
-            </div>
+            </div>*/}
 
         </div>
     }
