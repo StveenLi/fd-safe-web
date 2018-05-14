@@ -6,7 +6,7 @@
 import React from 'react'
 import { NavBar,Icon,Picker, List,DatePicker,Toast} from 'antd-mobile';
 import {BLUE} from '../config/style'
-import {getResByUserId,getAuditsType,user} from '../config/api'
+import {getResByUserId,getAuditsType,user,queryPlan} from '../config/api'
 
 
 class StartAuditPage extends React.Component{
@@ -29,7 +29,7 @@ class StartAuditPage extends React.Component{
       }
     back = e => {
         const {history} = this.props
-        history.goBack();
+        history.push('/audits');
     };
 
     componentDidMount() {
@@ -66,18 +66,26 @@ class StartAuditPage extends React.Component{
     selectResTrue(v){
         this.setState({sValue: v,typeDisable:false,typeOptions:[],tValue:''})
         this.getAuditsType(v)
-
     }
 
     //TO审核类目
     toAuditQuestions(){
         const {transmitParam,sValue,tValue} = this.state
         if(sValue == '') {Toast.fail('请选择门店', 1); return;}
-        if(tValue == '') {Toast.fail('请选择审核类型', 1); return;}
+        if(tValue == '') {Toast.fail('请选择门店', 1); return;}
+        queryPlan(tValue[0],sValue[0]).then(data => {
 
-        transmitParam.resId = sValue;
-        transmitParam.typeId = tValue;
-        this.props.history.push('/auditQuestions',[{transmitParam:transmitParam}]);
+            if(data.success){
+                transmitParam.resId = sValue;
+                transmitParam.typeId = tValue;
+                transmitParam.planId = data.one.id;
+                this.props.history.push('/auditQuestions',[{transmitParam:transmitParam}]);
+            }else{
+                Toast.fail(data.msg, 1); return;
+            }
+        })
+
+
     }
 
     render(){

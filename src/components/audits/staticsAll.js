@@ -6,9 +6,10 @@ import echarts from 'echarts/lib/echarts';
 import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/title';
 import 'echarts/lib/chart/line';
-import {List,DatePicker,Icon,Drawer,Picker} from 'antd-mobile'
+import {List,DatePicker,Icon,Drawer,Picker,Button,Toast} from 'antd-mobile'
 import {screenWidth,BLUE,FONTGREY} from '../config/style'
 import SearchComponent from '../common/searchComponent'
+import {queryAssessHis,queryUnitRank,queryDateRange} from '../config/api'
 
 class StaticsAll extends React.Component{
 
@@ -19,12 +20,9 @@ class StaticsAll extends React.Component{
         super(props);
         // 初始状态
         this.state = {
-            startDate:'',
-            endDate:'',
             open: false,
             docked: false,
             searchDisplay:'none',
-
             option:{
                 title: {
                     text: '总体趋势'
@@ -74,17 +72,40 @@ class StaticsAll extends React.Component{
                         data:[120, 132, 101, 134, 90]
                     }
                 ]
-            }
-
+            },
+            startDate:'',
+            endDate:'',
+            resValue:'',
+            sValue:'',
+            bValue:'',
+            tValue:'',
+            pickerValue:{},
+            groups:[],
+            brands:[],
+            types:[],
+            resOptions:[],
+            rankResList:[]
         };
       }
 
     onOpenChange(...args){
-        console.log(args);
         this.setState({ open: !this.state.open });
     }
 
+    componentWillMount() {
+        const {groups,brands,types,resOptions} = this.props
+        this.setState({
+            groups:groups,
+            brands:brands,
+            types:types,
+            resOptions:resOptions,
+        })
+    }
+
+
+
     componentDidMount() {
+        this.serachResults();
         var dom = document.getElementById("allStatics");
         var myChart = echarts.init(dom);
         myChart.setOption(this.state.option);
@@ -97,23 +118,157 @@ class StaticsAll extends React.Component{
             });
         }
 
+
+    serachResults(){
+        const {startDate,endDate,sValue,bValue,tValue,pickerValue} = this.state
+        let proviceId = '';
+        let cityId = '';
+        let countyId = '';
+        if(pickerValue instanceof Array){
+            proviceId = pickerValue[0];
+            cityId = pickerValue[1];
+            countyId = pickerValue[2];
+        }
+        queryUnitRank(
+            startDate,endDate,sValue,bValue,proviceId,cityId,countyId,0,tValue,1
+        ).then(data => {
+            if(data.success){
+                this.setState({
+                    rankResList:data.list
+                })
+            }
+        })
+    }
+
+    queryDateRange(item){
+        const {startDate,endDate} = this.state
+
+        queryDateRange(startDate,endDate,item.id).then(data => {
+            if(data.success){
+                this.setOptionState(data.list)
+            }
+        });
+    }
+
+
+    setOptionState(list){
+        let dates = [];
+        let finalDatas = [];
+
+        list.forEach(function (item,index) {
+            dates.push(item.name);
+            finalDatas.push(item.value)
+        })
+        this.setState({
+            option:{
+                title: {
+                    text: '总体趋势'
+                },
+                tooltip : {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'cross',
+                        label: {
+                            backgroundColor: '#e9f3ff'
+                        }
+                    }
+                },
+                legend: {
+                    data:['邮件营销']
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis : [
+                    {
+                        type : 'category',
+                        boundaryGap : false,
+                        data : dates
+                    }
+                ],
+                yAxis : [
+                    {
+                        type : 'value'
+                    }
+                ],
+                series : [
+                    {
+                        name:'邮件营销',
+                        type:'line',
+                        stack: '总量',
+                        areaStyle: {normal: {color:'#dfedff'}},
+                        lineStyle:{
+                            color:'#81B7FF'
+                        },
+                        itemStyle:{
+                            color:'#81B7FF'
+                        },
+                        data:finalDatas
+                    }
+                ]
+            }
+        })
+        var dom = document.getElementById("allStatics");
+        var myChart = echarts.init(dom);
+        myChart.setOption(this.state.option);
+    }
+
+
+
+
     render(){
+        const {groups,brands,types,resOptions,rankResList} = this.state
+        const {cityData} = this.props
         const sidebar = (<List style={{marginLeft:-15}}>
-            <Picker>
+            <Picker
+                cols={1}
+                data={groups}
+                value={this.state.sValue}
+                onOk={(v) => this.setState({ sValue: v })}
+                onChange={v => this.setState({ sValue: v })}
+            >
                 <List.Item arrow="horizontal">集团</List.Item>
             </Picker>
-            <Picker>
+            <Picker
+                cols={1}
+                data={brands}
+                value={this.state.bValue}
+                onOk={(v) => this.setState({ bValue: v })}
+                onChange={v => this.setState({ bValue: v })}
+            >
                 <List.Item arrow="horizontal">品牌</List.Item>
             </Picker>
-            <Picker>
+            <Picker
+                data={cityData}
+                value={this.state.pickerValue}
+                onChange={v => this.setState({ pickerValue: v })}
+                onOk={v => this.setState({ pickerValue: v })}
+            >
                 <List.Item arrow="horizontal">区域</List.Item>
             </Picker>
-            <Picker>
+            <Picker
+                cols={1}
+                data={types}
+                value={this.state.tValue}
+                onChange={v => this.setState({ tValue: v })}
+                onOk={v => this.setState({ tValue: v })}>
                 <List.Item arrow="horizontal">品类</List.Item>
             </Picker>
-            <Picker>
+            <Picker
+                cols={1}
+                data={resOptions}
+                value={this.state.resValue}
+                onChange={v => this.setState({ resValue: v })}
+                onOk={v => this.setState({ resValue: v })}>
                 <List.Item arrow="horizontal">门店</List.Item>
             </Picker>
+            <div style={{width:'100%',display:'block',display:'flex',flexDirection:'row'}}>
+                <Button style={{flex:1}}>重置</Button>
+                <Button style={{flex:1}} onClick={() => this.serachResults()} type="primary">提交</Button>
+            </div>
         </List>);
         return <div>
             <SearchComponent
@@ -138,33 +293,25 @@ class StaticsAll extends React.Component{
                 <div style={{marginTop:10}}>
                     <div style={{marginTop:5,display:'flex'}}>
                         <div>
-                            <div style={{fontSize:10,marginTop:5,padding:2}}>望湘园1(中山公园)</div>
-                            <div style={{fontSize:10,marginTop:5,padding:2}}>望湘园13(中山公园)</div>
-                            <div style={{fontSize:10,marginTop:5,padding:2}}>望湘园11213(中山公园)</div>
-                            <div style={{fontSize:10,marginTop:5,padding:2}}>(中山公园)</div>
-                            <div style={{fontSize:10,marginTop:5,padding:2}}>望湘园1213()</div>
+                            {
+                                rankResList.map((item,index) => {
+                                    return <div key={index} style={{fontSize:10,marginTop:5,padding:2}}>{item.name}</div>
+                                })
+                            }
                         </div>
                         <div style={{flex:1}}>
-                            <div style={{fontSize:10,marginTop:5,textAlign:'right',backgroundColor:BLUE,padding:2,marginLeft:10,width:'90%',color:'#fff'}}>90</div>
-                            <div style={{fontSize:10,marginTop:5,textAlign:'right',backgroundColor:BLUE,padding:2,marginLeft:10,width:'80%',color:'#fff'}}>80</div>
-                            <div style={{fontSize:10,marginTop:5,textAlign:'right',backgroundColor:BLUE,padding:2,marginLeft:10,width:'70%',color:'#fff'}}>70</div>
-                            <div style={{fontSize:10,marginTop:5,textAlign:'right',backgroundColor:BLUE,padding:2,marginLeft:10,width:'60%',color:'#fff'}}>60</div>
-                            <div style={{fontSize:10,marginTop:5,textAlign:'right',backgroundColor:BLUE,padding:2,marginLeft:10,width:'50%',color:'#fff'}}>50</div>
+                            {
+                                rankResList.map((item,index) => {
+                                    return <div onClick={() => this.queryDateRange(item)} style={{fontSize:10,marginTop:5,textAlign:'right',backgroundColor:BLUE,padding:2,marginLeft:10,width:'90%',color:'#fff'}}>{item.value}</div>
+
+                                })
+                            }
                         </div>
-
-
-
-                        {/*<div style={{display:'flex',flexDirection:'row'}}>
-                            <div style={{padding:2,overflow:'hidden',textOverflow:'ellipsis',width:'40%'}}>望湘园(中山公园)</div>
-                            <div style={{textAlign:'right',backgroundColor:BLUE,padding:2,marginLeft:10,width:'90%',color:'#fff'}}>1</div>
-                        </div>*/}
                     </div>
-
-
                 </div>
             </div>
             <div id="allStatics" style={{width:screenWidth,height:300,padding:15,backgroundColor: '#fff',marginTop:10 }}></div>
-            <div style={{flex:1,textAlign:'right',padding:15,fontSize:16,marginBottom:50}}>统计门店数量 10</div>
+            <div style={{flex:1,textAlign:'right',padding:15,fontSize:16,marginBottom:50}}>统计门店数量 {this.state.rankResList.length}</div>
         </div>
 
     }

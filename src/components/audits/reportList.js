@@ -13,7 +13,9 @@ class ReportList extends React.Component{
       constructor(props) {
         super(props);
         // 初始状态
-        this.state = {};
+        this.state = {
+            dataList:[]
+        };
       }
 
     back = e => {
@@ -21,12 +23,17 @@ class ReportList extends React.Component{
         history.goBack();
     };
 
-    toDetail(){
-        this.props.history.push('/reportDetail')
+    toDetail(item){
+        this.props.history.push(`/reportDetail/${item.assessId}`)
+    }
+
+    componentWillMount() {
+        this.setState({dataList:this.props.history.location.state[0].transmitParam})
     }
 
     render(){
 
+        const {dataList} = this.state
 
         return <div style={{textAlign:'center'}}>
             <NavBar
@@ -36,19 +43,24 @@ class ReportList extends React.Component{
             >搜索结果</NavBar>
 
             <List style={{marginTop:50}}>
-                <Item onClick={() => this.toDetail()}>
-                    <div style={{display:'flex',flexDirection:'row',padding:'10px'}}>
-                        <div  style={{flex:1,}}>
-                            <div style={{fontSize:18,fontWeight:'bold'}}>2018042793854</div>
-                            <div style={{fontSize:14,color:FONTGREY,paddingBottom:10}}>望湘园徐泾店(21101)</div>
-                            <div style={{fontSize:14,color:FONTGREY}}>2018-04-27</div>
-                        </div>
-                        <div>
-                            <div style={{fontSize:20,fontWeight:'bold',color:'#e41717',textAlign:'center'}}>75</div>
-                            <div style={{fontSize:16,backgroundColor:BLUE,color:'#fff',borderRadius:4,padding:'2px 10px',margin:'20px 0 0 0'}}>内审</div>
-                        </div>
-                    </div>
-                </Item>
+                {
+                    dataList.map((item,index) => {
+                        return <Item key={index} onClick={() => this.toDetail(item)}>
+                            <div style={{display:'flex',flexDirection:'row',padding:'10px'}}>
+                                <div  style={{flex:1,}}>
+                                    <div style={{fontSize:18,fontWeight:'bold'}}>{item.nr}</div>
+                                    <div style={{fontSize:14,color:FONTGREY,paddingBottom:10}}>{item.title}</div>
+                                    <div style={{fontSize:14,color:FONTGREY}}>{item.assessDate}</div>
+                                </div>
+                                <div>
+                                    <div style={{fontSize:20,fontWeight:'bold',color:'#e41717',textAlign:'center'}}>{item.scores}</div>
+                                    <div style={{fontSize:16,backgroundColor:BLUE,color:'#fff',borderRadius:4,padding:'2px 10px',margin:'20px 0 0 0'}}>{item.assessType}</div>
+                                </div>
+                            </div>
+                        </Item>
+                    })
+
+                }
             </List>
 
         </div>

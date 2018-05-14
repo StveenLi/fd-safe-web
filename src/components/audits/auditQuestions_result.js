@@ -7,7 +7,9 @@ import { Accordion, List,NavBar,Icon,Button,Toast} from 'antd-mobile';
 import SignatureCanvas from 'react-signature-canvas'
 import SignaturePad from '../signature/index.js'
 import {screenWidth,FONTGREY,GREY} from '../config/style'
-import {getAddressByXY,getAssessList,doStatistics} from '../config/api'
+import {getAddressByXY,checkUnStandard,doStatistics,uploadByBase64} from '../config/api'
+import Zmage from 'react-zmage'
+
 class AuditQuestions extends React.Component{
     // 构造
       constructor(props) {
@@ -26,7 +28,7 @@ class AuditQuestions extends React.Component{
 
     back = e => {
         const {history} = this.props
-        history.push('/startAudit');
+        history.goBack();
     };
     onChange = (key) => {
         console.log(key);
@@ -39,47 +41,45 @@ class AuditQuestions extends React.Component{
         for(let fa of firstAudit.childAssess){
             questionIds.push(fa.auditeId);
         }
-        transmitParam.planId = parseInt(this.state.locationState.planId);
+        transmitParam.planId = parseInt(this.state.locationState.typeId[0]);
         transmitParam.auditName = firstAudit.fristTitle;
         transmitParam.questionIds = questionIds;
         transmitParam.resId = locationState.resId;
-        transmitParam.typeId = locationState.typeId;
         this.props.history.push(`/questionDetail/${auditId}`,[{transmitParam:transmitParam}]);
     }
 
     toFuncPage(){
-        //doStatistics(this.state.locationState.planId,'123').then(data => {
-            let transmitParam = {};
-            const {locationState} = this.state;
-
-            transmitParam.planId = parseInt(this.state.locationState.planId);
-            transmitParam.resId = locationState.resId;
-            transmitParam.typeId = locationState.typeId;
-            //if(data.success){
-                this.props.history.push('/auditQuestionsResult',[{transmitParam:transmitParam}]);
-            //}else {
-            //    Toast.fail(data.msg,1)
-            //}
-        //})
+        doStatistics(this.state.locationState.planId,'123').then(data => {
+            if(data.success){
+                this.props.history.push('/auditComplete',[{transmitParam:data.list}]);
+            }else {
+                Toast.fail(data.msg,1)
+            }
+        })
     }
     clear = () => {
         this.sigPad.clear()
     }
     trim = () => {
-        this.setState({trimmedDataURL: this.sigPad.getTrimmedCanvas()
-            .toDataURL('image/png')})
+
+
+        this.setState({trimmedDataURL: this.sigPad.getTrimmedCanvas().toDataURL('image/png')})
+        uploadByBase64(this.sigPad.getTrimmedCanvas().toDataURL('image/png')).then(data => {
+            console.log(data)
+        })
+
     }
 
     
     componentWillMount() {
-        const {typeId,resId} = this.props.history.location.state[0].transmitParam;
+        const {typeId,resId,planId} = this.props.history.location.state[0].transmitParam;
         this.setState({
             locationX:localStorage.getItem('Longitude'),
             locationY:localStorage.getItem('Latitude'),
             locationState:this.props.history.location.state[0].transmitParam
         })
 
-        getAssessList(typeId[0],resId[0]).then(data => {
+        checkUnStandard(planId).then(data => {
             if(data.success){
                 this.setState({resAuditList:data.one});
             }
@@ -108,8 +108,25 @@ class AuditQuestions extends React.Component{
                         {
                             firstAudit.childAssess.map((secondAudit, index) => {
                                 return <List.Item style={{background:'#fbfbff'}}
-                                                  onClick={()=>this.toDetail(secondAudit.auditeId,firstAudit)}
-                                                  key={index}>&nbsp;&nbsp;&nbsp;&nbsp;{aindex + 1}.{index + 1}.{secondAudit.thridTitle}</List.Item>
+                                                  key={index}>
+
+                                    {
+                                        secondAudit.assessOptions.map((thirdItem, index) => {
+                                            return <div>
+                                                <div style={{fontSize:15,color:FONTGREY}}>{`${secondAudit.secondTitle}.${thirdItem.sort}.${thirdItem.title}`}</div>
+                                                <div style={{fontSize:15}}>备注：{thirdItem.remarks}</div>
+                                                <div>
+                                                    {
+                                                        thirdItem.imgs.length>0?thirdItem.imgs.map((fourthItem,index) => {
+                                                            return <Zmage style={{width:'25%',height:'25%'}} src={fourthItem}></Zmage>
+                                                        }):null
+                                                    }
+                                                </div>
+
+                                            </div>
+                                        })
+                                    }
+                                </List.Item>
                             })
                         }
                     </Accordion.Panel>
@@ -133,10 +150,35 @@ class AuditQuestions extends React.Component{
                 onLeftClick={() => this.back()}
             >审核条目</NavBar>
 
-            <div style={{ marginTop: 55, marginBottom: 60 }}>
+            <div style={{ marginTop: 55, marginBottom: 10 }}>
                     {
                         this.setAudits(childAssess)
                     }
+            </div>
+            <div>
+                <div style={{margin: '0 5px 5px 10px',display:'flex',flexDirection:'row'}}><img src={require('../assets/icon/signature.svg')} width={30} height={30}></img>
+                    <div style={{margin: '5px 5px 5px 10px'}}>餐厅负责人签名:</div>
+                </div>
+                <div></div>
+            </div>
+            <SignaturePad
+                backgroundColor="#fff"
+                canvasProps={{width:screenWidth,height:250,className: 'sigCanvas'}}
+                ref={(ref) => { this.sigPad = ref }} />
+            <div style={{margin:15,display:'flex',flexDirection:'row'}}>
+                <Button style={{flex:1}} type="ghost" size='small'  onClick={() => this.clear()}>
+                    重写
+                </Button>
+                <Button style={{flex:1}} type="ghost" size='small'  onClick={() => this.trim()}>
+                    确认
+                </Button>
+            </div>
+            <div style={{marginTop:10,marginBottom:65}}>
+                <div style={{margin: '5px 5px 5px 10px',display:'flex',flexDirection:'row'}}>
+                    <img src={require('../assets/icon/location.svg')} width={25} height={25}></img>
+                    <div style={{margin: '5px 5px 5px 10px'}}>{this.state.hereAddress==''?this.state.hereAddress:'暂无位置数据'}</div>
+                </div>
+                <div></div>
             </div>
 
             <div style={{position:'fixed',bottom:0,width:'100%',display:'block'}}>

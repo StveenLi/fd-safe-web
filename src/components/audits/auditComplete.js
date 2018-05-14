@@ -13,10 +13,35 @@ class AuditComplete extends React.Component{
 
     // 构造
       constructor(props) {
-        super(props);
+
+          super(props);
         // 初始状态
         this.state = {
-            option: {
+            sumCore:'',
+            option : {}
+        };
+      }
+
+    componentWillMount() {
+        let transmitParam = [];
+        let indicatorList = [];
+        let dataVals = [];
+        if(this.props.history.location.state instanceof Array){
+            transmitParam =  this.props.history.location.state[0].transmitParam;
+        }
+
+        for(let tran of transmitParam){
+            if(tran.name=='SJZF'){
+                this.state.sumCore = tran.value;
+            }
+            else if(tran.name!='ZF'){
+                indicatorList.push({ text: tran.name, max: 100 });
+                dataVals.push(parseFloat(tran.value))
+            }
+        }
+
+        this.setState({
+            option:{
 
                 title: {
                     text: '类目平均分'
@@ -56,27 +81,20 @@ class AuditComplete extends React.Component{
                         }
                     },
                     {
-                        indicator: [
-                            { text: '虫害控制与废弃物管理', max: 150 },
-                            { text: '食品接收', max: 150 },
-                            { text: '用餐区域卫生', max: 150 },
-                            { text: '食品加工与服务', max: 120 },
-                            { text: '个人卫生', max: 108 },
-                            { text: '服务', max: 72 }
-                        ],
+                        indicator: indicatorList,
                         center: ['50%', '50%'],
                         radius: 120
                     }
                 ],
                 series: [
                     {
-                        name: '成绩单',
+                        name: '食品安全',
                         type: 'radar',
                         radarIndex: 1,
                         data: [
                             {
-                                value: [120, 118, 130, 100, 99, 70],
-                                name: '张三',
+                                value: dataVals,
+                                name: '食品安全',
                                 label: {
                                     normal: {
                                         show: true,
@@ -96,9 +114,11 @@ class AuditComplete extends React.Component{
                         }
                     }
                 ]
-            },
-        };
-      }
+            }
+        })
+
+    }
+
 
     componentDidMount() {
         var myChart = echarts.init(document.getElementById("typeStatics"));
@@ -109,6 +129,7 @@ class AuditComplete extends React.Component{
         history.goBack();
     };
     render(){
+
         return <div style={{textAlign:'center'}}>
             <NavBar
                 mode="light"
@@ -118,7 +139,7 @@ class AuditComplete extends React.Component{
 
             <div style={{marginTop:55,background:'#fff',padding:15}}>
                 <div style={{textAlign:'left'}}>您的本次审核得分为：</div>
-                <div style={{color:BLUE,fontSize:50,padding:'15px 0 0 0'}}>88</div>
+                <div style={{color:BLUE,fontSize:50,padding:'15px 0 0 0'}}>{parseInt(this.state.sumCore)}</div>
                 <div style={{marginLeft:90,marginTop:-20}}>分</div>
             </div>
             <div id="typeStatics" style={{height:400,padding:15,backgroundColor: '#fff',marginTop:10 }}></div>

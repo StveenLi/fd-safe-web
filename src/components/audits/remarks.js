@@ -3,9 +3,10 @@
  */
 
 import React from 'react'
-import { Accordion, List,NavBar,Icon,Badge,ImagePicker, WingBlank, SegmentedControl} from 'antd-mobile';
+import { Accordion, List,NavBar,Icon,Badge,ImagePicker, WingBlank, SegmentedControl,Button} from 'antd-mobile';
 import styles,{screenWidth} from '../config/style'
-
+import {upload} from '../config/api'
+import {BLUE} from '../config/style'
 const data = [];
 
 class Remarks extends React.Component{
@@ -19,19 +20,31 @@ class Remarks extends React.Component{
         this.state = {
             files: data,
             multiple: false,
+            images:[],
+            textValue:'',
         };
       }
-    back = e => {
-        const {history} = this.props
 
-        console.log(history)
-        history.goBack();
-    };
     onChange = (files, type, index) => {
         console.log(files, type, index);
         this.setState({
             files,
         });
+        if(type == 'add'){
+            let _file;
+            if((typeof(index) == "undefined")){
+                index = 0
+            }
+            if(files instanceof Array){
+                _file = files[files.length-1].file;
+                upload(_file).then((data) => {
+                    if(data.success){
+                        this.state.images.push(data.url);
+                    }
+                })
+            }
+            
+        }
     }
     onSegChange = (e) => {
         const index = e.nativeEvent.selectedSegmentIndex;
@@ -40,6 +53,17 @@ class Remarks extends React.Component{
         });
     }
 
+
+    _onSure(){
+
+        let remarkValue = {};
+        remarkValue.itemId = this.props.currentItem
+        remarkValue.content = document.getElementById('textVal').value;
+        remarkValue.images = this.state.images
+        this.props.changePageStatus(remarkValue)
+    }
+
+
     render(){
         const { files } = this.state;
 
@@ -47,16 +71,15 @@ class Remarks extends React.Component{
 
             <NavBar
                 mode="light"
-                icon={<Icon type="left" />}
-                onLeftClick={() => this.back()}
+
             > 备注</NavBar>
-            <div>
+            <div style={{marginTop:50,padding:15,fontSize:16}}>
                 问题:1.1.1采购的食品相关产品等应用符合
                 国家有关食品安全标准和规定的要求。
             </div>
 
             <div style={{backgroundColor:'#fff'}}>
-                <textarea style={{fontSize:16,padding:15,width:screenWidth,height:300}}>
+                <textarea id="textVal" style={{fontSize:16,padding:15,width:screenWidth-50,height:300}}>
                 </textarea>
                 <div style={{width:'100%',backgroundColor:'#fff'}}>
                     <ImagePicker
@@ -67,6 +90,11 @@ class Remarks extends React.Component{
                         multiple={this.state.multiple}
                     />
                 </div>
+            </div>
+            <div style={{marginTop:30}}>
+                <Button
+                    onClick={() => this._onSure()}
+                    type="primary" style={{margin:'15px 30px',backgroundColor:BLUE}}>确定</Button>
             </div>
         </div>
     }

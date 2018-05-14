@@ -19,7 +19,7 @@ class AuditPage extends React.Component{
     back = e => {
         const {history} = this.props
         console.log(history)
-        history.goBack();
+        history.push('home')
     };
 
     componentWillMount() {

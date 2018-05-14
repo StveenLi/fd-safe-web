@@ -16,6 +16,7 @@ import PlanPage from '../audits/plans'
 import StaticPage from '../audits/statics'
 import StaticsRadar from '../audits/staticsRadar'
 import AuditQuestions from '../audits/auditQuestions'
+import AuditQuestionsResult from '../audits/auditQuestions_result'
 import QuestionDetail from '../audits/questionDetail'
 import TrainIndex from '../train/tarinIndex'
 import Message from '../user/message'
@@ -31,7 +32,8 @@ import ReportList from '../audits/reportList'
 import AuditComplete from '../audits/auditComplete'
 import Login from '../user/login'
 import PrivateRoute from './PrivateRoute'
-
+import VideoTrain from '../audits/videoTrain'
+import ImgDetailTrain from '../audits/imgTrain'
 
 
 
@@ -40,11 +42,11 @@ const Routes = () => (
 
                 <Route exact path="/" component={Login}/>
                 <PrivateRoute exact path="/home" component={HomeIndex}/>
-
                 <PrivateRoute path="/audits" component={AuditPage}/>
-
                 <PrivateRoute path="/startAudit" component={StartAuditPage}/>
                 <PrivateRoute path="/auditQuestions" component={AuditQuestions}/>
+                <PrivateRoute path="/auditQuestionsResult" component={AuditQuestionsResult}/>
+                <PrivateRoute path="/questionDetail/:qid" component={QuestionDetail}/>
                 <PrivateRoute path="/law" component={LawList}/>
                 <PrivateRoute path="/auditsPlan" component={PlanPage}/>
                 <PrivateRoute path="/auditsStatics" component={StaticPage}/>
@@ -59,9 +61,11 @@ const Routes = () => (
                 <PrivateRoute path="/remarks" component={Remarks}/>
                 <PrivateRoute path="/checkQuestion" component={CheckQuestion}/>
                 <PrivateRoute path="/report" component={Report}/>
-                <PrivateRoute path="/reportDetail" component={ReportDetail}/>
+                <PrivateRoute path="/reportDetail/:assessId" component={ReportDetail}/>
                 <PrivateRoute path="/reportList" component={ReportList}/>
                 <PrivateRoute path="/auditComplete" component={AuditComplete}/>
+                <PrivateRoute path="/trainVideoPage" component={VideoTrain}/>
+                <PrivateRoute path="/trainImgDetailPage" component={ImgDetailTrain}/>
             </Switch>
 )
 
