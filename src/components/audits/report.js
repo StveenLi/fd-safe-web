@@ -18,7 +18,7 @@ class Report extends React.Component{
         super(props);
         // 初始状态
         this.state = {
-            selectedValue:0,
+            selectedValue:'0',
             groups:[],
             brands:[],
             types:[],
@@ -33,7 +33,7 @@ class Report extends React.Component{
             endDate:'',
             startNums:'',
             endNums:'',
-            selectedAuditValue:'',
+            selectedAuditValue:'0',
             transmitParam:{},
         };
       }
@@ -259,9 +259,9 @@ class Report extends React.Component{
                 </List>
             </div>
             <div style={{position:'fixed',bottom:0,width:'100%',display:'block',display:'flex',flexDirection:'row'}}>
-                <Button style={{flex:1}} onClick={() => this.props.history.push('/reportDetail')}>重置</Button>
+                {/*<Button style={{flex:1}} onClick={() => this.props.history.push('/reportDetail')}>重置</Button>*/}
 
-                <Button style={{flex:1}} type="primary" onClick={() => this.serachReport()}>提交</Button>
+                <Button style={{flex:1,background:BLUE}}  type="primary" onClick={() => this.serachReport()}>提交</Button>
             </div>
 
 

@@ -28,16 +28,11 @@ class ReportDetail extends React.Component{
     };
 
     componentDidMount() {
-
         getAssessDetail(this.state.assessId).then(data => {
-            console.log(data)
             if(data.success){
                 this.setState({reportData:data.one})
             }
         })
-
-
-
     }
 
     componentWillMount() {
@@ -63,7 +58,6 @@ class ReportDetail extends React.Component{
         }
 
 
-        console.log(JSON.stringify(reportData.keyAssesses));
 
         return <div style={{textAlign:'center'}}>
             <NavBar
@@ -134,17 +128,16 @@ class ReportDetail extends React.Component{
                                                 <List className="my-list">
                                                     {
                                                         item.childAssess.map((secondItem,index) => {
-                                                            return <List.Item style={{background:'#fbfbff',}} wrap={true} multipleLine={true} key={index}>
-                                                                <div style={{fontSize:15,color:FONTGREY}}>{secondItem.thridTitle}</div>
+                                                            return secondItem.assessOptions.length>0?<List.Item style={{background:'#fbfbff',}} wrap={true} multipleLine={true} key={index}>
                                                                 {
                                                                     secondItem.assessOptions.map((thirdItem, index) => {
                                                                         return <div>
-                                                                            <div style={{fontSize:15,color:FONTGREY}}>{`${secondItem.secondTitle}.${thirdItem.sort}.${thirdItem.title}`}</div>
+                                                                            <div style={{fontSize:15,color:FONTGREY}}>{`${thirdItem.sort}.${thirdItem.title}`}</div>
                                                                             <div style={{fontSize:15}}>备注：</div>
                                                                             <div>
                                                                                 {
                                                                                     thirdItem.length>0?thirdItem.imgs.map((fourthItem,index) => {
-                                                                                        return <img src={require(thirdItem)}></img>
+                                                                                        return <img key={index} src={require(thirdItem)}></img>
                                                                                     }):null
                                                                                 }
                                                                                 </div>
@@ -152,7 +145,7 @@ class ReportDetail extends React.Component{
                                                                         </div>
                                                                     })
                                                                 }
-                                                            </List.Item>
+                                                            </List.Item>:null
                                                         })
                                                     }
 

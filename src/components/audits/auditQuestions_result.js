@@ -6,7 +6,7 @@ import React from 'react'
 import { Accordion, List,NavBar,Icon,Button,Toast} from 'antd-mobile';
 import SignatureCanvas from 'react-signature-canvas'
 import SignaturePad from '../signature/index.js'
-import {screenWidth,FONTGREY,GREY} from '../config/style'
+import {screenWidth,FONTGREY,GREY,BLUE} from '../config/style'
 import {getAddressByXY,checkUnStandard,doStatistics,uploadByBase64} from '../config/api'
 import Zmage from 'react-zmage'
 
@@ -114,10 +114,10 @@ class AuditQuestions extends React.Component{
                                         secondAudit.assessOptions.map((thirdItem, index) => {
                                             return <div>
                                                 <div style={{fontSize:15,color:FONTGREY}}>{`${secondAudit.secondTitle}.${thirdItem.sort}.${thirdItem.title}`}</div>
-                                                <div style={{fontSize:15}}>备注：{thirdItem.remarks}</div>
+                                                <div style={{fontSize:15,color:'#e41717'}}>备注：{thirdItem.remarks}</div>
                                                 <div>
                                                     {
-                                                        thirdItem.imgs.length>0?thirdItem.imgs.map((fourthItem,index) => {
+                                                        thirdItem.imgs instanceof Array?thirdItem.imgs.map((fourthItem,index) => {
                                                             return <Zmage style={{width:'25%',height:'25%'}} src={fourthItem}></Zmage>
                                                         }):null
                                                     }
@@ -149,14 +149,19 @@ class AuditQuestions extends React.Component{
                 icon={<Icon type="left" />}
                 onLeftClick={() => this.back()}
             >审核条目</NavBar>
-
-            <div style={{ marginTop: 55, marginBottom: 10 }}>
+            <div style={{ marginTop: 55, marginBottom: 5 }}>
+                <div style={{margin: '0 5px 5px 10px',display:'flex',flexDirection:'row'}}><img style={{marginTop:3}} src={require('../assets/icon/audit_list.png')} width={20} height={20}></img>
+                    <div style={{margin: '5px 5px 5px 10px'}}>报告类目:</div>
+                </div>
+                <div></div>
+            </div>
+            <div>
                     {
                         this.setAudits(childAssess)
                     }
             </div>
-            <div>
-                <div style={{margin: '0 5px 5px 10px',display:'flex',flexDirection:'row'}}><img src={require('../assets/icon/signature.svg')} width={30} height={30}></img>
+            <div style={{margin:'10px 0'}}>
+                <div style={{margin: '0 5px 5px 10px',display:'flex',flexDirection:'row'}}><img style={{marginTop:3}} src={require('../assets/icon/signature.png')} width={20} height={20}></img>
                     <div style={{margin: '5px 5px 5px 10px'}}>餐厅负责人签名:</div>
                 </div>
                 <div></div>
@@ -173,16 +178,16 @@ class AuditQuestions extends React.Component{
                     确认
                 </Button>
             </div>
-            <div style={{marginTop:10,marginBottom:65}}>
+            <div style={{marginTop:10,marginBottom:85}}>
                 <div style={{margin: '5px 5px 5px 10px',display:'flex',flexDirection:'row'}}>
-                    <img src={require('../assets/icon/location.svg')} width={25} height={25}></img>
+                    <img style={{marginTop:3}} src={require('../assets/icon/location.png')} width={20} height={20}></img>
                     <div style={{margin: '5px 5px 5px 10px'}}>{this.state.hereAddress==''?this.state.hereAddress:'暂无位置数据'}</div>
                 </div>
                 <div></div>
             </div>
 
             <div style={{position:'fixed',bottom:0,width:'100%',display:'block'}}>
-                <Button type="primary" onClick={() => this.toFuncPage()}>提交</Button>
+                <Button style={{background:BLUE}} type="primary" onClick={() => this.toFuncPage()}>提交</Button>
             </div>
 
         </div>

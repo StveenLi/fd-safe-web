@@ -6,7 +6,7 @@ import React from 'react'
 import { Accordion, List,NavBar,Icon,Button,Toast} from 'antd-mobile';
 import SignatureCanvas from 'react-signature-canvas'
 import SignaturePad from '../signature/index.js'
-import {screenWidth,FONTGREY,GREY} from '../config/style'
+import {screenWidth,FONTGREY,GREY,BLUE} from '../config/style'
 import {getAddressByXY,getAssessList,doStatistics} from '../config/api'
 class AuditQuestions extends React.Component{
     // 构造
@@ -132,15 +132,20 @@ class AuditQuestions extends React.Component{
                 icon={<Icon type="left" />}
                 onLeftClick={() => this.back()}
             >审核条目</NavBar>
-
-            <div style={{ marginTop: 55, marginBottom: 60 }}>
+            <div style={{ marginTop: 55, marginBottom: 5 }}>
+                <div style={{margin: '0 5px 5px 10px',display:'flex',flexDirection:'row'}}><img style={{marginTop:3}} src={require('../assets/icon/audit_list.png')} width={20} height={20}></img>
+                    <div style={{margin: '5px 5px 5px 10px'}}>报告类目:</div>
+                </div>
+                <div></div>
+            </div>
+            <div style={{marginTop:10,marginBottom:85}}>
                     {
                         this.setAudits(childAssess)
                     }
             </div>
 
             <div style={{position:'fixed',bottom:0,width:'100%',display:'block'}}>
-                <Button type="primary" onClick={() => this.toFuncPage()}>提交</Button>
+                <Button style={{background:BLUE}} type="primary" onClick={() => this.toFuncPage()}>提交</Button>
             </div>
 
         </div>

@@ -7,7 +7,7 @@ import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/title';
 import 'echarts/lib/chart/line';
 import {List,DatePicker,Icon,Drawer,Picker,Button,Toast} from 'antd-mobile'
-import {screenWidth,BLUE,FONTGREY} from '../config/style'
+import styles,{screenWidth,BLUE,FONTGREY} from '../config/style'
 import SearchComponent from '../common/searchComponent'
 import {queryAssessHis,queryUnitRank,queryDateRange} from '../config/api'
 
@@ -24,54 +24,7 @@ class StaticsAll extends React.Component{
             docked: false,
             searchDisplay:'none',
             option:{
-                title: {
-                    text: '总体趋势'
-                },
-                tooltip : {
-                    trigger: 'axis',
-                    axisPointer: {
-                        type: 'cross',
-                        label: {
-                            backgroundColor: '#e9f3ff'
-                        }
-                    }
-                },
-                legend: {
-                    data:['邮件营销']
-                },
-                grid: {
-                    left: '3%',
-                    right: '4%',
-                    bottom: '3%',
-                    containLabel: true
-                },
-                xAxis : [
-                    {
-                        type : 'category',
-                        boundaryGap : false,
-                        data : ['03-01','03-01','03-01','03-01','03-01']
-                    }
-                ],
-                yAxis : [
-                    {
-                        type : 'value'
-                    }
-                ],
-                series : [
-                    {
-                        name:'邮件营销',
-                        type:'line',
-                        stack: '总量',
-                        areaStyle: {normal: {color:'#dfedff'}},
-                        lineStyle:{
-                            color:'#81B7FF'
-                        },
-                        itemStyle:{
-                            color:'#81B7FF'
-                        },
-                        data:[120, 132, 101, 134, 90]
-                    }
-                ]
+
             },
             startDate:'',
             endDate:'',
@@ -84,7 +37,8 @@ class StaticsAll extends React.Component{
             brands:[],
             types:[],
             resOptions:[],
-            rankResList:[]
+            rankResList:[],
+            fiveController:true
         };
       }
 
@@ -100,15 +54,14 @@ class StaticsAll extends React.Component{
             types:types,
             resOptions:resOptions,
         })
+        this.serachResults(1);
+
     }
 
 
 
     componentDidMount() {
-        this.serachResults();
-        var dom = document.getElementById("allStatics");
-        var myChart = echarts.init(dom);
-        myChart.setOption(this.state.option);
+
     }
 
         onDock (d){
@@ -119,8 +72,8 @@ class StaticsAll extends React.Component{
         }
 
 
-    serachResults(){
-        const {startDate,endDate,sValue,bValue,tValue,pickerValue} = this.state
+    serachResults(ascs){
+        const {startDate,endDate,sValue,bValue,tValue,pickerValue,rankResList} = this.state
         let proviceId = '';
         let cityId = '';
         let countyId = '';
@@ -130,9 +83,12 @@ class StaticsAll extends React.Component{
             countyId = pickerValue[2];
         }
         queryUnitRank(
-            startDate,endDate,sValue,bValue,proviceId,cityId,countyId,0,tValue,1
+            startDate,endDate,sValue,bValue,proviceId,cityId,countyId,0,tValue,ascs
         ).then(data => {
             if(data.success){
+                if(rankResList.length==0){
+                    this.queryDateRange(data.list[0])
+                }
                 this.setState({
                     rankResList:data.list
                 })
@@ -142,7 +98,6 @@ class StaticsAll extends React.Component{
 
     queryDateRange(item){
         const {startDate,endDate} = this.state
-
         queryDateRange(startDate,endDate,item.id).then(data => {
             if(data.success){
                 this.setOptionState(data.list)
@@ -174,7 +129,7 @@ class StaticsAll extends React.Component{
                     }
                 },
                 legend: {
-                    data:['邮件营销']
+                    data:['']
                 },
                 grid: {
                     left: '3%',
@@ -196,7 +151,7 @@ class StaticsAll extends React.Component{
                 ],
                 series : [
                     {
-                        name:'邮件营销',
+                        name:'',
                         type:'line',
                         stack: '总量',
                         areaStyle: {normal: {color:'#dfedff'}},
@@ -217,10 +172,23 @@ class StaticsAll extends React.Component{
     }
 
 
+    beforeFiveClick(){
+        this.setState({
+            fiveController:true
+        })
+        this.serachResults(1)
+    }
+
+    afterFiveClick(){
+        this.setState({
+            fiveController:false
+        })
+        this.serachResults(0)
+    }
 
 
     render(){
-        const {groups,brands,types,resOptions,rankResList} = this.state
+        const {groups,brands,types,resOptions,rankResList,fiveController} = this.state
         const {cityData} = this.props
         const sidebar = (<List style={{marginLeft:-15}}>
             <Picker
@@ -285,10 +253,17 @@ class StaticsAll extends React.Component{
                 <div style={{display:'flex',flexDirection:'row'}}>
                     <div style={{fontSize:16,padding:5}}>门店</div>
                     <div style={{flex:1,display:'flex',flexDirection:'row',marginTop:5}}>
-                        <div style={{textAlign:'center',fontSize:10,borderStyle:'solid',borderWidth:'1px 0px 1px 1px',borderColor:BLUE,color:BLUE,borderBottomLeftRadius:'50%',borderTopLeftRadius:'50%',padding:'0px 3px 0px 5px',lineHeight:'18px',height:20}}>前五名</div>
-                        <div style={{textAlign:'center',fontSize:10,borderStyle:'solid',borderWidth:'1px 1px 1px 0px',borderColor:BLUE,color:FONTGREY,borderBottomRightRadius:'50%',borderTopRightRadius:'50%',padding:'0px 5px 0px 3px',lineHeight:'18px',height:20}}>后五名</div>
+                        <div
+                            onClick={() => this.beforeFiveClick()}
+
+                            style={fiveController?styles.five_rank:styles.five_rank_left_grey}>前五名</div>
+                        <div
+                            onClick={() => this.afterFiveClick()}
+                            style={fiveController?styles.five_rank_back:styles.five_rank_back_right_blue}>后五名</div>
                     </div>
-                    <div style={{fontSize:16,padding:5}}>得分</div>
+                    <div
+                        onClick={() => this.afterFiveClick()}
+                        style={{fontSize:16,padding:5}}>得分</div>
                 </div>
                 <div style={{marginTop:10}}>
                     <div style={{marginTop:5,display:'flex'}}>
@@ -302,7 +277,7 @@ class StaticsAll extends React.Component{
                         <div style={{flex:1}}>
                             {
                                 rankResList.map((item,index) => {
-                                    return <div onClick={() => this.queryDateRange(item)} style={{fontSize:10,marginTop:5,textAlign:'right',backgroundColor:BLUE,padding:2,marginLeft:10,width:'90%',color:'#fff'}}>{item.value}</div>
+                                    return <div onClick={() => this.queryDateRange(item)} style={{fontSize:10,marginTop:5,textAlign:'right',backgroundColor:BLUE,padding:2,marginLeft:10,width:`${item.value/item.total*100}%`,color:'#fff'}}>{item.value}</div>
 
                                 })
                             }

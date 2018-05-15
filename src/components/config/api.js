@@ -36,7 +36,7 @@ class Requester {
 
     constructor(header={}, url) {
         //this.host = 'http://192.168.0.158:8080/foodsafety'
-        this.host = 'http://foodsafety.feiqubao.com'
+        this.host = 'http://test.linkitchen.com/'
         this.version = '1.0.0'
         this.url = url
         this.header = header

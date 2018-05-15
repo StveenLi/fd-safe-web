@@ -30,6 +30,7 @@ class QuestionDetail extends React.Component{
             videoUrl:'',
             toRemarkPage:false,
             currentItem:'',
+            currentQuestion:'',
             remarkList:[]
         };
       }
@@ -93,6 +94,7 @@ class QuestionDetail extends React.Component{
                 let questions = [];
                 let chooseVals = [];
                 let titleInfo = {};
+                let remarkList = [];
                 titleInfo.secondTitle = data.one.secondTitle;
                 titleInfo.thridTitle = data.one.thridTitle;
                 for(let op of data.one.assessOptions){
@@ -100,14 +102,18 @@ class QuestionDetail extends React.Component{
                         chooseVals.push(op.auditeId);
                     }
                     questions.push({ value: op.auditeId, label: op.title });
+                    remarkList.push({itemId:op.auditeId,content:op.remarks,images:op.imgs})
                 }
+                
+                
                 this.setState({
                     initQuestionItem:data.one.assessOptions,
                     questionItem:questions,
                     titleInfo:titleInfo,
                     chooseValues:chooseVals,
                     imgUrl:data.one.imgUrl,
-                    videoUrl:data.one.videoUrl
+                    videoUrl:data.one.videoUrl,
+                    remarkList:remarkList
                 })
             }
         })
@@ -161,7 +167,6 @@ class QuestionDetail extends React.Component{
             subJson.isKey = item.isKey;
             subArr.push(subJson)
         }
-        console.log(JSON.stringify(subArr))
         let nextTopic = 1;
         submitAssess(JSON.stringify(subArr),nextTopic).then(data => {
             if(data.success){
@@ -227,7 +232,7 @@ class QuestionDetail extends React.Component{
                         
                         {
                             this.state.chooseValues.indexOf(item.value)>-1?null:<div
-                                onClick={() => this.setState({currentItem:item.value,toRemarkPage:!toRemarkPage,})}
+                                onClick={() => this.setState({currentQuestion:item.label,currentItem:item.value,toRemarkPage:!toRemarkPage,})}
                                 style={{textAlign:'right',color:BLUE,paddingRight:15}}>备注
                             </div>
                             
@@ -241,7 +246,6 @@ class QuestionDetail extends React.Component{
 
 
     toVideoPage(){
-        console.log('1123')
         this.props.history.push('/trainVideoPage');
     }
     toImgDetailPage(){
@@ -250,14 +254,10 @@ class QuestionDetail extends React.Component{
 
     changePageStatus(remarkValue){
         const {toRemarkPage} = this.state
-        console.log(remarkValue)
         let rArray = this.state.remarkList
         rArray.push(remarkValue);
         this.setState({toRemarkPage:!toRemarkPage,remarkList:rArray})
     }
-
-
-
 
 
     render(){
@@ -284,8 +284,23 @@ class QuestionDetail extends React.Component{
                              overlayStyle={{ color: 'currentColor' }}
                              visible={this.state.visible}
                              overlay={[
-                                  (<Item onClick={() => this.toVideoPage()} key="4" value="video" data-seed="logId">视频详情</Item>),
-                                  (<Item onClick={() => this.toImgDetailPage()} key="5" value="img" style={{ whiteSpace: 'nowrap' }}>图文详情</Item>),
+                                  (<Item onClick={() => this.toVideoPage()} key="4" value="video" data-seed="logId">
+                                  <div style={{display:'flex',flexDirection:'row'}}>
+                                    <div style={{margin:'1.5px 2px 0 0'}}>
+                                        <img width={15} height={15} src={require('../assets/icon/ic_video@3x.png')}/>
+                                    </div>
+                                    <div style={{color:BLUE}}>视频详情</div>
+                                    </div>
+                                    </Item>),
+
+                                  (<Item onClick={() => this.toImgDetailPage()} key="5" value="img" style={{ whiteSpace: 'nowrap' }}>
+                                  <div style={{display:'flex',flexDirection:'row'}}>
+                                    <div style={{margin:'1.5px 2px 0 0'}}>
+                                        <img width={15} height={15} src={require('../assets/icon/ic_img@3x.png')}/>
+                                    </div>
+                                    <div style={{color:BLUE}}>图文详情</div>
+                                    </div>
+                                    </Item>),
                                         ]}
                              align={{
                                       overflow: { adjustY: 0, adjustX: 0 },
@@ -331,7 +346,7 @@ class QuestionDetail extends React.Component{
             </div>
 
 
-        </div>:<Remarks changePageStatus={(remarkValue) => this.changePageStatus(remarkValue)} currentItem={this.state.currentItem}/>
+            </div>:<Remarks currentQuestion={this.state.currentQuestion} changePageStatus={(remarkValue) => this.changePageStatus(remarkValue)} remarkList={this.state.remarkList}  currentItem={this.state.currentItem}/>
     }
 }
 

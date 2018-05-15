@@ -25,6 +25,30 @@ class Remarks extends React.Component{
         };
       }
 
+
+    componentDidMount() {
+        let fileDatas = [];
+        for(let remark of this.props.remarkList){
+            if(remark.itemId == this.props.currentItem){
+                if(remark.images instanceof Array){
+                    for(let img of remark.images){
+                        fileDatas.push({url:img,id:remark.images.indexOf(img)})
+                    }
+                    this.setState({
+                        images:remark.images,
+                        files:fileDatas
+                    })
+                }
+
+
+                document.getElementById("textVal").value = remark.content
+                break;
+            }
+
+        }
+
+    }
+
     onChange = (files, type, index) => {
         console.log(files, type, index);
         this.setState({
@@ -74,12 +98,12 @@ class Remarks extends React.Component{
 
             > 备注</NavBar>
             <div style={{marginTop:50,padding:15,fontSize:16}}>
-                问题:1.1.1采购的食品相关产品等应用符合
-                国家有关食品安全标准和规定的要求。
+                问题:{this.props.currentQuestion}
             </div>
 
             <div style={{backgroundColor:'#fff'}}>
                 <textarea id="textVal" style={{fontSize:16,padding:15,width:screenWidth-50,height:300}}>
+
                 </textarea>
                 <div style={{width:'100%',backgroundColor:'#fff'}}>
                     <ImagePicker
