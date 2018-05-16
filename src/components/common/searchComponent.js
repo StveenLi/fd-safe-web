@@ -22,7 +22,7 @@ class SearchComponent extends React.Component{
                             <List.Item>日期</List.Item>
                             <DatePicker
                                 mode="date"
-                                extra='2017-01-01'
+                                extra='2018-05-01'
                                 value={this.props.startDate}
                                 onChange={this.props.setStartDate}
                             >
@@ -32,7 +32,7 @@ class SearchComponent extends React.Component{
                             <List.Item>-</List.Item>
                             <DatePicker
                                 mode="date"
-                                extra='2018-01-01'
+                                extra='2018-05-16'
                                 value={this.props.endDate}
                                 onChange={this.props.setEndDate}
                                 style={{flex:1}}

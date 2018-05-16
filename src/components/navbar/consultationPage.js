@@ -16,9 +16,12 @@ class ConsultationPage extends React.Component{
         this.state = {};
       }
 
+    componentDidMount() {
+    }
+
 
     render(){
-        return <div>111</div>
+        return <div></div>
     }
 
 

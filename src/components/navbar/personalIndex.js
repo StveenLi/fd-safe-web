@@ -33,13 +33,12 @@ class PersonalIndex extends React.Component{
                     </div>
                     <div style={{display:'flex',textAlign: 'center',flexDirection:'row',backgroundColor:"rgba(255,255,255,0.5)",padding:10,marginTop:10}}>
                         <div style={{flex:1,color:'#fff',marginTop:5}}>
-                            修改密码
+                            <div style={{fontSize:30}}>10</div>
+                            <div style={{padding:5}}>已审核</div>
                         </div>
                         <div style={{flex:1,color:'#fff',marginTop:5}}>
-                            修改密码
-                        </div>
-                        <div style={{flex:1,color:'#fff',marginTop:5}}>
-                            修改密码
+                            <div style={{fontSize:30}}>3</div>
+                            <div style={{padding:5}}>未审核</div>
                         </div>
                     </div>
                 </div>

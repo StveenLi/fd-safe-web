@@ -4,12 +4,13 @@
 
 
 import React from 'react'
-import { TabBar } from 'antd-mobile';
+import {List,NavBar,WhiteSpace,Icon,Tabs, Badge,TabBar } from 'antd-mobile'
 import MainComponent from '../navbar/mainPage'
 import ConsultationPage from '../navbar/consultationPage'
 import PersonalIndex from '../navbar/personalIndex'
 import {getNotice} from '../config/api'
-import {BLUE} from '../config/style'
+import {GREY,screenWidth,FONTGREY,BLUE} from '../config/style'
+import message from '../user/message'
 class HomeIndex extends React.Component {
     constructor(props) {
         super(props);
@@ -43,6 +44,11 @@ class HomeIndex extends React.Component {
         localStorage.setItem('Longitude',position.coords.longitude);
     }
 
+    toCall(){
+        this.setState({selectedTab: 'greenTab',});
+        window.location.href = "tel:021-39886223"
+    }
+
 
 
     render() {
@@ -72,9 +78,8 @@ class HomeIndex extends React.Component {
                         title="咨询"
                         key="Friend"
                         selected={this.state.selectedTab === 'greenTab'}
-                        onPress={() => {this.setState({selectedTab: 'greenTab',});}}
+                        onPress={() => this.toCall()}
                     >
-                        <ConsultationPage></ConsultationPage>
                     </TabBar.Item>
                     <TabBar.Item
                         icon={<div style={{width: '22px',height: '22px',background: `url(${require("../assets/icon/message.png")}) center center /  21px 21px no-repeat` }}/>}
@@ -84,7 +89,21 @@ class HomeIndex extends React.Component {
                         selected={this.state.selectedTab === 'msgTab'}
                         onPress={() => {this.setState({selectedTab: 'msgTab',});}}
                     >
-                        <div></div>
+                        <div>
+                            <List>
+                                {
+                                    this.state.noticeList.map((noticeItem,index) => {
+                                        return <div key={index} style={{borderTopRightRadius:5,borderTopLeftRadius:5,display:'flex',flexDirection:'row',backgroundColor:'#fff',padding:15,borderBottomColor:'#eaeefe',borderBottomWidth:1,borderBottomStyle:'solid'}}>
+                                            <Badge dot style={{ marginLeft: 12, padding: '3px 3px',marginTop:3, backgroundColor: GREY }} />
+                                            <div style={{flex:1,textAlign:'left',marginLeft:20}}>
+                                                <div>{noticeItem.title}</div>
+                                                <div style={{marginTop:10,fontSize:13,color:FONTGREY}}>{noticeItem.createDate}</div>
+                                            </div>
+                                        </div>
+                                    })
+                                }
+                            </List>
+                        </div>
                     </TabBar.Item>
                     <TabBar.Item
                         icon={<div style={{width: '22px',height: '22px',background: `url(${require("../assets/icon/my.png")}) center center /  21px 21px no-repeat` }}/>}

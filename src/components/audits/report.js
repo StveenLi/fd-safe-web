@@ -157,7 +157,7 @@ class Report extends React.Component{
                         <List.Item>日期</List.Item>
                         <DatePicker
                         mode="date"
-                        extra='2017-01-01'
+                        extra='2018-05-01'
                         value={this.state.startDate}
                         onChange={date => this.setState({startDate: date })}
                         >
@@ -167,7 +167,7 @@ class Report extends React.Component{
                         <List.Item>-</List.Item>
                         <DatePicker
                             mode="date"
-                            extra='2018-01-01'
+                            extra='2018-05-16'
                             value={this.state.endDate}
                             onChange={date => this.setState({endDate: date })}
                             style={{flex:1}}

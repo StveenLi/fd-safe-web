@@ -109,7 +109,7 @@ class AuditQuestions extends React.Component{
                             firstAudit.childAssess.map((secondAudit, index) => {
                                 return <List.Item style={{background:'#fbfbff'}}
                                                   onClick={()=>this.toDetail(secondAudit.auditeId,firstAudit)}
-                                                  key={index}>&nbsp;&nbsp;&nbsp;&nbsp;{aindex + 1}.{index + 1}.{secondAudit.thridTitle}</List.Item>
+                                                  key={index}>&nbsp;&nbsp;&nbsp;&nbsp;{aindex + 1}.{index + 1}.{secondAudit.secondTitle}</List.Item>
                             })
                         }
                     </Accordion.Panel>

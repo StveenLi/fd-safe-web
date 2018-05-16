@@ -36,7 +36,7 @@ class AuditComplete extends React.Component{
             }
             else if(tran.name!='ZF'){
                 indicatorList.push({ text: tran.name, max: 100 });
-                dataVals.push(parseFloat(tran.value))
+                dataVals.push(parseInt(tran.value))
             }
         }
 
@@ -140,7 +140,7 @@ class AuditComplete extends React.Component{
             <div style={{marginTop:55,background:'#fff',padding:15}}>
                 <div style={{textAlign:'left'}}>您的本次审核得分为：</div>
                 <div style={{color:BLUE,fontSize:50,padding:'15px 0 0 0'}}>{parseInt(this.state.sumCore)}</div>
-                <div style={{marginLeft:90,marginTop:-20}}>分</div>
+                <div style={{marginLeft:120,marginTop:-20}}>分</div>
             </div>
             <div id="typeStatics" style={{height:400,padding:15,backgroundColor: '#fff',marginTop:10 }}></div>
 

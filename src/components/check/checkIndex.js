@@ -37,13 +37,14 @@ class CheckIndex extends React.Component{
         const { value, value2, value3, value4 } = this.state;
 
         const data = [
-            { value: 0, label: '1、食品接收与存储' },
-            { value: 1, label: '2、食品加工与服务' },
-            { value: 2, label: '3、食品加工与服务' },
-            { value: 3, label: '4、食品加工与服务' },
-            { value: 4, label: '5、食品加工与服务' },
-            { value: 5, label: '6、食品加工与服务' },
-            { value: 6, label: '7、食品加工与服务' },
+            { value: 0, label: '1、食安制度' },
+            { value: 1, label: '2、食品接受与储存' },
+            { value: 2, label: '3、食材准备' },
+            { value: 3, label: '4、烹饪加工' },
+            { value: 4, label: '5、餐食供应与前厅环境' },
+            { value: 5, label: '6、清洁与消毒' },
+            { value: 6, label: '7、个人卫生' },
+            { value: 7, label: '8、消杀控制与废弃物管理' },
         ];
         return <div>
             <NavBar

@@ -39,7 +39,7 @@ class TrainIndex extends React.Component{
                     icon={<Icon type="left" />}
                     onLeftClick={() => this.back()}
                 >培训</NavBar>
-                <StickyContainer>
+                <StickyContainer style={{marginTop:50}}>
                     <Tabs tabs={tabs}
                           initialPage={0}
                           onChange={(tab, index) => { console.log('onChange', index, tab); }}
@@ -54,19 +54,18 @@ class TrainIndex extends React.Component{
                                 />
                                 <List>
                                     <Item multipleLine onClick={() => {}} style={{display:'flex',flexDirection:'row'}}>
-                                        互联网群组信息服务管理规定 <Brief>为规范互联网群组信息服务,维护国家安全和公共
-                                        利益,保护公民、法人和其他组织的合法权益,</Brief>
+                                        食安制度 <Brief>1.采购的食品、食品添加剂、食
+                                        品相关产品等应用符合国家有关
+                                        食品安全标准和规定的要求。</Brief>
                                         <Brief>2018-04-12</Brief>
                                     </Item>
                                     <Item multipleLine onClick={() => {}}>
-                                        互联网群组信息服务管理规定 <Brief>为规范互联网群组信息服务,维护国家安全和公共
-                                        利益,保护公民、法人和其他组织的合法权益,</Brief>
-                                        <Brief>2018-04-12</Brief>
+                                        食品接受与储存 <Brief>生鲜类食品及冷冻采用冷链配送，供应商配送设施设备清洁无污染</Brief>
+                                        <Brief>2018-04-13</Brief>
                                     </Item>
                                     <Item multipleLine onClick={() => {}}>
-                                        互联网群组信息服务管理规定 <Brief>为规范互联网群组信息服务,维护国家安全和公共
-                                        利益,保护公民、法人和其他组织的合法权益,</Brief>
-                                        <Brief>2018-04-12</Brief>
+                                        食材准备 <Brief>餐饮服务生产加工过程未非法添加非食用物质及使用假冒伪劣食品,</Brief>
+                                        <Brief>2018-04-14</Brief>
                                     </Item>
                                 </List>
                             </div>
@@ -80,17 +79,17 @@ class TrainIndex extends React.Component{
                                 />
                                 <List>
                                     <Item multipleLine onClick={() => {}} style={{display:'flex',flexDirection:'row'}}>
-                                        互联网群组信息服务管理规定 <Brief>为规范互联网群组信息服务,维护国家安全和公共
+                                        烹饪加工 <Brief>为规范互联网群组信息服务,维护国家安全和公共
                                         利益,保护公民、法人和其他组织的合法权益,</Brief>
                                         <Brief>2018-04-12</Brief>
                                     </Item>
                                     <Item multipleLine onClick={() => {}}>
-                                        互联网群组信息服务管理规定 <Brief>为规范互联网群组信息服务,维护国家安全和公共
+                                        清洁与消毒 <Brief>为规范互联网群组信息服务,维护国家安全和公共
                                         利益,保护公民、法人和其他组织的合法权益,</Brief>
                                         <Brief>2018-04-12</Brief>
                                     </Item>
                                     <Item multipleLine onClick={() => {}}>
-                                        互联网群组信息服务管理规定 <Brief>为规范互联网群组信息服务,维护国家安全和公共
+                                        消杀控制与废弃物管理 <Brief>为规范互联网群组信息服务,维护国家安全和公共
                                         利益,保护公民、法人和其他组织的合法权益,</Brief>
                                         <Brief>2018-04-12</Brief>
                                     </Item>
