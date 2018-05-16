@@ -9,6 +9,11 @@ import styles,{BLUE,GREY} from '../config/style'
 import {RadioGroup, Radio} from 'react-radio-group';
 import {getGroupName,getBrandName,queryCity,queryPlanType,queryTypes,getResByUserId,queryAssessHis} from '../config/api'
 import cityData from '../config/cityData'
+import Checkbox from 'rc-checkbox';
+import 'rc-checkbox/assets/index.css';
+
+
+
 class Report extends React.Component{
 
 
@@ -142,6 +147,24 @@ class Report extends React.Component{
 
     }
 
+    onModChange(e){
+
+        this.setState({
+            selectedValue:e.target.value
+        })
+
+    }
+
+    onAuditChange(e){
+
+        this.setState({
+            selectedAuditValue:e.target.value
+        })
+
+    }
+
+
+
     render(){
         
         const {groups,brands,types,resOptions} = this.state
@@ -182,6 +205,7 @@ class Report extends React.Component{
                         value={this.state.sValue}
                         onOk={(v) => this.setState({ sValue: v })}
                         onChange={v => this.setState({ sValue: v })}
+                        extra="不限"
                     >
                         <List.Item arrow="horizontal">集团</List.Item>
                     </Picker>
@@ -191,6 +215,7 @@ class Report extends React.Component{
                         value={this.state.bValue}
                         onOk={(v) => this.setState({ bValue: v })}
                         onChange={v => this.setState({ bValue: v })}
+                        extra="不限"
                     >
                         <List.Item arrow="horizontal">品牌</List.Item>
                     </Picker>
@@ -199,22 +224,27 @@ class Report extends React.Component{
                         value={this.state.pickerValue}
                         onChange={v => this.setState({ pickerValue: v })}
                         onOk={v => this.setState({ pickerValue: v })}
+                        extra="不限"
                     >
                         <List.Item arrow="horizontal">区域</List.Item>
                     </Picker>
                     <List.Item
                         extra={
-                        <RadioGroup
-                        name="fruit"
-                        selectedValue={this.state.selectedValue}
-                        onChange={() => this.handleChange()}>
+                        <div>
                             <label>
-                                <Radio value="0" />直营
+                                <Checkbox
+                                defaultChecked
+                                value={0}
+                                onChange={(e) => this.onModChange(e)}/>直营
                             </label>
-                            <label style={{marginLeft:10}}>
-                                <Radio value="1" />加盟
+                            <label>
+                                <Checkbox
+                                defaultChecked
+                                value={1}
+                                onChange={(e) => this.onModChange(e)}/>加盟
                             </label>
-                        </RadioGroup>}>
+                        </div>
+                        }>
                     模式</List.Item>
                     <Picker
                         cols={1}
@@ -222,28 +252,33 @@ class Report extends React.Component{
                         value={this.state.tValue}
                         onChange={v => this.setState({ tValue: v })}
                         onOk={v => this.setState({ tValue: v })}
+                        extra="不限"
                     >
                         <List.Item arrow="horizontal">品类</List.Item>
                     </Picker>
                     <List.Item
                         extra={
-                        <RadioGroup
-                        name="audit"
-                        selectedValue={this.state.selectedAuditValue}
-                        onChange={(val) => this.setState({selectedAuditValue: val})}>
-                        <label>
-                            <Radio value="0" />内审
-                        </label>
-                        <label style={{marginLeft:10}}>
-                            <Radio value="1" />外审
-                        </label>
-                    </RadioGroup>}>审核类型</List.Item>
+                        <div>
+                            <label>
+                                <Checkbox
+                                defaultChecked
+                                value={0}
+                                onChange={(e) => this.onAuditChange(e)}/>内审
+                            </label>
+                            <label>
+                                <Checkbox
+                                defaultChecked
+                                value={1}
+                                onChange={(e) => this.onAuditChange(e)}/>外审
+                            </label>
+                        </div>}>审核类型</List.Item>
                     <Picker
                         cols={1}
                         data={resOptions}
                         value={this.state.resValue}
                         onChange={v => this.setState({ resValue: v })}
                         onOk={v => this.setState({ resValue: v })}
+                        extra="不限"
                     >
 
                         <List.Item arrow="horizontal">门店</List.Item>

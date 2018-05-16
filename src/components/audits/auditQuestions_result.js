@@ -181,7 +181,8 @@ class AuditQuestions extends React.Component{
             <div style={{marginTop:10,marginBottom:85}}>
                 <div style={{margin: '5px 5px 5px 10px',display:'flex',flexDirection:'row'}}>
                     <img style={{marginTop:3}} src={require('../assets/icon/location.png')} width={20} height={20}></img>
-                    <div style={{margin: '5px 5px 5px 10px'}}>{this.state.hereAddress==''?this.state.hereAddress:'暂无位置数据'}</div>
+                    <div style={{flex:1,margin: '5px 5px 5px 10px'}}>{this.state.hereAddress==''?this.state.hereAddress:'暂无位置数据'}</div>
+                    <div style={{marginRight:20}}><img style={{marginTop:3}} src={require('../assets/icon/refresh.png')} width={20} height={20}></img></div>
                 </div>
                 <div></div>
             </div>

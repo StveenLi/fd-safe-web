@@ -75,11 +75,14 @@ class StaticsType extends React.Component{
                             indicator.push({ text: tran.value, max: 100 });
                             dataValues.push(parseFloat(tran.value))
                         }
+                        if(indicator.length<1){
+                            indicator.push({ text: 0, max: 100 })
+                        }
 
                         this.setState({
                             option:{
                                 title: {
-                                    text: '类目平均分'
+                                    text: '类目得分'
                                 },
                                 legend: {
                                     data: ['']
@@ -151,6 +154,7 @@ class StaticsType extends React.Component{
                                 ]
                             }
                         })
+                        console.log(this.state.option)
                         var myChart = echarts.init(document.getElementById("typeStatics"));
                         myChart.setOption(this.state.option);
 
@@ -183,7 +187,7 @@ class StaticsType extends React.Component{
         this.setState({
             circleOption:{
                 title: {
-                    text: '总体趋势'
+                    text: '历史趋势'
                 },
                 tooltip : {
                     trigger: 'axis',
@@ -195,7 +199,7 @@ class StaticsType extends React.Component{
                     }
                 },
                 legend: {
-                    data:['邮件营销']
+                    data:['']
                 },
                 grid: {
                     left: '3%',
@@ -217,7 +221,7 @@ class StaticsType extends React.Component{
                 ],
                 series : [
                     {
-                        name:'邮件营销',
+                        name:'',
                         type:'line',
                         stack: '总量',
                         areaStyle: {normal: {color:'#dfedff'}},

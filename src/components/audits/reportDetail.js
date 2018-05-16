@@ -100,16 +100,20 @@ class ReportDetail extends React.Component{
                                             <div>{item.title}</div>
                                             <div style={{display:'flex',flexDirection:'row',marginTop:15}}>
                                                 <div style={{flex:1}}>
-                                                    <div style={{fontSize:24,color:BLUE}}>{item.realScores}%</div>
-                                                    <div style={{marginTop:5}}>实际得分</div>
-                                                </div>
-                                                <div style={{flex:1}}>
-                                                    <div style={{fontSize:24,color:BLUE}}>{item.preScores}%</div>
+                                                    <div style={{fontSize:24,color:BLUE}}>{item.preScores}分</div>
                                                     <div style={{marginTop:5}}>上次得分</div>
                                                 </div>
+
                                                 <div style={{flex:1}}>
-                                                    <div style={{fontSize:24,color:BLUE}}>{item.diffScores}%</div>
-                                                    <div style={{marginTop:5}}>Difference</div>
+                                                    <div style={{fontSize:26,color:BLUE}}>{item.realScores}分</div>
+                                                    <div style={{marginTop:5}}>实际得分</div>
+                                                </div>
+
+                                                <div style={{flex:1}}>
+                                                    <div style={{fontSize:24,color:BLUE}}>{item.diffScores}分
+                                                        {item.diffScores>0?
+                                                            <img width={6} height={12} style={{margin:'0 0 10px 2px'}} src={require('../assets/icon/top.png')}/>:<img width={6} height={12} style={{margin:'0 0 10px 2px'}} src={require('../assets/icon/down.png')}/>}</div>
+                                                    <div style={{marginTop:5}}></div>
                                                 </div>
                                             </div>
                                         </div>

@@ -53,7 +53,7 @@ class ReportList extends React.Component{
                                     <div style={{fontSize:14,color:FONTGREY}}>{item.assessDate}</div>
                                 </div>
                                 <div>
-                                    <div style={{fontSize:20,fontWeight:'bold',color:'#e41717',textAlign:'center'}}>{item.scores}</div>
+                                    <div style={{fontSize:20,fontWeight:'bold',color:'#e41717',textAlign:'center'}}>{item.scores>80?<span style={{color:'#1bb789'}}>{item.scores}</span>:<span>{item.scores}</span>}<span style={{fontSize:12,color:'black'}}>&nbsp;&nbsp;分</span></div>
                                     <div style={{fontSize:16,backgroundColor:BLUE,color:'#fff',borderRadius:4,padding:'2px 10px',margin:'20px 0 0 0'}}>{item.assessType}</div>
                                 </div>
                             </div>

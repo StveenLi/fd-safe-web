@@ -333,11 +333,11 @@ class QuestionDetail extends React.Component{
                     <div style={{padding:10}}>上一题</div>
                 </div>
                 
-                {
-                    locationState.questionIds.indexOf(parseInt(auditId)) + 1 == locationState.questionIds.length?<div
-                        onClick={() => this.subQuestion()}
-                        style={{lineHeight:'70px',background:'#fec032',borderRadius:'50%',width:70,height:70}}>提交</div>:null
-                }
+
+                    <div
+                        onClick={locationState.questionIds.indexOf(parseInt(auditId)) + 1 == locationState.questionIds.length?() => this.subQuestion():() => this.nextQuestion()}
+                        style={{marginTop:10,lineHeight:'70px',background:'#fec032',borderRadius:'50%',width:70,height:70}}>提交</div>
+
                 
                 <div onClick={() => this.nextQuestion()} style={{flex:1}}>
                     <img style={{width:50}} src={require('../assets/icon/n_question.png')}></img>

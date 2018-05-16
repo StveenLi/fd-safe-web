@@ -285,8 +285,9 @@ class StaticsAll extends React.Component{
                     </div>
                 </div>
             </div>
+            <div style={{flex:1,textAlign:'right',padding:15,fontSize:16,marginBottom:10}}>统计门店数量 {this.state.rankResList.length}</div>
+
             <div id="allStatics" style={{width:screenWidth,height:300,padding:15,backgroundColor: '#fff',marginTop:10 }}></div>
-            <div style={{flex:1,textAlign:'right',padding:15,fontSize:16,marginBottom:50}}>统计门店数量 {this.state.rankResList.length}</div>
         </div>
 
     }

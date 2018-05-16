@@ -97,10 +97,18 @@ class Remarks extends React.Component{
                 mode="light"
 
             > 备注</NavBar>
+            <div></div>
             <div style={{marginTop:50,padding:15,fontSize:16}}>
                 问题:{this.props.currentQuestion}
-            </div>
 
+            </div>
+            <div style={{display:'flex',flexDirection:'row'}}>
+                <div style={{flex:1}}></div>
+
+                <div
+                    onClick={() => this._onSure()}
+                    style={styles.no_use_blue}>不适用</div>
+            </div>
             <div style={{backgroundColor:'#fff'}}>
                 <textarea id="textVal" style={{fontSize:16,padding:15,width:screenWidth-50,height:300}}>
 

@@ -44,7 +44,7 @@ class AuditComplete extends React.Component{
             option:{
 
                 title: {
-                    text: '类目平均分'
+                    text: '类目得分'
                 },
                 legend: {
                     data: ['']
@@ -143,6 +143,10 @@ class AuditComplete extends React.Component{
                 <div style={{marginLeft:120,marginTop:-20}}>分</div>
             </div>
             <div id="typeStatics" style={{height:400,padding:15,backgroundColor: '#fff',marginTop:10 }}></div>
+            <div style={{fontSize:18,color:'#fff',padding: 15,textAlign:'center',backgroundColor:BLUE}}
+                 onClick={() => this.props.history.push('/audits')}
+            >完成</div>
+
 
 
         </div>
