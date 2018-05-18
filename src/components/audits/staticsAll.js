@@ -38,7 +38,8 @@ class StaticsAll extends React.Component{
             types:[],
             resOptions:[],
             rankResList:[],
-            fiveController:true
+            fiveController:true,
+            staticsLineColor:'#81B7FF'
         };
       }
 
@@ -64,12 +65,12 @@ class StaticsAll extends React.Component{
 
     }
 
-        onDock (d){
-            this.state.searchDisplay == 'none'? this.setState({searchDisplay:''}):this.setState({searchDisplay:'none'})
-            this.setState({
-                docked:!this.state.docked
-            });
-        }
+    onDock (d){
+        this.state.searchDisplay == 'none'? this.setState({searchDisplay:''}):this.setState({searchDisplay:'none'})
+        this.setState({
+            docked:!this.state.docked
+        });
+    }
 
 
     serachResults(ascs){
@@ -86,9 +87,7 @@ class StaticsAll extends React.Component{
             startDate,endDate,sValue,bValue,proviceId,cityId,countyId,0,tValue,ascs
         ).then(data => {
             if(data.success){
-                if(rankResList.length==0){
                     this.queryDateRange(data.list[0])
-                }
                 this.setState({
                     rankResList:data.list
                 })
@@ -154,12 +153,12 @@ class StaticsAll extends React.Component{
                         name:'',
                         type:'line',
                         stack: '总量',
-                        areaStyle: {normal: {color:'#dfedff'}},
+                        areaStyle: {normal: {color:this.state.staticsLineColor == '#81B7FF'?'#dfedff':'#ffeeee'}},
                         lineStyle:{
-                            color:'#81B7FF'
+                            color:this.state.staticsLineColor
                         },
                         itemStyle:{
-                            color:'#81B7FF'
+                            color:this.state.staticsLineColor
                         },
                         data:finalDatas
                     }
@@ -174,21 +173,24 @@ class StaticsAll extends React.Component{
 
     beforeFiveClick(){
         this.setState({
-            fiveController:true
+            fiveController:true,
+            staticsLineColor:'#81B7FF'
         })
         this.serachResults(1)
     }
 
     afterFiveClick(){
         this.setState({
-            fiveController:false
+            fiveController:false,
+            staticsLineColor:'#ff5b5b'
+
         })
         this.serachResults(0)
     }
 
 
     render(){
-        const {groups,brands,types,resOptions,rankResList,fiveController} = this.state
+        const {groups,brands,types,resOptions,rankResList,fiveController,staticsLineColor} = this.state
         const {cityData} = this.props
         const sidebar = (<List style={{marginLeft:-15}}>
             <Picker
@@ -277,7 +279,7 @@ class StaticsAll extends React.Component{
                         <div style={{flex:1}}>
                             {
                                 rankResList.map((item,index) => {
-                                    return <div onClick={() => this.queryDateRange(item)} style={{fontSize:10,marginTop:5,textAlign:'right',backgroundColor:BLUE,padding:2,marginLeft:10,width:`${item.value/item.total*100}%`,color:'#fff'}}>{item.value}</div>
+                                    return <div onClick={() => this.queryDateRange(item)} style={{fontSize:10,marginTop:5,textAlign:'right',backgroundColor:staticsLineColor,padding:2,marginLeft:10,width:`${item.value}%`,color:'#fff'}}>{item.value}</div>
 
                                 })
                             }

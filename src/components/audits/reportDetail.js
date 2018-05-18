@@ -4,7 +4,7 @@
 
 
 import React from 'react'
-import {NavBar, Button,Icon,Tabs,Accordion, List} from 'antd-mobile'
+import {NavBar, Button,Icon,Tabs,Accordion, List,Toast} from 'antd-mobile'
 import styles,{BLUE,GREY,FONTGREY} from '../config/style'
 import { StickyContainer, Sticky } from 'react-sticky';
 import {getAssessDetail} from '../config/api'
@@ -28,9 +28,11 @@ class ReportDetail extends React.Component{
     };
 
     componentDidMount() {
+        Toast.loading('加载中……', 0, true);
         getAssessDetail(this.state.assessId).then(data => {
             if(data.success){
                 this.setState({reportData:data.one})
+                Toast.hide();
             }
         })
     }
@@ -100,17 +102,17 @@ class ReportDetail extends React.Component{
                                             <div>{item.title}</div>
                                             <div style={{display:'flex',flexDirection:'row',marginTop:15}}>
                                                 <div style={{flex:1}}>
-                                                    <div style={{fontSize:24,color:BLUE}}>{item.preScores}分</div>
+                                                    <div style={{fontSize:22,color:BLUE}}>{item.preScores}<span style={{fontSize:16}}>分</span></div>
                                                     <div style={{marginTop:5}}>上次得分</div>
                                                 </div>
 
                                                 <div style={{flex:1}}>
-                                                    <div style={{fontSize:26,color:BLUE}}>{item.realScores}分</div>
+                                                    <div style={{fontSize:28,color:BLUE}}>{item.realScores}<span style={{fontSize:16}}>分</span></div>
                                                     <div style={{marginTop:5}}>实际得分</div>
                                                 </div>
 
                                                 <div style={{flex:1}}>
-                                                    <div style={{fontSize:24,color:BLUE}}>{item.diffScores}分
+                                                    <div style={{fontSize:22,color:BLUE}}>{item.diffScores}%
                                                         {item.diffScores>0?
                                                             <img width={6} height={12} style={{margin:'0 0 10px 2px'}} src={require('../assets/icon/top.png')}/>:<img width={6} height={12} style={{margin:'0 0 10px 2px'}} src={require('../assets/icon/down.png')}/>}</div>
                                                     <div style={{marginTop:5}}></div>

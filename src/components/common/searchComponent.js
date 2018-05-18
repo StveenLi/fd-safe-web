@@ -46,7 +46,6 @@ class SearchComponent extends React.Component{
                         </div>
                             <List.Item style={{height:270,display:this.props.searchDisplay}}>
                             <Drawer
-                                className="my-drawer"
                                 style={{ minHeight: document.documentElement.clientHeight }}
                                 contentStyle={{ color: '#A6A6A6', textAlign: 'center', paddingTop: 42 }}
                                 sidebar={this.props.sidebar}

@@ -228,24 +228,6 @@ class Report extends React.Component{
                     >
                         <List.Item arrow="horizontal">区域</List.Item>
                     </Picker>
-                    <List.Item
-                        extra={
-                        <div>
-                            <label>
-                                <Checkbox
-                                defaultChecked
-                                value={0}
-                                onChange={(e) => this.onModChange(e)}/>直营
-                            </label>
-                            <label>
-                                <Checkbox
-                                defaultChecked
-                                value={1}
-                                onChange={(e) => this.onModChange(e)}/>加盟
-                            </label>
-                        </div>
-                        }>
-                    模式</List.Item>
                     <Picker
                         cols={1}
                         data={types}
@@ -259,7 +241,26 @@ class Report extends React.Component{
                     <List.Item
                         extra={
                         <div>
-                            <label>
+                            <label style={{margin:10}}>
+                                <Checkbox
+                                defaultChecked
+                                value={0}
+                                onChange={(e) => this.onModChange(e)}/>直营
+                            </label>
+                            <label >
+                                <Checkbox
+                                defaultChecked
+                                value={1}
+                                onChange={(e) => this.onModChange(e)}/>加盟
+                            </label>
+                        </div>
+                        }>
+                    模式</List.Item>
+
+                    <List.Item
+                        extra={
+                        <div>
+                            <label style={{margin:10}}>
                                 <Checkbox
                                 defaultChecked
                                 value={0}

@@ -8,6 +8,7 @@ import echarts from 'echarts/lib/echarts';
 import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/title';
 import 'echarts/lib/chart/radar';
+import {GREY} from '../config/style'
 
 class StaticsRadar extends React.Component{
 
@@ -16,13 +17,32 @@ class StaticsRadar extends React.Component{
         super(props);
         // 初始状态
         this.state = {
-            option : {
+            option : {}
+        };
+      }
+
+    componentWillMount() {
+        let AList = this.props.ARadarDataList
+        let BList = this.props.BRadarDataList
+        console.log(AList,BList)
+        let indicator = [];
+        let dataA = [];
+        let dataB = [];
+        for(let item of AList){
+            indicator.push({ text: item.name, max: 100 });
+            dataA.push(parseInt(item.value));
+        }
+        for(let item of BList){
+            dataB.push(parseInt(item.value));
+        }
+        console.log(indicator,dataA,dataB)
+        this.setState({option:{
             title: {
-                text: '对比雷达图'
+                text: '各类目对比'
             },
             tooltip: {},
             legend: {
-                data: ['预算分配', '实际开销']
+                data: ['A门店', 'B门店']
             },
             radar: {
                 // shape: 'circle',
@@ -34,63 +54,48 @@ class StaticsRadar extends React.Component{
                         padding: [3, 5]
                     }
                 },
-                indicator: [
-                    { name: '销售', max: 6500},
-                    { name: '管理', max: 16000},
-                    { name: '信息技术', max: 30000},
-                    { name: '客服', max: 38000},
-                    { name: '研发', max: 52000},
-                    { name: '市场', max: 25000}
-                ]
+                indicator: indicator
             },
             series: [{
-                name: '预算 vs 开销',
+                name: '两店对比',
                 type: 'radar',
                 // areaStyle: {normal: {}},
                 data : [
                     {
-                        value : [4300, 10000, 28000, 35000, 50000, 19000],
-                        name : '预算分配'
+                        value : dataA,
+                        name : 'A门店'
                     },
                     {
-                        value : [5000, 14000, 28000, 31000, 42000, 21000],
-                        name : '实际开销'
+                        value : dataB,
+                        name : 'B门店'
                     }
                 ]
             }]
-        }
-        };
-      }
-    back = e => {
-        const {history} = this.props
-
-        console.log(history)
-        history.goBack();
-    };
-
+        }})
+    }
     componentDidMount() {
+
+        console.log(JSON.stringify(this.state.option))
+
         var dom = document.getElementById("radar");
         var myChart = echarts.init(dom);
         myChart.setOption(this.state.option);
     }
 
     render(){
-        return <div style={{textAlign:'center'}}>
-
-
-            <NavBar
-                mode="light"
-                icon={<Icon type="left" />}
-                onLeftClick={() => this.back()}
-            >雷达图</NavBar>
-
+        return <div style={{width:'100%',textAlign:'center'}}>
+            <WhiteSpace/>
+            <div id="radar" style={{height:350,backgroundColor:'#fff',padding:15}}></div>
             <WhiteSpace/>
 
+            {/*<div style={{background:'#fff',display:'flex',flexDirection:'row',height:300,marginBottom:50}}>
+                <div style={{flex:1,marginTop:30}}>
+                    <span style={{backgroundColor:'#0cc1a3',padding:'5px 10px',color:'#fff'}}>A</span>  - -</div>
+                <div style={{borderStyle:'solid',borderWidth:1,borderColor:GREY,margin:'20px 0'}}></div>
+                <div style={{flex:1,marginTop:30}}>
+                    <span style={{backgroundColor:'#fec032',padding:'5px 10px',color:'#fff'}}>B</span>  - -</div>
+            </div>*/}
 
-            <div id="radar" style={{height:400,backgroundColor:'#fff',padding:15}}>
-
-
-            </div>
 
 
 

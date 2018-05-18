@@ -289,7 +289,7 @@ class QuestionDetail extends React.Component{
                                     <div style={{margin:'1.5px 2px 0 0'}}>
                                         <img width={15} height={15} src={require('../assets/icon/ic_video@3x.png')}/>
                                     </div>
-                                    <div style={{color:BLUE}}>视频详情</div>
+                                    <div style={{color:BLUE}}>视频播放</div>
                                     </div>
                                     </Item>),
 

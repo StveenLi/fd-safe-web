@@ -73,7 +73,7 @@ class StaticsType extends React.Component{
                         let dataValues = [];
                         for(let tran of data.list){
                             indicator.push({ text: tran.value, max: 100 });
-                            dataValues.push(parseFloat(tran.value))
+                            dataValues.push(parseInt(tran.value))
                         }
                         if(indicator.length<1){
                             indicator.push({ text: 0, max: 100 })
@@ -154,7 +154,6 @@ class StaticsType extends React.Component{
                                 ]
                             }
                         })
-                        console.log(this.state.option)
                         var myChart = echarts.init(document.getElementById("typeStatics"));
                         myChart.setOption(this.state.option);
 

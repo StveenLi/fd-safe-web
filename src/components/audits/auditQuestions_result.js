@@ -72,6 +72,7 @@ class AuditQuestions extends React.Component{
 
     
     componentWillMount() {
+        Toast.loading('加载中……', 0, true);
         const {typeId,resId,planId} = this.props.history.location.state[0].transmitParam;
         this.setState({
             locationX:localStorage.getItem('Longitude'),
@@ -82,6 +83,7 @@ class AuditQuestions extends React.Component{
         checkUnStandard(planId).then(data => {
             if(data.success){
                 this.setState({resAuditList:data.one});
+                    Toast.hide();
             }
         })
     }

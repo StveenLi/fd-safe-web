@@ -66,7 +66,9 @@ const styles = {
     },
     five_rank_back_right_blue:{
         textAlign:'center',fontSize:10,borderStyle:'solid',borderWidth:'1px 1px 1px 0px',borderColor:BLUE,color:'red',borderBottomRightRadius:'50%',borderTopRightRadius:'50%',padding:'0px 5px 0px 3px',lineHeight:'18px',height:20
-    }
+    },
+    _Option_BULE:{flex:1,background:BLUE,padding:15,color:'#fff',fontSize:16},
+    _Option_WHITE:{flex:1,padding:15,fontSize:16}
 
 }
 export default styles
