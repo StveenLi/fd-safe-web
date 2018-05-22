@@ -64,7 +64,17 @@ class QuestionDetail extends React.Component{
 
     onChange = (val) => {
         let values = this.state.chooseValues;
+        let rArray = this.state.remarkList
+
         if(values.indexOf(val)>-1){
+            for(let remark of rArray){
+                if(val == remark.itemId){
+                    for(let i=0;i<rArray.length;i++){
+                        rArray[i].images = [];
+                        rArray[i].content = null;
+                    }
+                }
+            }
             values.splice(values.indexOf(val),1);
         }else{
             values.push(val);
@@ -72,6 +82,7 @@ class QuestionDetail extends React.Component{
         this.setState({
             chooseValues:values
         })
+
     }
 
 
@@ -166,6 +177,7 @@ class QuestionDetail extends React.Component{
             
             subJson.isKey = item.isKey;
             subArr.push(subJson)
+
         }
         let nextTopic = 1;
         submitAssess(JSON.stringify(subArr),nextTopic).then(data => {
@@ -222,7 +234,8 @@ class QuestionDetail extends React.Component{
     }
     
     getCheckBoxList(questionItem){
-        const {chooseValues,toRemarkPage} = this.state
+        const {chooseValues,toRemarkPage,remarkList} = this.state
+        let self = this;
         return <List>
             {
                 questionItem.map((item, index) => {
@@ -231,10 +244,31 @@ class QuestionDetail extends React.Component{
                         {item.label}
                         
                         {
-                            this.state.chooseValues.indexOf(item.value)>-1?null:<div
-                                onClick={() => this.setState({currentQuestion:item.label,currentItem:item.value,toRemarkPage:!toRemarkPage,})}
-                                style={{textAlign:'right',color:BLUE,paddingRight:15}}>备注
-                            </div>
+                            this.state.chooseValues.indexOf(item.value)>-1?null:function(){
+                                for (let remark of remarkList) {
+                                    if (item.value == remark.itemId) {
+                                        if(remark.content||remark.images){
+                                            return <div
+                                                onClick={() => self.setState({currentQuestion:item.label,currentItem:item.value,toRemarkPage:!toRemarkPage,})}
+                                                style={{textAlign:'right',color:BLUE,paddingRight:15,marginTop:5}}><img style={{marginBottom:2}} src={require('../assets/icon/pen.png')}/>已备注
+                                            </div>
+                                        }
+                                        else{
+                                            return <div
+                                                onClick={() => self.setState({currentQuestion:item.label,currentItem:item.value,toRemarkPage:!toRemarkPage,})}
+                                                style={{textAlign:'right',color:BLUE,paddingRight:15,marginTop:5}}><img style={{marginBottom:2}} src={require('../assets/icon/pen.png')}/>备注
+                                            </div>
+                                        }
+
+
+                                        break;
+
+                                    }
+
+                                }
+                            }()
+
+
                             
                         }
                         
@@ -255,7 +289,13 @@ class QuestionDetail extends React.Component{
     changePageStatus(remarkValue){
         const {toRemarkPage} = this.state
         let rArray = this.state.remarkList
-        rArray.push(remarkValue);
+
+        for(let i=0;i<rArray.length;i++){
+            if(rArray[i].itemId == remarkValue.itemId){
+                rArray[i].images = remarkValue.images;
+                rArray[i].content = remarkValue.content
+            }
+        }
         this.setState({toRemarkPage:!toRemarkPage,remarkList:rArray})
     }
 

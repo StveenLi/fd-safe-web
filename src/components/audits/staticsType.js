@@ -36,8 +36,6 @@ class StaticsType extends React.Component{
               searchDisplay: 'none',
               rankResList:[],
               option: {
-
-
               },
               circleOption:{
 
@@ -66,108 +64,112 @@ class StaticsType extends React.Component{
             startDate,endDate,sValue,bValue,proviceId,cityId,countyId,0,tValue,1
         ).then(data => {
             if(data.success){
-                let resId = data.list[0].id
-                queryTrend('','',resId).then(data => {
-                    if(data.success){
-                        let indicator = [];
-                        let dataValues = [];
-                        for(let tran of data.list){
-                            indicator.push({ text: tran.value, max: 100 });
-                            dataValues.push(parseInt(tran.value))
-                        }
-                        if(indicator.length<1){
-                            indicator.push({ text: 0, max: 100 })
-                        }
+                if(data.list.length>0){
+                    let resId = data.list[0].id
+                    queryTrend('','',resId).then(data => {
+                        if(data.success){
+                            let indicator = [];
+                            let dataValues = [];
+                            for(let tran of data.list){
+                                indicator.push({ text: tran.name, max: 100 });
+                                dataValues.push(parseInt(tran.value))
+                            }
+                            if(indicator.length<1){
+                                indicator.push({ text: 0, max: 100 })
+                            }
 
-                        this.setState({
-                            option:{
-                                title: {
-                                    text: '类目得分'
-                                },
-                                legend: {
-                                    data: ['']
-                                },
-                                radar: [
-                                    {
-                                        center: ['50%'],
-                                        radius: 120,
-                                        startAngle: 90,
-                                        splitNumber: 4,
-                                        shape: 'circle',
-                                        name: {
-                                            formatter:'【{value}】',
-                                            textStyle: {
-                                                color:'#72ACD1'
-                                            }
-                                        },
-                                        splitArea: {
-                                            areaStyle: {
-                                                color: ['rgba(114, 172, 209, 1)'],
-                                                shadowColor: 'rgba(0, 0, 0, 0.3)',
-                                                shadowBlur: 10
-                                            }
-                                        },
-                                        axisLine: {
-                                            lineStyle: {
-                                                color: 'rgba(255, 255, 255, 0.5)'
-                                            }
-                                        },
-                                        splitLine: {
-                                            lineStyle: {
-                                                color: 'rgba(255, 255, 255, 0.5)'
-                                            }
-                                        }
+                            this.setState({
+                                option:{
+                                    title: {
+                                        text: '类目平均分'
                                     },
-                                    {
-                                        indicator: indicator,
-                                        center: ['50%', '50%'],
-                                        radius: 120
-                                    }
-                                ],
-                                series: [
-                                    {
-                                        name: '食品安全',
-                                        type: 'radar',
-                                        radarIndex: 1,
-                                        data: [
-                                            {
-                                                value: dataValues,
-                                                name: '食品安全',
-                                                label: {
-                                                    normal: {
-                                                        show: true,
-                                                        formatter:function(params) {
-                                                            return params.value;
-                                                        }
-                                                    }
+                                    legend: {
+                                        data: ['']
+                                    },
+                                    radar: [
+                                        {
+                                            center: ['50%'],
+                                            radius: 120,
+                                            startAngle: 90,
+                                            splitNumber: 4,
+                                            shape: 'circle',
+                                            name: {
+                                                formatter:'【{value}】',
+                                                textStyle: {
+                                                    color:'#72ACD1'
                                                 }
                                             },
-
-                                        ],
-                                        lineStyle:{
-                                            color:BLUE
+                                            splitArea: {
+                                                areaStyle: {
+                                                    color: ['rgba(114, 172, 209, 1)'],
+                                                    shadowColor: 'rgba(0, 0, 0, 0.3)',
+                                                    shadowBlur: 10
+                                                }
+                                            },
+                                            axisLine: {
+                                                lineStyle: {
+                                                    color: 'rgba(255, 255, 255, 0.5)'
+                                                }
+                                            },
+                                            splitLine: {
+                                                lineStyle: {
+                                                    color: 'rgba(255, 255, 255, 0.5)'
+                                                }
+                                            }
                                         },
-                                        itemStyle:{
-                                            color:BLUE
+                                        {
+                                            indicator: indicator,
+                                            center: ['50%', '50%'],
+                                            radius: 120
                                         }
-                                    }
-                                ]
-                            }
-                        })
-                        var myChart = echarts.init(document.getElementById("typeStatics"));
-                        myChart.setOption(this.state.option);
+                                    ],
+                                    series: [
+                                        {
+                                            name: '食品安全',
+                                            type: 'radar',
+                                            radarIndex: 1,
+                                            data: [
+                                                {
+                                                    value: dataValues,
+                                                    name: '食品安全',
+                                                    label: {
+                                                        normal: {
+                                                            show: true,
+                                                            formatter:function(params) {
+                                                                return params.value;
+                                                            }
+                                                        }
+                                                    }
+                                                },
 
-                    }
-                })
+                                            ],
+                                            areaStyle: {normal: {color:'#dfedff'}},
+                                            lineStyle:{
+                                                color:BLUE
+                                            },
+                                            itemStyle:{
+                                                color:BLUE
+                                            }
+                                        }
+                                    ]
+                                }
+                            })
+                            var myChart = echarts.init(document.getElementById("typeStatics"));
+                            myChart.setOption(this.state.option);
+
+                        }
+                    })
+                    queryDateRange(startDate,endDate,resId).then(data => {
+                        if(data.success){
+                            this.setOptionState(data.list)
+                        }
+                    });
+                }
                 this.setState({
                     rankResList:data.list
                 })
 
-                queryDateRange(startDate,endDate,resId).then(data => {
-                    if(data.success){
-                        this.setOptionState(data.list)
-                    }
-                });
+
             }
         })
 
@@ -252,8 +254,8 @@ class StaticsType extends React.Component{
         this.serachResults();
     }
     render(){
-        const {groups,brands,types,resOptions,rankResList} = this.state
-        const {cityData} = this.props
+        const {groups,brands,types,rankResList} = this.state
+        const {cityData,resOptions} = this.props
 
         const sidebar = (<List style={{marginLeft:-15}}>
             <Picker
@@ -314,9 +316,13 @@ class StaticsType extends React.Component{
                 setStartDate={date => this.setState({ startDate:date })}
                 setEndDate={date => this.setState({ endDate:date })}
             />
-            <div id="typeStatics" style={{height:400,padding:15,backgroundColor: '#fff',marginTop:10 }}>
+            <div id="typeStatics" style={{height:400,padding:15,backgroundColor: '#fff',marginTop:10,textAlign:'center' }}>
+                {rankResList.length>0?null:'暂无数据'}
             </div>
-            <div id="typeCircleStatics" style={{marginTop:10,marginBottom:100,height:300,padding:15,backgroundColor: '#fff' }}></div>
+            <div id="typeCircleStatics" style={{marginTop:10,marginBottom:100,height:300,padding:15,backgroundColor: '#fff',textAlign:'center' }}>
+                {rankResList.length>0?null:'暂无数据'}
+
+            </div>
         </div>
     }
 

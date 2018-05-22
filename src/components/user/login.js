@@ -8,7 +8,7 @@ import CountDown from 'react-codedown'
 import {
     NavLink
 } from 'react-router-dom'
-import {sendValidCode,login} from '../config/api'
+import {sendValidCode,login,user} from '../config/api'
 import Utils from '../config/utils'
 
 class Login extends Component{
@@ -36,7 +36,6 @@ class Login extends Component{
             return;
         }
         sendValidCode(phone).then(data => {
-            console.log(data)
             data.success?Toast.success('验证码发送成功!', 1):Toast.fail(data.msg, 1);
         });
         await this.delay(delayTime)
@@ -45,7 +44,11 @@ class Login extends Component{
 
     componentWillMount() {
 
+        if(JSON.parse(localStorage.getItem('isLogin'))){
+            this.props.history.push('/home')
+        }
     }
+
 
     userLogin(){
         const {phone,validCode} = this.state

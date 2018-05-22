@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 //私有路由，只有登录的用户才能访问
 class PrivateRoute extends React.Component{
     componentWillMount(){
-        let  isAuthenticated =  localStorage.getItem("isLogin") ? true :false;
+        let  isAuthenticated =  JSON.parse(localStorage.getItem("isLogin")) ? true :false;
         this.setState({isAuthenticated:isAuthenticated})
         if(!isAuthenticated){
             const {history} = this.props;

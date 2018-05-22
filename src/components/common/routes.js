@@ -41,7 +41,7 @@ const Routes = () => (
             <Switch>
 
                 <Route exact path="/" component={Login}/>
-                <PrivateRoute exact path="/home" component={HomeIndex}/>
+                <PrivateRoute path="/home" component={HomeIndex}/>
                 <PrivateRoute path="/audits" component={AuditPage}/>
                 <PrivateRoute path="/startAudit" component={StartAuditPage}/>
                 <PrivateRoute path="/auditQuestions" component={AuditQuestions}/>

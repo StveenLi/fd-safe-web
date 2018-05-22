@@ -66,7 +66,7 @@ class ReportDetail extends React.Component{
                 mode="light"
                 icon={<Icon type="left" />}
                 onLeftClick={() => this.back()}
-            >详情</NavBar>
+            >报告浏览</NavBar>
             <div style={{marginTop:45}}>
 
                 <div style={{backgroundColor:BLUE,padding:15,fontSize:16,color:'#fff'}}>
@@ -108,7 +108,7 @@ class ReportDetail extends React.Component{
 
                                                 <div style={{flex:1}}>
                                                     <div style={{fontSize:28,color:BLUE}}>{item.realScores}<span style={{fontSize:16}}>分</span></div>
-                                                    <div style={{marginTop:5}}>实际得分</div>
+                                                    <div style={{marginTop:5}}>本次得分</div>
                                                 </div>
 
                                                 <div style={{flex:1}}>

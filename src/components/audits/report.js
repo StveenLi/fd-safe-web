@@ -53,6 +53,7 @@ class Report extends React.Component{
 
     componentDidMount() {
         getGroupName().then(data => {
+            this.state.groups.push({label:'不限',value:''})
             if(data.success){
                 for(let op of data.list){
                     this.state.groups.push({label:op.name,value:op.name})
@@ -61,6 +62,7 @@ class Report extends React.Component{
         })
         getBrandName().then(data => {
             if(data.success){
+                this.state.brands.push({label:'不限',value:''})
                 for(let op of data.list){
                     this.state.brands.push({label:op.name,value:op.name})
                 }
@@ -68,6 +70,7 @@ class Report extends React.Component{
         })
         queryTypes().then(data => {
             if(data.success){
+                this.state.types.push({label:'不限',value:''})
                 for(let op of data.list){
                     this.state.types.push({label:op.name,value:op.name})
                 }
@@ -76,6 +79,7 @@ class Report extends React.Component{
         getResByUserId().then(data => {
             if(data.success){
                 let arr = [];
+                arr.push({label:'不限', value:''})
                 for(let op of data.list){
                     arr.push({label:op.name,value:op.id});
                 }
@@ -92,19 +96,22 @@ class Report extends React.Component{
 
     componentWillMount() {
 
+        //this.getP_C_County()
     }
 
     //获取城市JSON
     getP_C_County(){
         queryCity('').then(data => {
             let province = [];
+            province.push({"label":"不限","value":0})
             if(data.success){
                 for(let area of data.list){
                     let cities = [];
-
+                    cities.push({"label":"不限","value":0});
                     queryCity(area.id).then(data => {
                         for(let area of data.list){
                             let counties = [];
+                            counties.push({"label":"不限","value":0})
                             queryCity(area.id).then(data => {
                                 for(let area of data.list){
                                     counties.push({
@@ -117,7 +124,7 @@ class Report extends React.Component{
                                     value:area.id,
                                     children:counties
                                 })
-                                //console.log(JSON.stringify(province))
+                                console.log(JSON.stringify(province))
                             })
                         }
                         province.push({
@@ -137,7 +144,7 @@ class Report extends React.Component{
         const {startDate,endDate,sValue,bValue,pickerValue,selectedValue,tValue,resValue,startNums,endNums} = this.state
 
         queryAssessHis(
-            startDate,endDate,sValue,bValue,pickerValue[0],pickerValue[1],pickerValue[2],selectedValue,tValue,resValue,startNums,endNums
+            startDate,endDate,sValue,bValue,pickerValue[0],pickerValue[1],pickerValue[2],'',selectedValue,tValue,resValue,startNums,endNums
         ).then(data => {
             console.log(data)
             if(data.success){
@@ -245,13 +252,13 @@ class Report extends React.Component{
                                 <Checkbox
                                 defaultChecked
                                 value={0}
-                                onChange={(e) => this.onModChange(e)}/>直营
+                                onChange={(e) => this.onModChange(e)}/>&nbsp;直营
                             </label>
                             <label >
                                 <Checkbox
                                 defaultChecked
                                 value={1}
-                                onChange={(e) => this.onModChange(e)}/>加盟
+                                onChange={(e) => this.onModChange(e)}/>&nbsp;加盟
                             </label>
                         </div>
                         }>
@@ -264,13 +271,13 @@ class Report extends React.Component{
                                 <Checkbox
                                 defaultChecked
                                 value={0}
-                                onChange={(e) => this.onAuditChange(e)}/>内审
+                                onChange={(e) => this.onAuditChange(e)}/>&nbsp;内审
                             </label>
                             <label>
                                 <Checkbox
                                 defaultChecked
                                 value={1}
-                                onChange={(e) => this.onAuditChange(e)}/>外审
+                                onChange={(e) => this.onAuditChange(e)}/>&nbsp;外审
                             </label>
                         </div>}>审核类型</List.Item>
                     <Picker

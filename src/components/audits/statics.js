@@ -39,6 +39,7 @@ class StaticsPage extends React.Component{
     componentDidMount() {
         getGroupName().then(data => {
             if(data.success){
+                this.state.groups.push({label:'不限',value:''})
                 for(let op of data.list){
                     this.state.groups.push({label:op.name,value:op.name})
                 }
@@ -46,6 +47,7 @@ class StaticsPage extends React.Component{
         })
         getBrandName().then(data => {
             if(data.success){
+                this.state.brands.push({label:'不限',value:''})
                 for(let op of data.list){
                     this.state.brands.push({label:op.name,value:op.name})
                 }
@@ -53,6 +55,7 @@ class StaticsPage extends React.Component{
         })
         queryTypes().then(data => {
             if(data.success){
+                this.state.types.push({label:'不限',value:''})
                 for(let op of data.list){
                     this.state.types.push({label:op.name,value:op.name})
                 }
@@ -61,6 +64,7 @@ class StaticsPage extends React.Component{
         getResByUserId().then(data => {
             if(data.success){
                 let arr = [];
+                arr.push({label:'不限', value:''})
                 for(let op of data.list){
                     arr.push({label:op.name,value:op.id});
                 }

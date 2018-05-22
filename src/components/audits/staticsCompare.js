@@ -227,7 +227,7 @@ class StaticsCompare extends React.Component{
                     >A条件</div>
                     <div
                         onClick={() => this.chooseB()}
-                        style={!AOrB?styles._Option_BULE:styles._Option_WHITE}>B条件</div>
+                        style={!AOrB?styles._Option_yellow:styles._Option_WHITE}>B条件</div>
                 </div>
                 <WhiteSpace/>
 

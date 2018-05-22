@@ -97,11 +97,14 @@ class StaticsAll extends React.Component{
 
     queryDateRange(item){
         const {startDate,endDate} = this.state
-        queryDateRange(startDate,endDate,item.id).then(data => {
-            if(data.success){
-                this.setOptionState(data.list)
-            }
-        });
+        if(item){
+            queryDateRange(startDate,endDate,item.id).then(data => {
+                if(data.success){
+                    this.setOptionState(data.list)
+                }
+            });
+        }
+
     }
 
 
@@ -116,7 +119,7 @@ class StaticsAll extends React.Component{
         this.setState({
             option:{
                 title: {
-                    text: '总体趋势'
+                    text: '历史趋势'
                 },
                 tooltip : {
                     trigger: 'axis',
@@ -190,8 +193,8 @@ class StaticsAll extends React.Component{
 
 
     render(){
-        const {groups,brands,types,resOptions,rankResList,fiveController,staticsLineColor} = this.state
-        const {cityData} = this.props
+        const {groups,brands,types,rankResList,fiveController,staticsLineColor} = this.state
+        const {cityData,resOptions} = this.props
         const sidebar = (<List style={{marginLeft:-15}}>
             <Picker
                 cols={1}
@@ -268,28 +271,35 @@ class StaticsAll extends React.Component{
                         style={{fontSize:16,padding:5}}>得分</div>
                 </div>
                 <div style={{marginTop:10}}>
-                    <div style={{marginTop:5,display:'flex'}}>
-                        <div>
-                            {
-                                rankResList.map((item,index) => {
-                                    return <div key={index} style={{fontSize:10,marginTop:5,padding:2}}>{item.name}</div>
-                                })
-                            }
-                        </div>
-                        <div style={{flex:1}}>
-                            {
-                                rankResList.map((item,index) => {
-                                    return <div onClick={() => this.queryDateRange(item)} style={{fontSize:10,marginTop:5,textAlign:'right',backgroundColor:staticsLineColor,padding:2,marginLeft:10,width:`${item.value}%`,color:'#fff'}}>{item.value}</div>
+                    {
 
-                                })
-                            }
-                        </div>
-                    </div>
+                        rankResList.length>0?<div style={{marginTop:5,display:'flex'}}>
+                            <div>
+                                {
+                                    rankResList.map((item,index) => {
+                                        return <div key={index} style={{fontSize:10,marginTop:5,padding:2}}>{item.name}</div>
+                                    })
+                                }
+                            </div>
+                            <div style={{flex:1}}>
+                                {
+                                    rankResList.map((item,index) => {
+                                        return <div onClick={() => this.queryDateRange(item)} style={{fontSize:10,marginTop:5,textAlign:'right',backgroundColor:staticsLineColor,padding:2,marginLeft:10,width:`${item.value}%`,color:'#fff'}}>{item.value}</div>
+
+                                    })
+                                }
+                            </div>
+                        </div>:<div style={{textAlign:'center'}}>暂无数据</div>
+                    }
+
                 </div>
             </div>
             <div style={{flex:1,textAlign:'right',padding:15,fontSize:16,marginBottom:10}}>统计门店数量 {this.state.rankResList.length}</div>
 
-            <div id="allStatics" style={{width:screenWidth,height:300,padding:15,backgroundColor: '#fff',marginTop:10 }}></div>
+            <div id="allStatics" style={{width:screenWidth,height:300,padding:15,backgroundColor: '#fff',marginTop:10,textAlign:'center' }}>
+
+                {rankResList.length>0?null:'暂无数据'}
+            </div>
         </div>
 
     }

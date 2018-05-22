@@ -105,7 +105,7 @@ class AuditQuestions extends React.Component{
             return <Accordion defaultActiveKey="0" accordion openAnimation={{}} className="my-accordion"
                        onChange={this.onChange}>
                 {childAssess.map((firstAudit, aindex) => {
-                    return <Accordion.Panel header={firstAudit.sort + '.' + firstAudit.fristTitle} className="pad"
+                    return <Accordion.Panel header={firstAudit.fristTitle} className="pad"
                                             key={aindex}>
                         {
                             firstAudit.childAssess.map((secondAudit, index) => {
@@ -115,8 +115,8 @@ class AuditQuestions extends React.Component{
                                     {
                                         secondAudit.assessOptions.map((thirdItem, index) => {
                                             return <div>
-                                                <div style={{fontSize:15,color:FONTGREY}}>{`${secondAudit.secondTitle}.${thirdItem.sort}.${thirdItem.title}`}</div>
-                                                <div style={{fontSize:15,color:'#e41717'}}>备注：{thirdItem.remarks}</div>
+                                                <div style={{fontSize:15,color:'#e41717'}}>{`${thirdItem.title}`}</div>
+                                                <div style={{fontSize:15,color:FONTGREY}}>备注：{thirdItem.remarks}</div>
                                                 <div>
                                                     {
                                                         thirdItem.imgs instanceof Array?thirdItem.imgs.map((fourthItem,index) => {

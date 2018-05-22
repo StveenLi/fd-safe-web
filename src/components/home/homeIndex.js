@@ -113,7 +113,7 @@ class HomeIndex extends React.Component {
                         selected={this.state.selectedTab === 'yellowTab'}
                         onPress={() => {this.setState({selectedTab: 'yellowTab',});}}
                     >
-                        <PersonalIndex></PersonalIndex>
+                        <PersonalIndex history={this.props.history}></PersonalIndex>
                     </TabBar.Item>
                 </TabBar>
             </div>

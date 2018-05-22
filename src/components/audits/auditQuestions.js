@@ -106,13 +106,13 @@ class AuditQuestions extends React.Component{
             return <Accordion defaultActiveKey="0" accordion openAnimation={{}} className="my-accordion"
                        onChange={this.onChange}>
                 {childAssess.map((firstAudit, aindex) => {
-                    return <Accordion.Panel header={firstAudit.sort + '.' + firstAudit.fristTitle} className="pad"
+                    return <Accordion.Panel header={firstAudit.fristTitle} className="pad"
                                             key={aindex}>
                         {
                             firstAudit.childAssess.map((secondAudit, index) => {
                                 return <List.Item style={{background:'#fbfbff'}}
                                                   onClick={()=>this.toDetail(secondAudit.auditeId,firstAudit)}
-                                                  key={index}>&nbsp;&nbsp;&nbsp;&nbsp;{aindex + 1}.{index + 1}.{secondAudit.secondTitle}</List.Item>
+                                                  key={index}>&nbsp;&nbsp;&nbsp;&nbsp;{secondAudit.secondTitle}</List.Item>
                             })
                         }
                     </Accordion.Panel>

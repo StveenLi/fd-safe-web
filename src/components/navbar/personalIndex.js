@@ -18,6 +18,10 @@ class PersonalIndex extends React.Component{
         this.state = {};
       }
 
+    logout(){
+        localStorage.setItem('isLogin',false);
+        this.props.history.push('/')
+    }
 
 
     render(){
@@ -49,10 +53,8 @@ class PersonalIndex extends React.Component{
                 </div>
                 <div style={{marginTop:10,padding: 15, alignItems: 'center', backgroundColor: 'white'}}><div>设置</div></div>
                     <div style={{marginTop:30}}>
-                        <NavLink to="/">
-                            <Button type="primary" style={{margin:'15px 30px',backgroundColor:BLUE}}
+                            <Button onClick={() => this.logout()} type="primary" style={{margin:'15px 30px',backgroundColor:BLUE}}
                             >退出</Button>
-                        </NavLink>
                     </div>
             </div>
         )
