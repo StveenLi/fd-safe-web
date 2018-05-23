@@ -48,26 +48,44 @@ class StaticsRadar extends React.Component{
                 // shape: 'circle',
                 name: {
                     textStyle: {
-                        color: '#fff',
-                        backgroundColor: '#999',
                         borderRadius: 3,
-                        padding: [3, 5]
+                        fontSize:10
                     }
                 },
+
                 indicator: indicator
             },
             series: [{
                 name: '两店对比',
                 type: 'radar',
+
                 // areaStyle: {normal: {}},
                 data : [
                     {
                         value : dataA,
-                        name : 'A门店'
+                        name : 'A门店',
+                        lineStyle:{
+                            color:'#0cc1a3'
+                        },
+                        itemStyle:{
+                            color:'#0cc1a3'
+                        },
+                        areaStyle:{
+                            color:'#cef3ed'
+                        }
                     },
                     {
                         value : dataB,
-                        name : 'B门店'
+                        name : 'B门店',
+                        lineStyle:{
+                            color:'#fec032'
+                        },
+                        itemStyle:{
+                            color:'#fec032'
+                        },
+                        areaStyle:{
+                            color:'#fff2d6'
+                        }
                     }
                 ]
             }]
@@ -88,13 +106,13 @@ class StaticsRadar extends React.Component{
             <div id="radar" style={{height:350,backgroundColor:'#fff',padding:15}}></div>
             <WhiteSpace/>
 
-            {/*<div style={{background:'#fff',display:'flex',flexDirection:'row',height:300,marginBottom:50}}>
+            <div style={{background:'#fff',display:'flex',flexDirection:'row',height:300,marginBottom:50}}>
                 <div style={{flex:1,marginTop:30}}>
                     <span style={{backgroundColor:'#0cc1a3',padding:'5px 10px',color:'#fff'}}>A</span>  - -</div>
                 <div style={{borderStyle:'solid',borderWidth:1,borderColor:GREY,margin:'20px 0'}}></div>
                 <div style={{flex:1,marginTop:30}}>
                     <span style={{backgroundColor:'#fec032',padding:'5px 10px',color:'#fff'}}>B</span>  - -</div>
-            </div>*/}
+            </div>
 
 
 

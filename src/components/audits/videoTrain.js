@@ -39,7 +39,7 @@ class VideoTrain extends React.Component{
             >视频规范</NavBar>
 
             <div style={{marginTop:55,textAlign:'center',background:'#fff'}}>
-                <video style={{width:'100%'}} src={'http://foodsafety.feiqubao.com/'+this.state.videoUrl} controls="controls">
+                <video style={{width:'100%'}} src={'http://test.linkitchen.com/'+this.state.videoUrl} controls="controls">
                     your browser does not support the video tag
                 </video>
 

@@ -71,7 +71,7 @@ class Login extends Component{
         return <div style={{display:'flex',flexDirection:'column',background:"#fff",textAlign:'center',padding:'0 15px',height:screenHeight}}>
 
                     <div>
-                        <div style={{padding:'60px 0 30px 0'}}><img style={{width:140}} src={require('../assets/images/login_icon.jpg')}/></div>
+                        <div style={{padding:'60px 0 0px 0'}}><img style={{width:200}} src={require('../assets/images/baihehua.jpeg')}/></div>
                         <div style={{fontSize:24,padding:15}}>食品安全</div>
                     </div>
                     <div style={{marginTop:30}}>

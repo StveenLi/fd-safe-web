@@ -315,7 +315,7 @@ class QuestionDetail extends React.Component{
                     onClick={() => this.noUse()}
                     style={styles.no_use}>不适用</div>
             </div>
-            <div style={{backgroundColor:'#fff',padding:15,textAlign:'left'}}>
+            <div style={{backgroundColor:'#fff',padding:15,textAlign:'left',marginBottom:150}}>
                 <div style={{fontSize:18,padding:'15px 15px 0 15px'}}>{titleInfo.thridTitle}</div>
                 <div style={{textAlign:'right',margin:15,borderBottomStyle:'solid',borderWidth:1,borderBottomColor:GREY,paddingBottom:15,color:BLUE}}>
 

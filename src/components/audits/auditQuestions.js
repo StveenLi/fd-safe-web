@@ -103,16 +103,19 @@ class AuditQuestions extends React.Component{
     
     setAudits(childAssess){
             let {unDoIds} = this.state;
+
             return <Accordion defaultActiveKey="0" accordion openAnimation={{}} className="my-accordion"
                        onChange={this.onChange}>
                 {childAssess.map((firstAudit, aindex) => {
-                    return <Accordion.Panel header={firstAudit.fristTitle} className="pad"
+                    let dos = 0;
+                    firstAudit.childAssess.forEach((item,index)=>{if(item.isDo == 1){dos++;}})
+                    return <Accordion.Panel header={<div style={{display:'flex',flexDirection:'row'}}><div style={{flex:1}}>{firstAudit.fristTitle}</div><div style={{color:'#e41717',marginRight:10}}>{dos}/{firstAudit.childAssess.length}</div></div>} className="pad"
                                             key={aindex}>
                         {
                             firstAudit.childAssess.map((secondAudit, index) => {
                                 return <List.Item style={{background:'#fbfbff'}}
                                                   onClick={()=>this.toDetail(secondAudit.auditeId,firstAudit)}
-                                                  key={index}>&nbsp;&nbsp;&nbsp;&nbsp;{secondAudit.secondTitle}</List.Item>
+                                                  key={index}><div style={{display:'flex',flexDirection:'row'}}><div style={{flex:1}}>&nbsp;&nbsp;&nbsp;&nbsp;{secondAudit.secondTitle}</div>{secondAudit.isDo==1?<div><img style={{width:15}} src={require('../assets/icon/yes.svg')}/></div>:null}</div></List.Item>
                             })
                         }
                     </Accordion.Panel>
@@ -136,9 +139,7 @@ class AuditQuestions extends React.Component{
                 onLeftClick={() => this.back()}
             >审核条目</NavBar>
             <div style={{ marginTop: 55, marginBottom: 5 }}>
-                <div style={{margin: '0 5px 5px 10px',display:'flex',flexDirection:'row'}}><img style={{marginTop:3}} src={require('../assets/icon/audit_list.png')} width={20} height={20}></img>
-                    <div style={{margin: '5px 5px 5px 10px'}}>报告类目:</div>
-                </div>
+
                 <div></div>
             </div>
             <div style={{marginTop:10,marginBottom:85}}>

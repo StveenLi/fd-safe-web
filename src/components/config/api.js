@@ -267,7 +267,7 @@ export const queryTrend = (sstartDate,sendDate,resId,groups,brand,proviceId,city
     formData.append('countyId',_isUndefined(countyId));
     formData.append('townId',_isUndefined(townId));
     formData.append('types',_isUndefined(types));
-    formData.append('resId',_isUndefined(resId));
+    formData.append('cantingId',_isUndefined(resId));
     return new Requester(_POST_(formData),'/rest/assessAnalysis/queryTrend').do_fetch();
 
 }
