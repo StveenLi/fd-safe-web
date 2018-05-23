@@ -22,7 +22,9 @@ class AuditQuestions extends React.Component{
             hereAddress:'',
             resAuditList:{},
             questionIds:[],
-            unDoIds:[]
+            unDoIds:[],
+            reserSignUrl:'',
+            auditerSignUrl:''
         };
       }
 
@@ -61,13 +63,26 @@ class AuditQuestions extends React.Component{
         this.sigPad.clear()
     }
     trim = () => {
-
-
         this.setState({trimmedDataURL: this.sigPad.getTrimmedCanvas().toDataURL('image/png')})
         uploadByBase64(this.sigPad.getTrimmedCanvas().toDataURL('image/png')).then(data => {
-            console.log(data)
+            if(data.success){
+                this.setState({reserSignUrl:data.url})
+            }
+        })
+    }
+
+    auditerTrim = () => {
+        this.setState({trimmedDataURL: this.sigPadAuditer.getTrimmedCanvas().toDataURL('image/png')})
+        uploadByBase64(this.sigPadAuditer.getTrimmedCanvas().toDataURL('image/png')).then(data => {
+            if(data.success){
+                this.setState({auditerSignUrl:data.url})
+            }
         })
 
+    }
+
+    auditerClear = () => {
+        this.sigPadAuditer.clear()
     }
 
     
@@ -177,6 +192,24 @@ class AuditQuestions extends React.Component{
                     重写
                 </Button>
                 <Button style={{flex:1}} type="ghost" size='small'  onClick={() => this.trim()}>
+                    确认
+                </Button>
+            </div>
+            <div style={{margin:'10px 0'}}>
+                <div style={{margin: '0 5px 5px 10px',display:'flex',flexDirection:'row'}}><img style={{marginTop:3}} src={require('../assets/icon/signature.png')} width={20} height={20}></img>
+                    <div style={{margin: '5px 5px 5px 10px'}}>审核员签名:</div>
+                </div>
+                <div></div>
+            </div>
+            <SignaturePad
+                backgroundColor="#fff"
+                canvasProps={{width:screenWidth,height:250,className: 'sigCanvas'}}
+                ref={(ref) => { this.sigPadAuditer = ref }} />
+            <div style={{margin:15,display:'flex',flexDirection:'row'}}>
+                <Button style={{flex:1}} type="ghost" size='small'  onClick={() => this.auditerClear()}>
+                    重写
+                </Button>
+                <Button style={{flex:1}} type="ghost" size='small'  onClick={() => this.auditerTrim()}>
                     确认
                 </Button>
             </div>

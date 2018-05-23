@@ -208,7 +208,7 @@ class QuestionDetail extends React.Component{
     }
 
     nextQuestion(){
-        let {locationState,auditId} = this.state;
+        let {locationState,auditId,remarkList,chooseValues} = this.state;
         if(!locationState.questionIds){
             Toast.fail('数据不存在，请刷新重试!', 1);
             return;
@@ -216,6 +216,17 @@ class QuestionDetail extends React.Component{
         if(locationState.questionIds.indexOf(parseInt(auditId)) + 1 == locationState.questionIds.length){
             Toast.fail('已经是最后一题了！', 1);
             return;
+        }
+
+        for(let remark of remarkList){
+            //如果未选择
+            if(chooseValues.indexOf(remark.itemId)==-1){
+                if((!remark.content||remark.content=='')&&(!remark.images||remark.images.length==0)){
+                    Toast.fail('请全部做完再提交！', 1);
+                    return;
+                }
+            }
+
         }
         this.initSubJsonController(1);
     }
@@ -239,7 +250,13 @@ class QuestionDetail extends React.Component{
         return <List>
             {
                 questionItem.map((item, index) => {
-                    return <CheckboxItem defaultChecked={chooseValues.indexOf(item.value)>-1} key={index} wrap key={index}
+                    let isdisabled = false;
+                    for(let remark of remarkList){if(item.value == remark.itemId){
+                        if((remark.content&&remark.content!='')||(remark.images&&remark.images.length>0)){
+                            isdisabled = true;
+                        }
+                    }}
+                    return <CheckboxItem disabled={isdisabled} defaultChecked={chooseValues.indexOf(item.value)>-1} key={index} wrap key={index}
                                          onChange={() => this.onChange(item.value)}>
                         {item.label}
                         
@@ -247,7 +264,7 @@ class QuestionDetail extends React.Component{
                             this.state.chooseValues.indexOf(item.value)>-1?null:function(){
                                 for (let remark of remarkList) {
                                     if (item.value == remark.itemId) {
-                                        if(remark.content||remark.images){
+                                        if((remark.content&&remark.content!='')||(remark.images&&remark.images.length>0)){
                                             return <div
                                                 onClick={() => self.setState({currentQuestion:item.label,currentItem:item.value,toRemarkPage:!toRemarkPage,})}
                                                 style={{textAlign:'right',color:BLUE,paddingRight:15,marginTop:5}}><img style={{marginBottom:2}} src={require('../assets/icon/pen.png')}/>已备注
@@ -298,6 +315,37 @@ class QuestionDetail extends React.Component{
         }
         this.setState({toRemarkPage:!toRemarkPage,remarkList:rArray})
     }
+    
+    getOverlay(){
+        const {imgUrl,videoUrl} = this.state
+        let overArray = [];
+        
+        if(imgUrl){
+            overArray.push(<Item onClick={() => this.toVideoPage()} key="4" value="video" data-seed="logId">
+                <div style={{display:'flex',flexDirection:'row'}}>
+                    <div style={{margin:'1.5px 2px 0 0'}}>
+                        <img width={15} height={15} src={require('../assets/icon/ic_video@3x.png')}/>
+                    </div>
+                    <div style={{color:BLUE}}>视频播放</div>
+                </div>
+            </Item>)
+        }
+        
+        if(videoUrl){
+            overArray.push(
+                <Item onClick={() => this.toImgDetailPage()} key="5" value="img" style={{ whiteSpace: 'nowrap' }}>
+                    <div style={{display:'flex',flexDirection:'row'}}>
+                        <div style={{margin:'1.5px 2px 0 0'}}>
+                            <img width={15} height={15} src={require('../assets/icon/ic_img@3x.png')}/>
+                        </div>
+                        <div style={{color:BLUE}}>图文详情</div>
+                    </div>
+                </Item>
+            )
+        }
+        return overArray;
+        
+    }
 
 
     render(){
@@ -310,7 +358,7 @@ class QuestionDetail extends React.Component{
             > {locationState.auditName}</NavBar>
 
             <div style={{marginTop:45,backgroundColor:BLUE,padding:15,color:'#fff',display:'flex',flexDirection:'row'}}>
-                <div style={{flex:1,fontSize:18,marginTop:5,marginLeft:70}}>{titleInfo.secondTitle}</div>
+                <div style={{flex:1,fontSize:18,marginTop:5}}>{titleInfo.secondTitle}</div>
                 <div
                     onClick={() => this.noUse()}
                     style={styles.no_use}>不适用</div>
@@ -319,38 +367,22 @@ class QuestionDetail extends React.Component{
                 <div style={{fontSize:18,padding:'15px 15px 0 15px'}}>{titleInfo.thridTitle}</div>
                 <div style={{textAlign:'right',margin:15,borderBottomStyle:'solid',borderWidth:1,borderBottomColor:GREY,paddingBottom:15,color:BLUE}}>
 
-                    <Popover mask
-                             overlayClassName="fortest"
-                             overlayStyle={{ color: 'currentColor' }}
-                             visible={this.state.visible}
-                             overlay={[
-                                  (<Item onClick={() => this.toVideoPage()} key="4" value="video" data-seed="logId">
-                                  <div style={{display:'flex',flexDirection:'row'}}>
-                                    <div style={{margin:'1.5px 2px 0 0'}}>
-                                        <img width={15} height={15} src={require('../assets/icon/ic_video@3x.png')}/>
-                                    </div>
-                                    <div style={{color:BLUE}}>视频播放</div>
-                                    </div>
-                                    </Item>),
 
-                                  (<Item onClick={() => this.toImgDetailPage()} key="5" value="img" style={{ whiteSpace: 'nowrap' }}>
-                                  <div style={{display:'flex',flexDirection:'row'}}>
-                                    <div style={{margin:'1.5px 2px 0 0'}}>
-                                        <img width={15} height={15} src={require('../assets/icon/ic_img@3x.png')}/>
-                                    </div>
-                                    <div style={{color:BLUE}}>图文详情</div>
-                                    </div>
-                                    </Item>),
-                                        ]}
-                             align={{
+                    {this.state.imgUrl||this.state.videoUrl?<Popover mask
+                                 overlayClassName="fortest"
+                                 overlayStyle={{ color: 'currentColor' }}
+                                 visible={this.state.visible}
+                                 overlay={this.getOverlay()}
+                                 align={{
                                       overflow: { adjustY: 0, adjustX: 0 },
                                       offset: [-10, 0],
                                     }}
-                             onVisibleChange={this.handleVisibleChange}
-                             onSelect={this.onSelect}
-                    >
-                        <img width={20} height={20} src={require('../assets/icon/book.png')}></img>
-                    </Popover>
+                                 onVisibleChange={this.handleVisibleChange}
+                                 onSelect={this.onSelect}
+                        >
+                            <img width={20} height={20} src={require('../assets/icon/book.png')}></img>
+                        </Popover>:null}
+                    
                 </div>
                     {
                         this.getCheckBoxList(questionItem)
@@ -374,9 +406,9 @@ class QuestionDetail extends React.Component{
                 </div>
                 
 
-                    <div
+                {/*<div
                         onClick={locationState.questionIds.indexOf(parseInt(auditId)) + 1 == locationState.questionIds.length?() => this.subQuestion():() => this.nextQuestion()}
-                        style={{marginTop:10,lineHeight:'70px',background:'#fec032',borderRadius:'50%',width:70,height:70}}>提交</div>
+                        style={{marginTop:10,lineHeight:'70px',background:'#fec032',borderRadius:'50%',width:70,height:70}}>提交</div>*/}
 
                 
                 <div onClick={() => this.nextQuestion()} style={{flex:1}}>

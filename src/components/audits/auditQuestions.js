@@ -47,8 +47,29 @@ class AuditQuestions extends React.Component{
         this.props.history.push(`/questionDetail/${auditId}`,[{transmitParam:transmitParam}]);
     }
 
-    toFuncPage(){
+    async toFuncPage(){
+
+        const {typeId,resId} = this.props.history.location.state[0].transmitParam;
+        let dolast = true;
+
+        Toast.loading('查询中……', 0, true);
+        await getAssessList(typeId[0],resId[0]).then(data => {
+            if(data.success){
+                for(let first of data.one.childAssess){
+                    for(let second of first.childAssess){
+                        if(second.isDo!=1){
+                            Toast.hide();
+                            Toast.fail('还未做完所有检查！',1);
+                            dolast = false;
+                            return false;
+                        }
+                    }
+                }
+            }
+        })
+
         //doStatistics(this.state.locationState.planId,'123').then(data => {
+        if(dolast){
             let transmitParam = {};
             const {locationState} = this.state;
 
@@ -56,7 +77,8 @@ class AuditQuestions extends React.Component{
             transmitParam.resId = locationState.resId;
             transmitParam.typeId = locationState.typeId;
             //if(data.success){
-                this.props.history.push('/auditQuestionsResult',[{transmitParam:transmitParam}]);
+            this.props.history.push('/auditQuestionsResult',[{transmitParam:transmitParam}]);
+        }
             //}else {
             //    Toast.fail(data.msg,1)
             //}

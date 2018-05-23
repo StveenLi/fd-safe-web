@@ -67,7 +67,9 @@ class Remarks extends React.Component{
                     }
                 })
             }
-            
+        }
+        if(type == 'remove'){
+            this.state.images.splice(index);
         }
     }
     onSegChange = (e) => {

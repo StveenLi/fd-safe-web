@@ -51,12 +51,12 @@ class Login extends Component{
 
 
     userLogin(){
-        const {phone,validCode} = this.state
+        const {phone,vaildCode} = this.state
         if(!Utils.checkCellphone(phone)){
             Toast.fail('手机号码格式不正确!', 1);
             return;
         }
-        login(phone,validCode).then(data => {
+        login(phone,vaildCode).then(data => {
            if(data.success){
                localStorage.setItem('isLogin',true);
                localStorage.setItem('userInfo',JSON.stringify(data.one));

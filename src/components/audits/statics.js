@@ -86,10 +86,10 @@ class StaticsPage extends React.Component{
         </Sticky>);
     }
 
-    toRadarPage(){
+    async toRadarPage(){
         const {AResult,BResult} = this.state
-        if(AResult.resValue){
-            queryTrend('','',AResult.resValue).then(data => {
+         if(AResult.resValue){
+             await queryTrend('','',AResult.resValue).then(data => {
                 if(data.success){
                     this.setState({ARadarDataList:data.list})
                 }
@@ -99,7 +99,7 @@ class StaticsPage extends React.Component{
             return;
         }
         if(BResult.resValue){
-            queryTrend('','',BResult.resValue).then(data => {
+            await queryTrend('','',BResult.resValue).then(data => {
                 if(data.success){
                     this.setState({BRadarDataList:data.list})
                 }
@@ -109,11 +109,9 @@ class StaticsPage extends React.Component{
             return;
         }
 
-        if(this.state.ARadarDataList.length>0&&this.state.BRadarDataList.length>0){
-            this.setState({
-                comparing:true
-            })
-        }
+        this.setState({
+            comparing:true
+        })
     }
 
     toComparePage(){

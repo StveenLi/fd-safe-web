@@ -17,14 +17,15 @@ class StaticsRadar extends React.Component{
         super(props);
         // 初始状态
         this.state = {
-            option : {}
+            option : {},
+            goodsForA:[],
+            goodsForB:[],
         };
       }
 
     componentWillMount() {
         let AList = this.props.ARadarDataList
         let BList = this.props.BRadarDataList
-        console.log(AList,BList)
         let indicator = [];
         let dataA = [];
         let dataB = [];
@@ -35,7 +36,17 @@ class StaticsRadar extends React.Component{
         for(let item of BList){
             dataB.push(parseInt(item.value));
         }
-        console.log(indicator,dataA,dataB)
+        
+        for(let i = 0;i<AList.length;i++){
+            if(AList[i].value!=BList[i].value){
+                if(AList[i].value>BList[i].value){
+                    this.state.goodsForA.push(AList[i].name);
+                }else{
+                    this.state.goodsForB.push(AList[i].name);
+                }
+            }
+        }
+        
         this.setState({option:{
             title: {
                 text: '各类目对比'
@@ -108,10 +119,23 @@ class StaticsRadar extends React.Component{
 
             <div style={{background:'#fff',display:'flex',flexDirection:'row',height:300,marginBottom:50}}>
                 <div style={{flex:1,marginTop:30}}>
-                    <span style={{backgroundColor:'#0cc1a3',padding:'5px 10px',color:'#fff'}}>A</span>  - -</div>
+                    <div style={{marginBottom:15}}><span style={{backgroundColor:'#0cc1a3',padding:'5px 10px',color:'#fff'}}>A</span>  - -</div>
+                    {
+                        this.state.goodsForA.map((good,index) => {
+                            return <div key={index} style={{padding:5,color:'#0cc1a3'}}>{good}</div>
+                        })
+                    }
+                    
+                </div>
                 <div style={{borderStyle:'solid',borderWidth:1,borderColor:GREY,margin:'20px 0'}}></div>
                 <div style={{flex:1,marginTop:30}}>
-                    <span style={{backgroundColor:'#fec032',padding:'5px 10px',color:'#fff'}}>B</span>  - -</div>
+                    <div style={{marginBottom:15}}><span style={{backgroundColor:'#fec032',padding:'5px 10px',color:'#fff'}}>B</span>  - -</div>
+                    {
+                        this.state.goodsForB.map((good,index) => {
+                            return <div key={index} style={{padding:5,color:'#fec032'}}>{good}</div>
+                        })
+                    }
+                </div>
             </div>
 
 
