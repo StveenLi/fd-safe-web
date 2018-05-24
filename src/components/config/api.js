@@ -249,7 +249,7 @@ export const queryDateRange = (sstartDate,sendDate,resId,groups,brand,proviceId,
     formData.append('countyId',_isUndefined(countyId));
     formData.append('townId',_isUndefined(townId));
     formData.append('types',_isUndefined(types));
-    formData.append('resId',_isUndefined(resId));
+    formData.append('cantingId',_isUndefined(resId));
 
     return new Requester(_POST_(formData),'/rest/assessAnalysis/queryDateRange').do_fetch();
 }

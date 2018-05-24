@@ -79,6 +79,7 @@ class StartAuditPage extends React.Component{
                 transmitParam.resId = sValue;
                 transmitParam.typeId = tValue;
                 transmitParam.planId = data.one.id;
+                localStorage.setItem('auditLocation','1');
                 this.props.history.push('/auditQuestions',[{transmitParam:transmitParam}]);
             }else{
                 Toast.fail(data.msg, 1); return;

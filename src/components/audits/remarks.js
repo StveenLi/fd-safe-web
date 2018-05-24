@@ -7,6 +7,8 @@ import { Accordion, List,NavBar,Icon,Badge,ImagePicker, WingBlank, SegmentedCont
 import styles,{screenWidth} from '../config/style'
 import {upload} from '../config/api'
 import {BLUE} from '../config/style'
+import Viewer from 'react-viewer';
+import 'react-viewer/dist/index.css';
 const data = [];
 
 class Remarks extends React.Component{
@@ -22,6 +24,8 @@ class Remarks extends React.Component{
             multiple: false,
             images:[],
             textValue:'',
+            visible: false,
+            chooseIndex:0
         };
       }
 
@@ -80,12 +84,15 @@ class Remarks extends React.Component{
     }
 
 
-    _onSure(){
+    _onSure(isNoUse){
 
         let remarkValue = {};
         remarkValue.itemId = this.props.currentItem
         remarkValue.content = document.getElementById('textVal').value;
         remarkValue.images = this.state.images
+        if(isNoUse){
+            remarkValue.isKey = 4
+        }
         this.props.changePageStatus(remarkValue)
     }
 
@@ -101,25 +108,25 @@ class Remarks extends React.Component{
             > 备注</NavBar>
             <div></div>
             <div style={{marginTop:50,padding:15,fontSize:16}}>
-                问题:{this.props.currentQuestion}
+                {this.props.currentQuestion}
 
             </div>
             <div style={{display:'flex',flexDirection:'row'}}>
                 <div style={{flex:1}}></div>
 
                 <div
-                    onClick={() => this._onSure()}
+                    onClick={() => this._onSure(true)}
                     style={styles.no_use_blue}>不适用</div>
             </div>
             <div style={{backgroundColor:'#fff'}}>
-                <textarea id="textVal" style={{fontSize:16,padding:15,width:screenWidth-50,height:300}}>
+                <textarea id="textVal" style={{fontSize:16,padding:15,width:screenWidth-50,height:200}}>
 
                 </textarea>
                 <div style={{width:'100%',backgroundColor:'#fff'}}>
                     <ImagePicker
                         files={files}
                         onChange={this.onChange}
-                        onImageClick={(index, fs) => console.log(index, fs)}
+                        onImageClick={(index, fs) => this.setState({ visible: true ,chooseIndex:index})}
                         selectable={files.length < 5}
                         multiple={this.state.multiple}
                     />
@@ -130,6 +137,14 @@ class Remarks extends React.Component{
                     onClick={() => this._onSure()}
                     type="primary" style={{margin:'15px 30px',backgroundColor:BLUE}}>确定</Button>
             </div>
+            <Viewer
+                visible={this.state.visible}
+                onClose={() => { this.setState({ visible: false }); } }
+                images={[{src: this.state.images[this.state.chooseIndex], alt: ''}]}
+                noNavbar={true}
+                noToolbar={true}
+                noClose={false}
+            />
         </div>
     }
 }

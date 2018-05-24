@@ -69,10 +69,8 @@ class QuestionDetail extends React.Component{
         if(values.indexOf(val)>-1){
             for(let remark of rArray){
                 if(val == remark.itemId){
-                    for(let i=0;i<rArray.length;i++){
-                        rArray[i].images = [];
-                        rArray[i].content = null;
-                    }
+                    rArray[rArray.indexOf(remark)].images = [];
+                    rArray[rArray.indexOf(remark)].content = null;
                 }
             }
             values.splice(values.indexOf(val),1);
@@ -91,6 +89,7 @@ class QuestionDetail extends React.Component{
             auditId:this.props.match.params.qid,
             locationState:this.props.history.location.state[0].transmitParam
         })
+        localStorage.setItem('auditLocation',this.props.history.location.state[0].transmitParam.auditName);
     }
 
     componentDidMount() {
@@ -112,8 +111,8 @@ class QuestionDetail extends React.Component{
                     if(op.ownPoint>0){
                         chooseVals.push(op.auditeId);
                     }
-                    questions.push({ value: op.auditeId, label: op.title });
-                    remarkList.push({itemId:op.auditeId,content:op.remarks,images:op.imgs})
+                    questions.push({ value: op.auditeId, label: op.title, isKey:op.isKey });
+                    remarkList.push({itemId:op.auditeId,content:op.remarks,images:op.imgs,isKey:op.isKey})
                 }
                 
                 
@@ -167,15 +166,19 @@ class QuestionDetail extends React.Component{
             }else{
                 subJson.supPoint = item.supPoint;
             }
-            
+            subJson.isKey = item.isKey;
             for(let remark of remarkList){
                 if(remark.itemId == item.auditeId){
                     subJson.remarks = remark.content;
                     subJson.imgs = remark.images;
+                    if(remark.isKey == 4){
+                        subJson.ownPoint = item.point
+                        subJson.isKey = 4;
+                    }
                 }
             }
             
-            subJson.isKey = item.isKey;
+            
             subArr.push(subJson)
 
         }
@@ -221,9 +224,11 @@ class QuestionDetail extends React.Component{
         for(let remark of remarkList){
             //如果未选择
             if(chooseValues.indexOf(remark.itemId)==-1){
-                if((!remark.content||remark.content=='')&&(!remark.images||remark.images.length==0)){
-                    Toast.fail('请全部做完再提交！', 1);
-                    return;
+                if(remark.isKey!=4){
+                    if((!remark.content||remark.content=='')&&(!remark.images||remark.images.length==0)){
+                        Toast.fail('请全部做完再提交！', 1);
+                        return;
+                    }
                 }
             }
 
@@ -244,18 +249,22 @@ class QuestionDetail extends React.Component{
         this.initSubJsonController(-1);
     }
     
-    getCheckBoxList(questionItem){
+     getCheckBoxList(questionItem){
         const {chooseValues,toRemarkPage,remarkList} = this.state
         let self = this;
         return <List>
             {
                 questionItem.map((item, index) => {
                     let isdisabled = false;
-                    for(let remark of remarkList){if(item.value == remark.itemId){
-                        if((remark.content&&remark.content!='')||(remark.images&&remark.images.length>0)){
-                            isdisabled = true;
-                        }
+                    for(let remark of remarkList){
+                        if(item.value == remark.itemId){
+                            if(remark.isKey == 4){
+                                isdisabled = true;
+                            }else if((remark.content&&remark.content!='')||(remark.images&&remark.images.length>0)){
+                                isdisabled = true;
+                            }
                     }}
+                    
                     return <CheckboxItem disabled={isdisabled} defaultChecked={chooseValues.indexOf(item.value)>-1} key={index} wrap key={index}
                                          onChange={() => this.onChange(item.value)}>
                         {item.label}
@@ -264,24 +273,26 @@ class QuestionDetail extends React.Component{
                             this.state.chooseValues.indexOf(item.value)>-1?null:function(){
                                 for (let remark of remarkList) {
                                     if (item.value == remark.itemId) {
-                                        if((remark.content&&remark.content!='')||(remark.images&&remark.images.length>0)){
-                                            return <div
-                                                onClick={() => self.setState({currentQuestion:item.label,currentItem:item.value,toRemarkPage:!toRemarkPage,})}
-                                                style={{textAlign:'right',color:BLUE,paddingRight:15,marginTop:5}}><img style={{marginBottom:2}} src={require('../assets/icon/pen.png')}/>已备注
-                                            </div>
+                                        if (remark.isKey != 4) {
+                                            if ((remark.content && remark.content != '') || (remark.images && remark.images.length > 0)) {
+                                                return <div
+                                                    onClick={() => self.setState({currentQuestion:item.label,currentItem:item.value,toRemarkPage:!toRemarkPage,})}
+                                                    style={{textAlign:'right',color:BLUE,paddingRight:15,marginTop:5}}>
+                                                    <img style={{marginBottom:2}}
+                                                         src={require('../assets/icon/pen.png')}/>已备注
+                                                </div>
+                                            }
+                                            else {
+                                                return <div
+                                                    onClick={() => self.setState({currentQuestion:item.label,currentItem:item.value,toRemarkPage:!toRemarkPage,})}
+                                                    style={{textAlign:'right',color:BLUE,paddingRight:15,marginTop:5}}>
+                                                    <img style={{marginBottom:2}}
+                                                         src={require('../assets/icon/pen.png')}/>备注
+                                                </div>
+                                            }
+                                            break;
                                         }
-                                        else{
-                                            return <div
-                                                onClick={() => self.setState({currentQuestion:item.label,currentItem:item.value,toRemarkPage:!toRemarkPage,})}
-                                                style={{textAlign:'right',color:BLUE,paddingRight:15,marginTop:5}}><img style={{marginBottom:2}} src={require('../assets/icon/pen.png')}/>备注
-                                            </div>
-                                        }
-
-
-                                        break;
-
                                     }
-
                                 }
                             }()
 
@@ -311,6 +322,7 @@ class QuestionDetail extends React.Component{
             if(rArray[i].itemId == remarkValue.itemId){
                 rArray[i].images = remarkValue.images;
                 rArray[i].content = remarkValue.content
+                rArray[i].isKey = remarkValue.isKey
             }
         }
         this.setState({toRemarkPage:!toRemarkPage,remarkList:rArray})
@@ -320,7 +332,7 @@ class QuestionDetail extends React.Component{
         const {imgUrl,videoUrl} = this.state
         let overArray = [];
         
-        if(imgUrl){
+        if(videoUrl){
             overArray.push(<Item onClick={() => this.toVideoPage()} key="4" value="video" data-seed="logId">
                 <div style={{display:'flex',flexDirection:'row'}}>
                     <div style={{margin:'1.5px 2px 0 0'}}>
@@ -331,7 +343,7 @@ class QuestionDetail extends React.Component{
             </Item>)
         }
         
-        if(videoUrl){
+        if(imgUrl){
             overArray.push(
                 <Item onClick={() => this.toImgDetailPage()} key="5" value="img" style={{ whiteSpace: 'nowrap' }}>
                     <div style={{display:'flex',flexDirection:'row'}}>

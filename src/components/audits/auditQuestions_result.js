@@ -223,7 +223,7 @@ class AuditQuestions extends React.Component{
             </div>
 
             <div style={{position:'fixed',bottom:0,width:'100%',display:'block'}}>
-                <Button style={{background:BLUE}} type="primary" onClick={() => this.toFuncPage()}>提交</Button>
+                <Button style={{background:BLUE}} type="primary" onClick={() => this.toFuncPage()}>审核提交</Button>
             </div>
 
         </div>

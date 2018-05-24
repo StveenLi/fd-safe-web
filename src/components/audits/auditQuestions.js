@@ -20,7 +20,8 @@ class AuditQuestions extends React.Component{
             hereAddress:'',
             resAuditList:{},
             questionIds:[],
-            unDoIds:[]
+            unDoIds:[],
+            auditLocation:0
         };
       }
 
@@ -96,10 +97,12 @@ class AuditQuestions extends React.Component{
     componentWillMount() {
         Toast.loading('加载中……', 0, true);
         const {typeId,resId} = this.props.history.location.state[0].transmitParam;
+        let auditLocation = localStorage.getItem('auditLocation').substring(0,1);
         this.setState({
             locationX:localStorage.getItem('Longitude'),
             locationY:localStorage.getItem('Latitude'),
-            locationState:this.props.history.location.state[0].transmitParam
+            locationState:this.props.history.location.state[0].transmitParam,
+            auditLocation:auditLocation
         })
 
         getAssessList(typeId[0],resId[0]).then(data => {
@@ -124,9 +127,9 @@ class AuditQuestions extends React.Component{
     
     
     setAudits(childAssess){
-            let {unDoIds} = this.state;
+            let {unDoIds,auditLocation} = this.state;
 
-            return <Accordion defaultActiveKey="0" accordion openAnimation={{}} className="my-accordion"
+            return <Accordion defaultActiveKey={(auditLocation-1).toString()} accordion openAnimation={{}} className="my-accordion"
                        onChange={this.onChange}>
                 {childAssess.map((firstAudit, aindex) => {
                     let dos = 0;
@@ -159,7 +162,7 @@ class AuditQuestions extends React.Component{
                 mode="light"
                 icon={<Icon type="left" />}
                 onLeftClick={() => this.back()}
-            >审核条目</NavBar>
+            >审核目录</NavBar>
             <div style={{ marginTop: 55, marginBottom: 5 }}>
 
                 <div></div>
@@ -171,7 +174,7 @@ class AuditQuestions extends React.Component{
             </div>
 
             <div style={{position:'fixed',bottom:0,width:'100%',display:'block'}}>
-                <Button style={{background:BLUE}} type="primary" onClick={() => this.toFuncPage()}>提交</Button>
+                <Button style={{background:BLUE}} type="primary" onClick={() => this.toFuncPage()}>审核确认</Button>
             </div>
 
         </div>
