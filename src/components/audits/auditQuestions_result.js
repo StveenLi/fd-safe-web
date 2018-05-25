@@ -51,13 +51,19 @@ class AuditQuestions extends React.Component{
     }
 
     toFuncPage(){
-        doStatistics(this.state.locationState.planId,'123').then(data => {
-            if(data.success){
-                this.props.history.push('/auditComplete',[{transmitParam:data.list}]);
-            }else {
-                Toast.fail(data.msg,1)
-            }
-        })
+        const {reserSignUrl,auditerSignUrl} = this.state
+        if(reserSignUrl==''||auditerSignUrl==''){
+            Toast.fail('双方签名确认之后才可提交',1);
+        }else{
+            doStatistics(this.state.locationState.planId,'123').then(data => {
+                if(data.success){
+                    this.props.history.push('/auditComplete',[{planId:this.state.locationState.planId,transmitParam:data.list}]);
+                }else {
+                    Toast.fail(data.msg,1)
+                }
+            })
+        }
+
     }
     clear = () => {
         this.sigPad.clear()

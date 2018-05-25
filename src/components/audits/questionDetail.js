@@ -35,13 +35,19 @@ class QuestionDetail extends React.Component{
         };
       }
     back = e => {
-        const {history} = this.props;
-        const {locationState} = this.state;
-        let transmitParam = {};
-        transmitParam.resId = locationState.resId;
-        transmitParam.typeId = locationState.typeId;
-        transmitParam.planId = locationState.planId;
-        history.push('/auditQuestions',[{transmitParam:transmitParam}]);
+        alert('返回','确定不保存该题数据直接返回吗？' ,[
+            { text: '取消', onPress: () => console.log('cancel'), style: 'default' },
+            { text: '确定', onPress: () => {
+                const {history} = this.props;
+                const {locationState} = this.state;
+                let transmitParam = {};
+                transmitParam.resId = locationState.resId;
+                transmitParam.typeId = locationState.typeId;
+                transmitParam.planId = locationState.planId;
+                history.push('/auditQuestions',[{transmitParam:transmitParam}]);
+            } },
+        ])
+        
     };
 
     onSelect = (opt) => {
@@ -105,6 +111,7 @@ class QuestionDetail extends React.Component{
                 let chooseVals = [];
                 let titleInfo = {};
                 let remarkList = [];
+                titleInfo.firstTitle = data.one.fristTitle;
                 titleInfo.secondTitle = data.one.secondTitle;
                 titleInfo.thridTitle = data.one.thridTitle;
                 for(let op of data.one.assessOptions){
@@ -241,10 +248,22 @@ class QuestionDetail extends React.Component{
     
 
     previousQuestion(){
-        const {locationState,auditId} = this.state;
+        const {locationState,auditId,remarkList,chooseValues} = this.state;
         if(locationState.questionIds.indexOf(parseInt(auditId)) == 0){
             Toast.fail('这是第一题！', 1);
             return;
+        }
+        for(let remark of remarkList){
+            //如果未选择
+            if(chooseValues.indexOf(remark.itemId)==-1){
+                if(remark.isKey!=4){
+                    if((!remark.content||remark.content=='')&&(!remark.images||remark.images.length==0)){
+                        Toast.fail('请全部做完再提交！', 1);
+                        return;
+                    }
+                }
+            }
+
         }
         this.initSubJsonController(-1);
     }
@@ -367,7 +386,7 @@ class QuestionDetail extends React.Component{
                 mode="light"
                 icon={<Icon type="left" />}
                 onLeftClick={() => this.back()}
-            > {locationState.auditName}</NavBar>
+            > {titleInfo.firstTitle}</NavBar>
 
             <div style={{marginTop:45,backgroundColor:BLUE,padding:15,color:'#fff',display:'flex',flexDirection:'row'}}>
                 <div style={{flex:1,fontSize:18,marginTop:5}}>{titleInfo.secondTitle}</div>
@@ -422,11 +441,17 @@ class QuestionDetail extends React.Component{
                         onClick={locationState.questionIds.indexOf(parseInt(auditId)) + 1 == locationState.questionIds.length?() => this.subQuestion():() => this.nextQuestion()}
                         style={{marginTop:10,lineHeight:'70px',background:'#fec032',borderRadius:'50%',width:70,height:70}}>提交</div>*/}
 
+                {locationState.questionIds.indexOf(parseInt(auditId)) + 1 == locationState.questionIds.length?
+                    <div onClick={() => this.subQuestion()} style={{flex:1}}>
+                    <img style={{width:50}} src={require('../assets/icon/lastsubmit.png')}></img>
+                    <div style={{padding:10}} >提交</div>
+                    </div>
+                    :
+                    <div onClick={() => this.nextQuestion()} style={{flex:1}}>
+                        <img style={{width:50}} src={require('../assets/icon/n_question.png')}></img>
+                        <div style={{padding:10}} >下一题</div>
+                    </div>}
                 
-                <div onClick={() => this.nextQuestion()} style={{flex:1}}>
-                    <img style={{width:50}} src={require('../assets/icon/n_question.png')}></img>
-                    <div style={{padding:10}} >下一题</div>
-                </div>
             </div>
 
 

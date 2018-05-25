@@ -2,12 +2,14 @@
 
 import React from 'react'
 import { NavBar,Icon,SearchBar} from 'antd-mobile';
-import styles,{BLUE,FONTGREY} from '../config/style'
+import styles,{BLUE,FONTGREY,GREY} from '../config/style'
 import echarts from 'echarts/lib/echarts';
 import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/title';
 import 'echarts/lib/chart/bar';
 import 'echarts/lib/chart/pie';
+
+import {getKeyOption} from '../config/api'
 class AuditComplete extends React.Component{
 
 
@@ -18,7 +20,11 @@ class AuditComplete extends React.Component{
         // 初始状态
         this.state = {
             sumCore:'',
-            option : {}
+            option : {},
+            //不符合的关键项
+            keys:[],
+            //严重不符合
+            importants:[]
         };
       }
 
@@ -121,6 +127,14 @@ class AuditComplete extends React.Component{
 
 
     componentDidMount() {
+        getKeyOption(this.props.history.location.state[0].planId).then((data) => {
+            if(data.success){
+                this.setState({
+                    keys:data.keys,
+                    importants:data.important
+                })
+            }
+        })
         var myChart = echarts.init(document.getElementById("typeStatics"));
         myChart.setOption(this.state.option);
     }
@@ -130,18 +144,31 @@ class AuditComplete extends React.Component{
     };
     render(){
 
+        let scoreColor = this.state.importants.length>0?'#ff5b5b':this.state.keys.length>3?'#ff5b5b':this.state.sumCore>80?'#0cc1a3':'#ff5b5b'
         return <div style={{textAlign:'center'}}>
             <NavBar
                 mode="light"
-                icon={<Icon type="left" />}
-                onLeftClick={() => this.back()}
             >审核结果</NavBar>
 
             <div style={{marginTop:55,background:'#fff',padding:15}}>
                 <div style={{textAlign:'left'}}>您的本次审核得分为：</div>
-                <div style={{color:BLUE,fontSize:50,padding:'15px 0 0 0'}}>{parseInt(this.state.sumCore)}</div>
+                <div style={{color:scoreColor,fontSize:50,padding:'15px 0 0 0'}}>{parseInt(this.state.sumCore)}</div>
                 <div style={{marginLeft:120,marginTop:-20}}>分</div>
             </div>
+
+            <div style={{textAlign:'left',marginTop:10}}>
+                <div style={{background:'#fff',padding:15,fontSize:16}}>不符合的严重项</div>
+                {this.state.importants.map((important,index) => {
+                    return <div key={index} style={{background:GREY,padding:10,color:'#ff5b5b'}}>{important.name}</div>
+                })}
+            </div>
+            <div style={{textAlign:'left',marginTop:10}}>
+                <div style={{background:'#fff',padding:15,fontSize:16}}>不符合的关键项</div>
+                {this.state.keys.map((key,index) => {
+                    return <div key={index} style={{background:GREY,padding:10,color:'#ff5b5b'}}>{key.name}</div>
+                })}
+            </div>
+
             <div id="typeStatics" style={{height:400,padding:15,backgroundColor: '#fff',marginTop:10 }}></div>
             <div style={{fontSize:18,color:'#fff',padding: 15,textAlign:'center',backgroundColor:BLUE}}
                  onClick={() => this.props.history.push('/audits')}

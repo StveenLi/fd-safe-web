@@ -7,8 +7,7 @@ import React from 'react'
 import { NavBar,Icon,Picker, List,DatePicker,Button,InputItem,Toast} from 'antd-mobile';
 import styles,{BLUE,GREY} from '../config/style'
 import {RadioGroup, Radio} from 'react-radio-group';
-import {getGroupName,getBrandName,queryCity,queryPlanType,queryTypes,getResByUserId,queryAssessHis} from '../config/api'
-import cityData from '../config/cityData'
+import {queryCity,queryAssessHis,getReportOption} from '../config/api'
 import Checkbox from 'rc-checkbox';
 import 'rc-checkbox/assets/index.css';
 
@@ -23,24 +22,26 @@ class Report extends React.Component{
         super(props);
         // 初始状态
         this.state = {
-            selectedValue:'0',
-            groups:[],
-            brands:[],
-            types:[],
-            sValue:'',
-            bValue:'',
-            typeValue:'',
-            areas:[],
-            pickerValue:'',
-            resOptions:[],
-            resValue:'',
-            startDate:'',
-            endDate:'',
-            startNums:'',
-            endNums:'',
-            selectedAuditValue:'0',
-            transmitParam:{},
-        };
+            selectedValue: '0',
+            groups: [],
+            brands: [],
+            types: [],
+            sValue: '',
+            bValue: '',
+            typeValue: '',
+            areas: [],
+            pickerValue: '',
+            resOptions: [],
+            resValue: '',
+            startDate: '',
+            endDate: '',
+            startNums: '',
+            endNums: '',
+            selectedAuditValue: '0',
+            transmitParam: {},
+            cityData: []
+        }
+        ;
       }
     back = e => {
         const {history} = this.props
@@ -52,46 +53,136 @@ class Report extends React.Component{
     }
 
     componentDidMount() {
-        getGroupName().then(data => {
-            this.state.groups.push({label:'不限',value:''})
+
+
+        this.setAllOptions();
+        //getGroupName().then(data => {
+        //    this.state.groups.push({label:'不限',value:''})
+        //    if(data.success){
+        //        for(let op of data.list){
+        //            this.state.groups.push({label:op.name,value:op.name})
+        //        }
+        //    }
+        //})
+        //getBrandName().then(data => {
+        //    if(data.success){
+        //        this.state.brands.push({label:'不限',value:''})
+        //        for(let op of data.list){
+        //            this.state.brands.push({label:op.name,value:op.name})
+        //        }
+        //    }
+        //})
+        //queryTypes().then(data => {
+        //    if(data.success){
+        //        this.state.types.push({label:'不限',value:''})
+        //        for(let op of data.list){
+        //            this.state.types.push({label:op.name,value:op.name})
+        //        }
+        //    }
+        //})
+        //getResByUserId().then(data => {
+        //    if(data.success){
+        //        let arr = [];
+        //        arr.push({label:'不限', value:''})
+        //        for(let op of data.list){
+        //            arr.push({label:op.name,value:op.id});
+        //        }
+        //        this.setState({
+        //            resOptions:arr
+        //        })
+        //    }else{
+        //        Toast.fail(data.msg, 1);
+        //    }
+        //})
+
+
+    }
+
+    setAllOptions(){
+        const {startDate,endDate,sValue,bValue,pickerValue,typeValue,resValue,startNums,endNums} = this.state;
+        getReportOption(
+            startDate,
+            endDate,
+            sValue,
+            bValue,
+            pickerValue[0],
+            pickerValue[1]?pickerValue[1]:'',
+            pickerValue[2]?pickerValue[2]:'',
+            typeValue,
+            resValue,startNums,endNums).then(data => {
             if(data.success){
-                for(let op of data.list){
-                    this.state.groups.push({label:op.name,value:op.name})
+                let brands = [{label:'不限',value:''}];
+                let groups=[{label:'不限',value:''}];
+                let types=[{label:'不限',value:''}];
+                let resOptions=[{label:'不限',value:null}];
+                let cityData=[{label:'不限',value:''}]
+                for(let op of data.brands){
+                    brands.push({label:op,value:op})
                 }
-            }
-        })
-        getBrandName().then(data => {
-            if(data.success){
-                this.state.brands.push({label:'不限',value:''})
-                for(let op of data.list){
-                    this.state.brands.push({label:op.name,value:op.name})
+                for(let op of data.groups){
+                    groups.push({label:op,value:op})
                 }
-            }
-        })
-        queryTypes().then(data => {
-            if(data.success){
-                this.state.types.push({label:'不限',value:''})
-                for(let op of data.list){
-                    this.state.types.push({label:op.name,value:op.name})
+                for(let op of data.types){
+                    types.push({label:op,value:op})
                 }
-            }
-        })
-        getResByUserId().then(data => {
-            if(data.success){
-                let arr = [];
-                arr.push({label:'不限', value:''})
-                for(let op of data.list){
-                    arr.push({label:op.name,value:op.id});
+                for(let op of data.rest){
+                    resOptions.push({label:op.name,value:op.id})
                 }
+                for(let province in data.qy){
+                    let cities = [{label:'不限',value:''}];
+                    for(let city in data.qy[province].childs){
+                        let countries = [{label:'不限',value:''}];
+                        for(let country in data.qy[province].childs[city].childs){
+                            countries.push({
+                                label:data.qy[province].childs[city].childs[country].value,
+                                value:data.qy[province].childs[city].childs[country].name,
+                            })
+                        }
+                        cities.push({
+                            label:data.qy[province].childs[city].value,
+                            value:data.qy[province].childs[city].name,
+                            children:countries
+                        })
+                    }
+                    cityData.push({
+                        label:data.qy[province].value,
+                        value:data.qy[province].name,
+                        children:cities
+                    })
+                }
+
+
                 this.setState({
-                    resOptions:arr
+                    brands:brands,
+                    groups:groups,
+                    types:types,
+                    resOptions:resOptions,
+                    cityData:cityData
                 })
-            }else{
-                Toast.fail(data.msg, 1);
             }
         })
+    }
 
+    async queryReport_groups(v){
+        await this.setState({ sValue: v });
+        this.setAllOptions();
+    }
 
+    async queryReport_brands(v){
+        await this.setState({ bValue: v });
+        this.setAllOptions();
+    }
+    async queryReport_types(v){
+        await this.setState({ typeValue: v });
+        this.setAllOptions();
+    }
+    async queryReport_resOptions(v){
+        await this.setState({ resValue: v });
+        this.setAllOptions();
+    }
+    async queryReport_P_C_C(v){
+        await this.setState({ pickerValue: v });
+        this.setAllOptions();
     }
 
     componentWillMount() {
@@ -144,7 +235,9 @@ class Report extends React.Component{
         const {startDate,endDate,sValue,bValue,pickerValue,selectedValue,tValue,resValue,startNums,endNums} = this.state
 
         queryAssessHis(
-            startDate,endDate,sValue,bValue,pickerValue[0],pickerValue[1],pickerValue[2],'',selectedValue,tValue,resValue,startNums,endNums
+            startDate,endDate,sValue,bValue,pickerValue[0],
+            pickerValue[1]?pickerValue[1]:'',
+            pickerValue[2]?pickerValue[2]:'','',tValue,resValue,startNums,endNums
         ).then(data => {
             console.log(data)
             if(data.success){
@@ -174,7 +267,7 @@ class Report extends React.Component{
 
     render(){
         
-        const {groups,brands,types,resOptions} = this.state
+        const {groups,brands,types,resOptions,cityData} = this.state
         return <div>
             <div><NavBar
                 mode="light"
@@ -189,6 +282,7 @@ class Report extends React.Component{
                         mode="date"
                         extra='2018-05-01'
                         value={this.state.startDate}
+                        onOk={date => this.setState({startDate: date })}
                         onChange={date => this.setState({startDate: date })}
                         >
                                 <List.Item style={{flex:1}}>
@@ -206,45 +300,52 @@ class Report extends React.Component{
                             </List.Item>
                         </DatePicker>
                     </div>
-                    <Picker
-                        cols={1}
-                        data={groups}
-                        value={this.state.sValue}
-                        onOk={(v) => this.setState({ sValue: v })}
-                        onChange={v => this.setState({ sValue: v })}
-                        extra="不限"
-                    >
-                        <List.Item arrow="horizontal">集团</List.Item>
-                    </Picker>
-                    <Picker
-                        cols={1}
-                        data={brands}
-                        value={this.state.bValue}
-                        onOk={(v) => this.setState({ bValue: v })}
-                        onChange={v => this.setState({ bValue: v })}
-                        extra="不限"
-                    >
-                        <List.Item arrow="horizontal">品牌</List.Item>
-                    </Picker>
+                    {
+                        groups.length>0?<Picker
+                            cols={1}
+                            data={groups}
+                            value={this.state.sValue}
+                            onChange={v => this.queryReport_groups(v)}
+                            onOk={v => this.queryReport_groups(v)}
+                        >
+                            <List.Item arrow="horizontal">集团</List.Item>
+                        </Picker>:null
+                    }
+
+                    {
+                        brands.length>0?<Picker
+                            cols={1}
+                            data={brands}
+                            value={this.state.bValue}
+                            onChange={v => this.queryReport_brands(v)}
+                            onOk={v => this.queryReport_brands(v)}
+                        >
+                            <List.Item arrow="horizontal">品牌</List.Item>
+                        </Picker>:null
+                    }
+
                     <Picker
                         data={cityData}
                         value={this.state.pickerValue}
-                        onChange={v => this.setState({ pickerValue: v })}
-                        onOk={v => this.setState({ pickerValue: v })}
+                        onChange={v => this.queryReport_P_C_C(v)}
+                        onOk={v => this.queryReport_P_C_C(v)}
                         extra="不限"
                     >
                         <List.Item arrow="horizontal">区域</List.Item>
                     </Picker>
-                    <Picker
-                        cols={1}
-                        data={types}
-                        value={this.state.tValue}
-                        onChange={v => this.setState({ tValue: v })}
-                        onOk={v => this.setState({ tValue: v })}
-                        extra="不限"
-                    >
-                        <List.Item arrow="horizontal">品类</List.Item>
-                    </Picker>
+                    {
+                        types.length>0?<Picker
+                            cols={1}
+                            data={types}
+                            value={this.state.typeValue}
+                            onChange={v => this.queryReport_types(v)}
+                            onOk={v => this.queryReport_types(v)}
+                            extra="不限"
+                        >
+                            <List.Item arrow="horizontal">品类</List.Item>
+                        </Picker>:null
+                    }
+
                     <List.Item
                         extra={
                         <div>
@@ -280,17 +381,20 @@ class Report extends React.Component{
                                 onChange={(e) => this.onAuditChange(e)}/>&nbsp;外审
                             </label>
                         </div>}>审核类型</List.Item>
-                    <Picker
-                        cols={1}
-                        data={resOptions}
-                        value={this.state.resValue}
-                        onChange={v => this.setState({ resValue: v })}
-                        onOk={v => this.setState({ resValue: v })}
-                        extra="不限"
-                    >
+                    {
+                        resOptions.length>0?<Picker
+                            cols={1}
+                            data={resOptions}
+                            value={this.state.resValue}
+                            onChange={v => this.queryReport_resOptions(v)}
+                            onOk={v => this.queryReport_resOptions(v)}
+                            extra="不限"
+                        >
 
-                        <List.Item arrow="horizontal">门店</List.Item>
-                    </Picker>
+                            <List.Item arrow="horizontal">门店</List.Item>
+                        </Picker>:null
+                    }
+
                     <div style={{display:'flex',flexDirection:'row'}}>
                         <List.Item>审核分数</List.Item>
                         <InputItem type="number" placeholder="0" onChange={val => this.setState({startNums:val})} style={{width:50}}></InputItem>

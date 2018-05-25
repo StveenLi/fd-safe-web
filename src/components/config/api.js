@@ -207,21 +207,19 @@ export const queryUnitRank = (sstartDate,sendDate,groups,brand,proviceId,cityId,
 
 
 
-export const queryAssessHis = (sstartDate,sendDate,groups,brand,proviceId,cityId,countyId,townId,models,types,cantingId,startNums,endNums) => {
-    //console.log(`sstartDate=${sstartDate}&sendDate=${sendDate}&groups=${groups}&brand=${brand}&proviceId=${proviceId}&cityId=${cityId}&countyId=${countyId}&townId=${townId}&models=${models}&types=${types}&cantingId=${cantingId}&startNums=${startNums}&endNums=${endNums}`)
+export const queryAssessHis = (sstartDate,sendDate,groups,brand,proviceId,cityId,countyId,models,types,cantingId,startNums,endNums) => {
     let formData = new FormData();
     formData.append('userId',user.id);
-    //formData.append('sstartDate',sstartDate);
-    //formData.append('sendDate',sendDate);
-    //formData.append('groups',groups);
-    //formData.append('brand',brand);
-    //formData.append('proviceId',proviceId);
-    //formData.append('cityId',cityId);
-    //formData.append('countyId',countyId);
-    //formData.append('townId','');
-    //formData.append('types',types);
-    //formData.append('models',models);
-    //formData.append('cantingId',cantingId);
+    formData.append('sstartDate',_isUndefined(sstartDate));
+    formData.append('sendDate',_isUndefined(sendDate));
+    formData.append('groups',_isUndefined(groups));
+    formData.append('brand',_isUndefined(brand));
+    formData.append('proviceId',_isUndefined(proviceId));
+    formData.append('cityId',_isUndefined(cityId));
+    formData.append('countyId',_isUndefined(countyId));
+    formData.append('types',_isUndefined(types));
+    formData.append('models',_isUndefined(models));
+    formData.append('cantingId',_isUndefined(cantingId));
     formData.append('startNums',startNums);
     formData.append('endNums',endNums);
     formData.append('start',0);
@@ -300,4 +298,27 @@ export const checkUnStandard = (planId) => {
     let formData = new FormData();
     formData.append('planId',planId);
     return new Requester(_POST_(formData),'/rest/assess/checkUnStandard').do_fetch();
+}
+
+export const getKeyOption = (planId) => {
+    let formData = new FormData();
+    formData.append('planId',planId);
+    return new Requester(_POST_(formData),'/rest/assess/getKeyOption').do_fetch();
+}
+
+export const getReportOption = (sstartDate,sendDate,groups,brand,proviceId,cityId,countyId,types,cantingId,startNums,endNums) => {
+    let formData = new FormData();
+    formData.append('userId',user.id);
+    formData.append('sstartDate',_isUndefined(sstartDate));
+    formData.append('sendDate',_isUndefined(sendDate));
+    formData.append('groups',_isUndefined(groups));
+    formData.append('brand',_isUndefined(brand));
+    formData.append('proviceId',_isUndefined(proviceId));
+    formData.append('cityId',_isUndefined(cityId));
+    formData.append('countyId',_isUndefined(countyId));
+    formData.append('types',_isUndefined(types));
+    formData.append('cantingId',_isUndefined(cantingId));
+    formData.append('startNums',_isUndefined(startNums));
+    formData.append('endNums',_isUndefined(endNums));
+    return new Requester(_POST_(formData),'/rest/common/queryReport').do_fetch();
 }

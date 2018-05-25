@@ -26,25 +26,27 @@ class AuditQuestions extends React.Component{
       }
 
     back = e => {
+
         const {history} = this.props
         history.push('/startAudit');
     };
     onChange = (key) => {
         console.log(key);
     }
-    toDetail(auditId,firstAudit){
+    toDetail(auditId,firstAudit,questionIds){
+
         let transmitParam = {};
-        let questionIds = [];
         const {locationState} = this.state;
 
-        for(let fa of firstAudit.childAssess){
-            questionIds.push(fa.auditeId);
-        }
+        //for(let fa of firstAudit.childAssess){
+        //    questionIds.push(fa.auditeId);
+        //}
         transmitParam.planId = parseInt(this.state.locationState.planId);
         transmitParam.auditName = firstAudit.fristTitle;
         transmitParam.questionIds = questionIds;
         transmitParam.resId = locationState.resId;
         transmitParam.typeId = locationState.typeId;
+        console.log(transmitParam.questionIds)
         this.props.history.push(`/questionDetail/${auditId}`,[{transmitParam:transmitParam}]);
     }
 
@@ -128,7 +130,7 @@ class AuditQuestions extends React.Component{
     
     setAudits(childAssess){
             let {unDoIds,auditLocation} = this.state;
-
+            let questionIds = [];
             return <Accordion defaultActiveKey={(auditLocation-1).toString()} accordion openAnimation={{}} className="my-accordion"
                        onChange={this.onChange}>
                 {childAssess.map((firstAudit, aindex) => {
@@ -138,8 +140,11 @@ class AuditQuestions extends React.Component{
                                             key={aindex}>
                         {
                             firstAudit.childAssess.map((secondAudit, index) => {
+                                if(questionIds.indexOf(secondAudit.auditeId)==-1){
+                                        questionIds.push(secondAudit.auditeId);
+                                }
                                 return <List.Item style={{background:'#fbfbff'}}
-                                                  onClick={()=>this.toDetail(secondAudit.auditeId,firstAudit)}
+                                                  onClick={()=>this.toDetail(secondAudit.auditeId,firstAudit,questionIds)}
                                                   key={index}><div style={{display:'flex',flexDirection:'row'}}><div style={{flex:1}}>&nbsp;&nbsp;&nbsp;&nbsp;{secondAudit.secondTitle}</div>{secondAudit.isDo==1?<div><img style={{width:15}} src={require('../assets/icon/yes.svg')}/></div>:null}</div></List.Item>
                             })
                         }
