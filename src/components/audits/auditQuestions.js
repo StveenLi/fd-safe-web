@@ -136,7 +136,11 @@ class AuditQuestions extends React.Component{
                 {childAssess.map((firstAudit, aindex) => {
                     let dos = 0;
                     firstAudit.childAssess.forEach((item,index)=>{if(item.isDo == 1){dos++;}})
-                    return <Accordion.Panel header={<div style={{display:'flex',flexDirection:'row'}}><div style={{flex:1}}>{firstAudit.fristTitle}</div><div style={{color:'#e41717',marginRight:10}}>{dos}/{firstAudit.childAssess.length}</div></div>} className="pad"
+                    return <Accordion.Panel header={<div style={{display:'flex',flexDirection:'row'}}>
+                    <div style={{flex:1}}>{firstAudit.fristTitle}</div>
+                    <div style={{color:'#e41717',marginRight:10}}>{dos != firstAudit.childAssess.length?`${dos}/${firstAudit.childAssess.length}`:<img style={{width:20,marginTop:11}} src={require('../assets/icon/yes_green.svg')}/>}</div>
+                    </div>}
+                                            className="pad"
                                             key={aindex}>
                         {
                             firstAudit.childAssess.map((secondAudit, index) => {

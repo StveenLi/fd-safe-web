@@ -156,6 +156,9 @@ class AuditComplete extends React.Component{
                 <div style={{marginLeft:120,marginTop:-20}}>分</div>
             </div>
 
+            <div style={{background:'#fff',padding:15,color:{scoreColor}}}>{scoreColor == '#ff5b5b'?'本次审核未通过':'本次审核通过'}</div>
+
+
             <div style={{textAlign:'left',marginTop:10}}>
                 <div style={{background:'#fff',padding:15,fontSize:16}}>不符合的严重项</div>
                 {this.state.importants.map((important,index) => {

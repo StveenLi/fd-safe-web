@@ -185,6 +185,10 @@ class QuestionDetail extends React.Component{
                 }
             }
             
+            if(isNoUse){
+                subJson.isKey = 4
+            }
+            
             
             subArr.push(subJson)
 

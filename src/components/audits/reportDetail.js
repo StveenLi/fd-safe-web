@@ -125,7 +125,7 @@ class ReportDetail extends React.Component{
                         </div>
                         <div style={{ display: 'flex', textAlign:'left' }}>
                             <div style={{ width:'100%' }}>
-                                <Accordion defaultActiveKey="0" className="my-accordion">
+                                <Accordion activeKey={['0','1','2','3','4','5','6','7']} className="my-accordion">
                                     {
 
                                         childAssess.map((item,index) => {
