@@ -112,11 +112,13 @@ class AuditComplete extends React.Component{
                             },
 
                         ],
+                        areaStyle: {normal: {color:'#dfedff'}},
+
                         lineStyle:{
-                            color:BLUE
+                            color:'#81B7FF'
                         },
                         itemStyle:{
-                            color:BLUE
+                            color:'#81B7FF'
                         }
                     }
                 ]
