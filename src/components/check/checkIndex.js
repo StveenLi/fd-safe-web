@@ -34,7 +34,7 @@ class CheckIndex extends React.Component{
         history.goBack();
     };
     render(){
-        const { value, value2, value3, value4 } = this.state;
+        const { value } = this.state;
 
         const data = [
             { value: 0, label: '1、食安制度' },

@@ -3,13 +3,12 @@
  */
 
 import React from 'react'
-import { NavBar,Icon,Picker,Tabs, WhiteSpace,Button,Toast} from 'antd-mobile';
+import { NavBar,Icon,Tabs,Button,Toast} from 'antd-mobile';
 
 import { StickyContainer, Sticky } from 'react-sticky';
-import styles,{GREY,BLUE} from '../config/style'
+import {GREY,BLUE} from '../config/style'
 import StaticsAll from '../audits/staticsAll'
 import StaticsType from '../audits/staticsType'
-import StaticsStore from '../audits/staticsStore'
 import StaticsCompare from '../audits/staticsCompare'
 import StaticsRadar from '../audits/staticsRadar'
 import cityData from '../config/cityData'
@@ -149,7 +148,7 @@ class StaticsPage extends React.Component{
                         <Tabs tabs={tabs}
                               initialPage={0}
                               onChange={(tab, index) => { console.log('onChange', index, tab); }}
-                              onTabClick={(tab, index) => {index == 2?this.setState({bottomDisplay:''}):this.setState({bottomDisplay:'none'})}}
+                              onTabClick={(tab, index) => {index === 2?this.setState({bottomDisplay:''}):this.setState({bottomDisplay:'none'})}}
                         >
                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', }}>
                                 <StaticsAll cityData={cityData} groups={groups} brands={brands} types={types} resOptions={resOptions}></StaticsAll>

@@ -7,10 +7,10 @@ import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/title';
 import 'echarts/lib/chart/bar';
 import 'echarts/lib/chart/pie';
-import {List,DatePicker,Icon,Drawer,Picker,Button,Toast} from 'antd-mobile'
+import {List,Picker,Button} from 'antd-mobile'
 import SearchComponent from '../common/searchComponent'
 import {BLUE} from '../config/style'
-import {queryAssessHis,queryUnitRank,queryDateRange,queryTrend} from '../config/api'
+import {queryUnitRank,queryDateRange,queryTrend} from '../config/api'
 class StaticsType extends React.Component{
 
 

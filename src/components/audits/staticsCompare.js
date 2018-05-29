@@ -2,8 +2,8 @@
  * Created by lixin on 2018/4/17.
  */
 import React from 'react'
-import {WhiteSpace,InputItem,Picker,Button,List} from 'antd-mobile'
-import styles,{GREY,BLUE} from '../config/style'
+import {WhiteSpace,Picker,List} from 'antd-mobile'
+import styles,{GREY} from '../config/style'
 import SearchComponent from '../common/searchComponent'
 
 class StaticsCompare extends React.Component{

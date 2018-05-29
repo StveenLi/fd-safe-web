@@ -3,7 +3,7 @@
  */
 
 import React from 'react'
-import {NavBar,Icon,WhiteSpace} from 'antd-mobile'
+import {WhiteSpace} from 'antd-mobile'
 import echarts from 'echarts/lib/echarts';
 import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/title';

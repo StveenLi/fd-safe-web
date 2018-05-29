@@ -2,12 +2,9 @@
  * Created by lixin on 2018/4/9.
  */
 import React, { Component } from 'react';
-import { List, InputItem, WhiteSpace, Button,Toast} from 'antd-mobile';
+import {InputItem, Button,Toast} from 'antd-mobile';
 import {screenHeight,GREY,ORANGE,BLUE} from '../config/style'
 import CountDown from 'react-codedown'
-import {
-    NavLink
-} from 'react-router-dom'
 import {sendValidCode,login,user} from '../config/api'
 import Utils from '../config/utils'
 

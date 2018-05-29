@@ -7,7 +7,7 @@ import { StickyContainer, Sticky } from 'react-sticky';
 import {
     NavLink
 } from 'react-router-dom'
-import styles,{GREY,BLUE,screenWidth,FONTGREY} from '../config/style'
+import styles,{GREY,FONTGREY} from '../config/style'
 
 class mainComponent extends React.Component{
 

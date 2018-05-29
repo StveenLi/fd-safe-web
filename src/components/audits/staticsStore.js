@@ -2,7 +2,7 @@
  * Created by lixin on 2018/4/17.
  */
 import React from 'react'
-import { NavBar,Icon,Picker,Tabs, WhiteSpace} from 'antd-mobile';
+import { Picker} from 'antd-mobile';
 import styles,{GREY} from '../config/style'
 import echarts from 'echarts/lib/echarts';
 import 'echarts/lib/component/tooltip';

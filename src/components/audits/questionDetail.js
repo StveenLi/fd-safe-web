@@ -3,7 +3,7 @@
  */
 
 import React from 'react'
-import { Accordion, List,NavBar,Icon,Badge,Popover,Checkbox,Modal,Toast} from 'antd-mobile';
+import { List,NavBar,Icon,Popover,Checkbox,Modal,Toast} from 'antd-mobile';
 import styles,{GREY,BLUE} from '../config/style'
 import {getQuestionDetail,submitAssess} from '../config/api'
 import Remarks from './remarks'
@@ -55,7 +55,7 @@ class QuestionDetail extends React.Component{
             visible: false,
             selected: opt.props.value,
         });
-        opt.props.value == 'video'?this.props.history.push('/trainVideoPage',[{videoUrl:this.state.videoUrl}]):this.props.history.push('/trainImgDetailPage',[{imgUrl:this.state.imgUrl}])
+        opt.props.value === 'video'?this.props.history.push('/trainVideoPage',[{videoUrl:this.state.videoUrl}]):this.props.history.push('/trainImgDetailPage',[{imgUrl:this.state.imgUrl}])
     };
     handleVisibleChange = (visible) => {
         this.setState({
@@ -227,16 +227,16 @@ class QuestionDetail extends React.Component{
             Toast.fail('数据不存在，请刷新重试!', 1);
             return;
         }
-        if(locationState.questionIds.indexOf(parseInt(auditId)) + 1 == locationState.questionIds.length){
+        if(locationState.questionIds.indexOf(parseInt(auditId)) + 1 === locationState.questionIds.length){
             Toast.fail('已经是最后一题了！', 1);
             return;
         }
 
         for(let remark of remarkList){
             //如果未选择
-            if(chooseValues.indexOf(remark.itemId)==-1){
+            if(chooseValues.indexOf(remark.itemId)===-1){
                 if(remark.isKey!=4){
-                    if((!remark.content||remark.content=='')&&(!remark.images||remark.images.length==0)){
+                    if((!remark.content||remark.content==='')&&(!remark.images||remark.images.length===0)){
                         Toast.fail('请全部做完再提交！', 1);
                         return;
                     }
@@ -253,15 +253,15 @@ class QuestionDetail extends React.Component{
 
     previousQuestion(){
         const {locationState,auditId,remarkList,chooseValues} = this.state;
-        if(locationState.questionIds.indexOf(parseInt(auditId)) == 0){
+        if(locationState.questionIds.indexOf(parseInt(auditId)) === 0){
             Toast.fail('这是第一题！', 1);
             return;
         }
         for(let remark of remarkList){
             //如果未选择
-            if(chooseValues.indexOf(remark.itemId)==-1){
+            if(chooseValues.indexOf(remark.itemId)===-1){
                 if(remark.isKey!=4){
-                    if((!remark.content||remark.content=='')&&(!remark.images||remark.images.length==0)){
+                    if((!remark.content||remark.content==='')&&(!remark.images||remark.images.length===0)){
                         Toast.fail('请全部做完再提交！', 1);
                         return;
                     }

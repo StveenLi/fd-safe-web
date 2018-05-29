@@ -46,7 +46,6 @@ class AuditQuestions extends React.Component{
         transmitParam.questionIds = questionIds;
         transmitParam.resId = locationState.resId;
         transmitParam.typeId = locationState.typeId;
-        console.log(transmitParam.questionIds)
         this.props.history.push(`/questionDetail/${auditId}`,[{transmitParam:transmitParam}]);
     }
 

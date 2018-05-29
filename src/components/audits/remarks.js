@@ -3,7 +3,7 @@
  */
 
 import React from 'react'
-import { Accordion, List,NavBar,Icon,Badge,ImagePicker, WingBlank, SegmentedControl,Button} from 'antd-mobile';
+import {NavBar,ImagePicker,Button} from 'antd-mobile';
 import styles,{screenWidth} from '../config/style'
 import {upload} from '../config/api'
 import {BLUE} from '../config/style'
@@ -54,11 +54,10 @@ class Remarks extends React.Component{
     }
 
     onChange = (files, type, index) => {
-        console.log(files, type, index);
         this.setState({
             files,
         });
-        if(type == 'add'){
+        if(type === 'add'){
             let _file;
             if((typeof(index) == "undefined")){
                 index = 0
@@ -72,7 +71,7 @@ class Remarks extends React.Component{
                 })
             }
         }
-        if(type == 'remove'){
+        if(type === 'remove'){
             this.state.images.splice(index);
         }
     }

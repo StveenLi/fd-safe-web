@@ -8,6 +8,7 @@ import {NavBar, Button,Icon,Tabs,Accordion, List,Toast} from 'antd-mobile'
 import styles,{BLUE,GREY,FONTGREY} from '../config/style'
 import { StickyContainer, Sticky } from 'react-sticky';
 import {getAssessDetail} from '../config/api'
+import Viewer from 'react-viewer';
 
 class ReportDetail extends React.Component{
 
@@ -18,7 +19,9 @@ class ReportDetail extends React.Component{
         // 初始状态
         this.state = {
             assessId:'',
-            reportData:{}
+            reportData:{},
+            visible:false,
+            images:[]
         };
       }
 
@@ -39,6 +42,13 @@ class ReportDetail extends React.Component{
 
     componentWillMount() {
         this.setState({assessId:this.props.match.params.assessId});
+    }
+
+    async imgClick(img){
+
+        let imgs = [img];
+        await this.setState({images:imgs})
+        this.setState({visible:true})
     }
     render(){
         const tabs = [
@@ -134,16 +144,20 @@ class ReportDetail extends React.Component{
                                                 <List className="my-list">
                                                     {
                                                         item.childAssess.map((secondItem,index) => {
+
                                                             return secondItem.assessOptions.length>0?<List.Item style={{background:'#fbfbff',}} wrap={true} multipleLine={true} key={index}>
                                                                 {
                                                                     secondItem.assessOptions.map((thirdItem, index) => {
-                                                                        return <div>
+                                                                        let imgs = thirdItem.imgs;
+                                                                        return <div key={index}>
                                                                             <div style={{fontSize:15,color:FONTGREY}}>{`${thirdItem.sort}.${thirdItem.title}`}</div>
                                                                             <div style={{fontSize:15}}>备注：</div>
                                                                             <div>
+
                                                                                 {
-                                                                                    thirdItem.length>0?thirdItem.imgs.map((fourthItem,index) => {
-                                                                                        return <img key={index} src={require(thirdItem)}></img>
+                                                                                    imgs?imgs.map((img,index) => {
+                                                                                        return <div key={index}><img onClick={() => this.imgClick(img)} key={index} src={img}></img></div>
+
                                                                                     }):null
                                                                                 }
                                                                                 </div>
@@ -170,6 +184,14 @@ class ReportDetail extends React.Component{
 
                 </StickyContainer>
             </div>
+            <Viewer
+                visible={this.state.visible}
+                onClose={() => { this.setState({ visible: false }); } }
+                images={[{src: this.state.images[0], alt: ''}]}
+                noNavbar={true}
+                noToolbar={true}
+                noClose={false}
+            />
         </div>
     }
 }

@@ -1,8 +1,8 @@
 
 
 import React from 'react'
-import { NavBar,Icon,SearchBar} from 'antd-mobile';
-import styles,{BLUE,FONTGREY,GREY} from '../config/style'
+import { NavBar} from 'antd-mobile';
+import {BLUE,GREY} from '../config/style'
 import echarts from 'echarts/lib/echarts';
 import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/title';
@@ -37,10 +37,10 @@ class AuditComplete extends React.Component{
         }
 
         for(let tran of transmitParam){
-            if(tran.name=='SJZF'){
+            if(tran.name==='SJZF'){
                 this.state.sumCore = tran.value;
             }
-            else if(tran.name!='ZF'){
+            else if(tran.name!=='ZF'){
                 indicatorList.push({ text: tran.name, max: 100 });
                 dataVals.push(parseInt(tran.value))
             }
@@ -158,7 +158,7 @@ class AuditComplete extends React.Component{
                 <div style={{marginLeft:120,marginTop:-20}}>分</div>
             </div>
 
-            <div style={{background:'#fff',padding:15,color:{scoreColor}}}>{scoreColor == '#ff5b5b'?'本次审核未通过':'本次审核通过'}</div>
+            <div style={{background:'#fff',padding:15,color:{scoreColor}}}>{scoreColor === '#ff5b5b'?'本次审核未通过':'本次审核通过'}</div>
 
 
             <div style={{textAlign:'left',marginTop:10}}>

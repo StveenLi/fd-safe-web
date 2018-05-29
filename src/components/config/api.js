@@ -223,7 +223,7 @@ export const queryAssessHis = (sstartDate,sendDate,groups,brand,proviceId,cityId
     formData.append('startNums',startNums);
     formData.append('endNums',endNums);
     formData.append('start',0);
-    formData.append('pagesize',10);
+    formData.append('pagesize',100);
     return new Requester(_POST_(formData),'/rest/assessHisSearch/queryAssessHis').do_fetch();
 }
 
