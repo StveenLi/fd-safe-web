@@ -70,7 +70,6 @@ class AuditQuestions extends React.Component{
             }
         })
 
-        //doStatistics(this.state.locationState.planId,'123').then(data => {
         if(dolast){
             let transmitParam = {};
             const {locationState} = this.state;
@@ -78,13 +77,8 @@ class AuditQuestions extends React.Component{
             transmitParam.planId = parseInt(this.state.locationState.planId);
             transmitParam.resId = locationState.resId;
             transmitParam.typeId = locationState.typeId;
-            //if(data.success){
             this.props.history.push('/auditQuestionsResult',[{transmitParam:transmitParam}]);
         }
-            //}else {
-            //    Toast.fail(data.msg,1)
-            //}
-        //})
     }
     clear = () => {
         this.sigPad.clear()

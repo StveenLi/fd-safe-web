@@ -50,6 +50,16 @@ class QuestionDetail extends React.Component{
         
     };
 
+    shouldComponentUpdate(nextProps, nextState) {
+        if (this.props !== nextProps) {
+            return true;
+        }
+        if (this.state !== nextState) {
+            return true;
+        }
+        return false;
+    }
+
     onSelect = (opt) => {
         this.setState({
             visible: false,
@@ -96,11 +106,11 @@ class QuestionDetail extends React.Component{
             locationState:this.props.history.location.state[0].transmitParam
         })
         localStorage.setItem('auditLocation',this.props.history.location.state[0].transmitParam.auditName);
+        this.pageChange(this.props.history.location.state[0].transmitParam.planId,this.props.match.params.qid);
+
     }
 
     componentDidMount() {
-        const {locationState,auditId} = this.state
-        this.pageChange(locationState.planId,auditId);
     }
 
     //切换页面重新获取数据
@@ -215,7 +225,7 @@ class QuestionDetail extends React.Component{
             history.push('/auditQuestions',[{transmitParam:transmitParam}]);
         }else{
             let nextAuditId = locationState.questionIds[locationState.questionIds.indexOf(parseInt(auditId))+location];
-            this.props.history.push(`/questionDetail/${nextAuditId}`,[{transmitParam:locationState}]);
+            this.props.history.replace(`/questionDetail/${nextAuditId}`,[{transmitParam:locationState}]);
             
         }
         
@@ -421,15 +431,6 @@ class QuestionDetail extends React.Component{
                 </div>
                     {
                         this.getCheckBoxList(questionItem)
-                        /*questionItem.map((item, index) => {
-                            return <CheckboxItem defaultChecked={false}  key={index} wrap key={index} onChange={() => this.onChange(item.value)}>
-                                {item.label}
-                                <div
-                                    onClick={() => this.props.history.push('/remarks')}
-                                    style={{textAlign:'right',color:BLUE,paddingRight:15}}>备注
-                                </div>
-                            </CheckboxItem>
-                        })*/
                     }
             </div>
 
