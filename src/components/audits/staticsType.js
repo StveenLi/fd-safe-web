@@ -21,7 +21,7 @@ class StaticsType extends React.Component{
           // 初始状态
           this.state = {
               startDate:'',
-              endDate:'',
+              endDate:new Date(),
               resValue:'',
               sValue:'',
               bValue:'',
@@ -51,7 +51,7 @@ class StaticsType extends React.Component{
 
     serachResults(){
 
-        const {startDate,endDate,sValue,bValue,tValue,pickerValue} = this.state
+        const {startDate,endDate,sValue,bValue,tValue,pickerValue,resValue} = this.state
         let proviceId = '';
         let cityId = '';
         let countyId = '';
@@ -61,7 +61,7 @@ class StaticsType extends React.Component{
             countyId = pickerValue[2];
         }
         queryUnitRank(
-            startDate,endDate,sValue,bValue,proviceId,cityId,countyId,0,tValue,1
+            startDate.format('yyyy-MM-dd'),endDate.format('yyyy-MM-dd'),sValue,bValue,proviceId,cityId,countyId,0,tValue,1,resValue
         ).then(data => {
             if(data.success){
                 if(data.list.length>0){
@@ -159,7 +159,7 @@ class StaticsType extends React.Component{
 
                         }
                     })
-                    queryDateRange(startDate,endDate,resId).then(data => {
+                    queryDateRange(startDate.format('yyyy-MM-dd'),endDate.format('yyyy-MM-dd'),resId).then(data => {
                         if(data.success){
                             this.setOptionState(data.list)
                         }
@@ -243,27 +243,64 @@ class StaticsType extends React.Component{
 
     componentWillMount() {
         const {groups,brands,types,resOptions} = this.props
+        let startDate = new Date();
+        startDate.setMonth(startDate.getMonth()-3);
         this.setState({
             groups:groups,
             brands:brands,
             types:types,
             resOptions:resOptions,
+            startDate:startDate
         })
+
     }
     componentDidMount() {
         this.serachResults();
     }
+
+
+    async queryReport_groups(v){
+        await this.setState({ sValue: v });
+        const {startDate,endDate,sValue,bValue,pickerValue,typeValue,resValue} = this.state
+
+        this.props.setAllOptions(startDate,endDate,sValue,bValue,pickerValue,typeValue,resValue);
+    }
+
+    async queryReport_brands(v){
+        await this.setState({ bValue: v });
+        const {startDate,endDate,sValue,bValue,pickerValue,typeValue,resValue} = this.state
+
+        this.props.setAllOptions(startDate,endDate,sValue,bValue,pickerValue,typeValue,resValue);
+    }
+    async queryReport_types(v){
+        await this.setState({ tValue: v });
+        const {startDate,endDate,sValue,bValue,pickerValue,typeValue,resValue} = this.state
+
+        this.props.setAllOptions(startDate,endDate,sValue,bValue,pickerValue,typeValue,resValue);
+    }
+    async queryReport_resOptions(v){
+        await this.setState({ resValue: v });
+        const {startDate,endDate,sValue,bValue,pickerValue,typeValue,resValue} = this.state
+
+        this.props.setAllOptions(startDate,endDate,sValue,bValue,pickerValue,typeValue,resValue);
+    }
+    async queryReport_P_C_C(v){
+        await this.setState({ pickerValue: v });
+        const {startDate,endDate,sValue,bValue,pickerValue,typeValue,resValue} = this.state
+        this.props.setAllOptions(startDate,endDate,sValue,bValue,pickerValue,typeValue,resValue);
+    }
+
     render(){
-        const {groups,brands,types,rankResList} = this.state
-        const {cityData,resOptions} = this.props
+        const {rankResList} = this.state
+        const {groups,brands,types,cityData,resOptions} = this.props
 
         const sidebar = (<List style={{marginLeft:-15}}>
             <Picker
                 cols={1}
                 data={groups}
                 value={this.state.sValue}
-                onOk={(v) => this.setState({ sValue: v })}
-                onChange={v => this.setState({ sValue: v })}
+                onChange={v => this.queryReport_groups(v)}
+                onOk={v => this.queryReport_groups(v)}
             >
                 <List.Item arrow="horizontal">集团</List.Item>
             </Picker>
@@ -271,16 +308,16 @@ class StaticsType extends React.Component{
                 cols={1}
                 data={brands}
                 value={this.state.bValue}
-                onOk={(v) => this.setState({ bValue: v })}
-                onChange={v => this.setState({ bValue: v })}
+                onChange={v => this.queryReport_brands(v)}
+                onOk={v => this.queryReport_brands(v)}
             >
                 <List.Item arrow="horizontal">品牌</List.Item>
             </Picker>
             <Picker
                 data={cityData}
                 value={this.state.pickerValue}
-                onChange={v => this.setState({ pickerValue: v })}
-                onOk={v => this.setState({ pickerValue: v })}
+                onChange={v => this.queryReport_P_C_C(v)}
+                onOk={v => this.queryReport_P_C_C(v)}
             >
                 <List.Item arrow="horizontal">区域</List.Item>
             </Picker>
@@ -288,16 +325,16 @@ class StaticsType extends React.Component{
                 cols={1}
                 data={types}
                 value={this.state.tValue}
-                onChange={v => this.setState({ tValue: v })}
-                onOk={v => this.setState({ tValue: v })}>
+                onChange={v => this.queryReport_types(v)}
+                onOk={v => this.queryReport_types(v)}>
                 <List.Item arrow="horizontal">品类</List.Item>
             </Picker>
             <Picker
                 cols={1}
                 data={resOptions}
                 value={this.state.resValue}
-                onChange={v => this.setState({ resValue: v })}
-                onOk={v => this.setState({ resValue: v })}>
+                onChange={v => this.queryReport_resOptions(v)}
+                onOk={v => this.queryReport_resOptions(v)}>
                 <List.Item arrow="horizontal">门店</List.Item>
             </Picker>
             <div style={{width:'100%',display:'block',display:'flex',flexDirection:'row'}}>
@@ -315,6 +352,7 @@ class StaticsType extends React.Component{
                 docked={this.state.docked}
                 setStartDate={date => this.setState({ startDate:date })}
                 setEndDate={date => this.setState({ endDate:date })}
+                panelHeight={270}
             />
             <div id="typeStatics" style={{height:400,padding:15,backgroundColor: '#fff',marginTop:10,textAlign:'center' }}>
                 {rankResList.length>0?null:'暂无数据'}

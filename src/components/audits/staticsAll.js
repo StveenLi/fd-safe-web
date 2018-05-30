@@ -27,11 +27,12 @@ class StaticsAll extends React.Component{
 
             },
             startDate:'',
-            endDate:'',
+            endDate:new Date(),
             resValue:'',
             sValue:'',
             bValue:'',
             tValue:'',
+            leimuValue:'',
             pickerValue:{},
             groups:[],
             brands:[],
@@ -39,7 +40,8 @@ class StaticsAll extends React.Component{
             resOptions:[],
             rankResList:[],
             fiveController:true,
-            staticsLineColor:'#81B7FF'
+            staticsLineColor:'#81B7FF',
+
         };
       }
 
@@ -48,6 +50,14 @@ class StaticsAll extends React.Component{
     }
 
     componentWillMount() {
+        let startDate = new Date();
+        startDate.setMonth(startDate.getMonth()-3);
+        this.setState({startDate:startDate})
+    }
+
+
+
+    componentDidMount() {
         const {groups,brands,types,resOptions} = this.props
         this.setState({
             groups:groups,
@@ -56,13 +66,6 @@ class StaticsAll extends React.Component{
             resOptions:resOptions,
         })
         this.serachResults(1);
-
-    }
-
-
-
-    componentDidMount() {
-
     }
 
     onDock (d){
@@ -72,9 +75,45 @@ class StaticsAll extends React.Component{
         });
     }
 
+    async queryReport_groups(v){
+        await this.setState({ sValue: v });
+        const {startDate,endDate,sValue,bValue,pickerValue,typeValue,resValue} = this.state
+
+        this.props.setAllOptions(startDate,endDate,sValue,bValue,pickerValue,typeValue,resValue);
+    }
+
+    async queryReport_brands(v){
+        await this.setState({ bValue: v });
+        const {startDate,endDate,sValue,bValue,pickerValue,typeValue,resValue} = this.state
+
+        this.props.setAllOptions(startDate,endDate,sValue,bValue,pickerValue,typeValue,resValue);
+    }
+    async queryReport_types(v){
+        await this.setState({ tValue: v });
+        const {startDate,endDate,sValue,bValue,pickerValue,typeValue,resValue} = this.state
+
+        this.props.setAllOptions(startDate,endDate,sValue,bValue,pickerValue,typeValue,resValue);
+    }
+    async queryReport_resOptions(v){
+        await this.setState({ resValue: v });
+        const {startDate,endDate,sValue,bValue,pickerValue,typeValue,resValue} = this.state
+
+        this.props.setAllOptions(startDate,endDate,sValue,bValue,pickerValue,typeValue,v);
+    }
+    async queryReport_P_C_C(v){
+        await this.setState({ pickerValue: v });
+        const {startDate,endDate,sValue,bValue,pickerValue,typeValue,resValue} = this.state
+        this.props.setAllOptions(startDate,endDate,sValue,bValue,pickerValue,typeValue,resValue);
+    }
+    async queryReport_leimus(v){
+        await this.setState({ leimuValue: v });
+        const {startDate,endDate,sValue,bValue,pickerValue,typeValue,resValue} = this.state
+        this.props.setAllOptions(startDate,endDate,sValue,bValue,pickerValue,typeValue,resValue);
+    }
+
 
     serachResults(ascs){
-        const {startDate,endDate,sValue,bValue,tValue,pickerValue,rankResList} = this.state
+        const {startDate,endDate,sValue,bValue,tValue,pickerValue,resValue,leimuValue} = this.state
         let proviceId = '';
         let cityId = '';
         let countyId = '';
@@ -84,7 +123,7 @@ class StaticsAll extends React.Component{
             countyId = pickerValue[2];
         }
         queryUnitRank(
-            startDate,endDate,sValue,bValue,proviceId,cityId,countyId,0,tValue,ascs
+            startDate.format('yyyy-MM-dd'),endDate.format('yyyy-MM-dd'),sValue,bValue,proviceId,cityId,countyId,0,tValue,ascs,resValue,leimuValue
         ).then(data => {
             if(data.success){
                     this.queryDateRange(data.list[0])
@@ -96,9 +135,9 @@ class StaticsAll extends React.Component{
     }
 
     queryDateRange(item){
-        const {startDate,endDate} = this.state
+        const {startDate,endDate,leimuValue} = this.state
         if(item){
-            queryDateRange(startDate,endDate,item.id).then(data => {
+            queryDateRange(startDate.format('yyyy-MM-dd'),endDate.format('yyyy-MM-dd'),item.id,leimuValue).then(data => {
                 if(data.success){
                     this.setOptionState(data.list)
                 }
@@ -193,15 +232,15 @@ class StaticsAll extends React.Component{
 
 
     render(){
-        const {groups,brands,types,rankResList,fiveController,staticsLineColor} = this.state
-        const {cityData,resOptions} = this.props
+        const {rankResList,fiveController,staticsLineColor} = this.state
+        const {groups,brands,types,resOptions,cityData,leimus} = this.props
         const sidebar = (<List style={{marginLeft:-15}}>
             <Picker
                 cols={1}
                 data={groups}
                 value={this.state.sValue}
-                onOk={(v) => this.setState({ sValue: v })}
-                onChange={v => this.setState({ sValue: v })}
+                onChange={v => this.queryReport_groups(v)}
+                onOk={v => this.queryReport_groups(v)}
             >
                 <List.Item arrow="horizontal">集团</List.Item>
             </Picker>
@@ -209,16 +248,16 @@ class StaticsAll extends React.Component{
                 cols={1}
                 data={brands}
                 value={this.state.bValue}
-                onOk={(v) => this.setState({ bValue: v })}
-                onChange={v => this.setState({ bValue: v })}
+                onChange={v => this.queryReport_brands(v)}
+                onOk={v => this.queryReport_brands(v)}
             >
                 <List.Item arrow="horizontal">品牌</List.Item>
             </Picker>
             <Picker
                 data={cityData}
                 value={this.state.pickerValue}
-                onChange={v => this.setState({ pickerValue: v })}
-                onOk={v => this.setState({ pickerValue: v })}
+                onChange={v => this.queryReport_P_C_C(v)}
+                onOk={v => this.queryReport_P_C_C(v)}
             >
                 <List.Item arrow="horizontal">区域</List.Item>
             </Picker>
@@ -226,21 +265,30 @@ class StaticsAll extends React.Component{
                 cols={1}
                 data={types}
                 value={this.state.tValue}
-                onChange={v => this.setState({ tValue: v })}
-                onOk={v => this.setState({ tValue: v })}>
+                onChange={v => this.queryReport_types(v)}
+                onOk={v => this.queryReport_types(v)}>
                 <List.Item arrow="horizontal">品类</List.Item>
+            </Picker>
+            <Picker
+                cols={1}
+                data={leimus}
+                value={this.state.leimuValue}
+                onChange={v => this.queryReport_leimus(v)}
+                onOk={v => this.queryReport_leimus(v)}
+            >
+                <List.Item arrow="horizontal">类目</List.Item>
             </Picker>
             <Picker
                 cols={1}
                 data={resOptions}
                 value={this.state.resValue}
-                onChange={v => this.setState({ resValue: v })}
-                onOk={v => this.setState({ resValue: v })}>
+                onChange={v => this.queryReport_resOptions(v)}
+                onOk={v => this.queryReport_resOptions(v)}>
                 <List.Item arrow="horizontal">门店</List.Item>
             </Picker>
             <div style={{width:'100%',display:'block',display:'flex',flexDirection:'row'}}>
                 <Button style={{flex:1}}>重置</Button>
-                <Button style={{flex:1}} onClick={() => this.serachResults()} type="primary">提交</Button>
+                <Button style={{flex:1}} onClick={() => this.serachResults(1)} type="primary">提交</Button>
             </div>
         </List>);
         return <div>
@@ -253,6 +301,7 @@ class StaticsAll extends React.Component{
                 docked={this.state.docked}
                 setStartDate={date => this.setState({ startDate:date })}
                 setEndDate={date => this.setState({ endDate:date })}
+                panelHeight={310}
             />
             <div style={{padding:15,background:'#fff',marginTop:10}}>
                 <div style={{display:'flex',flexDirection:'row'}}>

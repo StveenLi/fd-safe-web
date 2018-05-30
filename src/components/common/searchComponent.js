@@ -44,7 +44,7 @@ class SearchComponent extends React.Component{
                                 <Icon style={{marginTop:3}} type="ellipsis" />
                             </List.Item>
                         </div>
-                            <List.Item style={{height:270,display:this.props.searchDisplay}}>
+                            <List.Item style={{height:this.props.panelHeight,display:this.props.searchDisplay}}>
                             <Drawer
                                 style={{ minHeight: document.documentElement.clientHeight }}
                                 contentStyle={{ color: '#A6A6A6', textAlign: 'center', paddingTop: 42 }}

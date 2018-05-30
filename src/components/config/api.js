@@ -189,18 +189,19 @@ export const queryTypes = () => {
 }
 
 
-export const queryUnitRank = (sstartDate,sendDate,groups,brand,proviceId,cityId,countyId,townId,types,ascs) => {
+export const queryUnitRank = (sstartDate,sendDate,groups,brand,proviceId,cityId,countyId,townId,types,ascs,cantingId,category) => {
     let formData = new FormData();
     formData.append('userId',user.id);
     formData.append('sstartDate',sstartDate);
     formData.append('sendDate',sendDate);
     formData.append('groups',groups);
     formData.append('brand',brand);
-    formData.append('proviceId',proviceId);
-    formData.append('cityId',cityId);
-    formData.append('countyId',countyId);
-    formData.append('townId',townId);
+    formData.append('proviceId',_isUndefined(proviceId));
+    formData.append('cityId',_isUndefined(cityId));
+    formData.append('countyId',_isUndefined(countyId));
+    formData.append('cantingId',_isUndefined(cantingId));
     formData.append('types',types);
+    formData.append('category',_isUndefined(category));
     formData.append('ascs',ascs);
     return new Requester(_POST_(formData),'/rest/assessAnalysis/queryUnitRank').do_fetch();
 }
@@ -235,7 +236,7 @@ export const getAssessDetail = (assessId) =>{
 }
 
 
-export const queryDateRange = (sstartDate,sendDate,resId,groups,brand,proviceId,cityId,countyId,townId,types) => {
+export const queryDateRange = (sstartDate,sendDate,resId,category,groups,brand,proviceId,cityId,countyId,townId,types) => {
     let formData = new FormData();
     formData.append('userId',user.id);
     formData.append('sstartDate',sstartDate);
@@ -248,7 +249,7 @@ export const queryDateRange = (sstartDate,sendDate,resId,groups,brand,proviceId,
     formData.append('townId',_isUndefined(townId));
     formData.append('types',_isUndefined(types));
     formData.append('cantingId',_isUndefined(resId));
-
+    formData.append('category',_isUndefined(category));
     return new Requester(_POST_(formData),'/rest/assessAnalysis/queryDateRange').do_fetch();
 }
 
@@ -321,4 +322,16 @@ export const getReportOption = (sstartDate,sendDate,groups,brand,proviceId,cityI
     formData.append('startNums',_isUndefined(startNums));
     formData.append('endNums',_isUndefined(endNums));
     return new Requester(_POST_(formData),'/rest/common/queryReport').do_fetch();
+}
+
+export const getLowNotice = () => {
+    return new Requester(_POST_(),'rest/notice/LowNotice').do_fetch();
+}
+
+export const queryPlanList = () => {
+    let formData = new FormData();
+    formData.append('userId',user.id);
+    return new Requester(_POST_(formData),'/rest/common/queryPlanList').do_fetch();
+
+
 }

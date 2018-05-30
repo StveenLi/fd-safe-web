@@ -156,7 +156,7 @@ class ReportDetail extends React.Component{
 
                                                                                 {
                                                                                     imgs?imgs.map((img,index) => {
-                                                                                        return <div key={index}><img onClick={() => this.imgClick(img)} key={index} src={img}></img></div>
+                                                                                        return <div key={index}><img onClick={() => this.imgClick(img)} style={{width:'25%',height:'25%'}} key={index} src={img}></img></div>
 
                                                                                     }):null
                                                                                 }

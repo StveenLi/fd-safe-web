@@ -11,8 +11,7 @@ import StaticsAll from '../audits/staticsAll'
 import StaticsType from '../audits/staticsType'
 import StaticsCompare from '../audits/staticsCompare'
 import StaticsRadar from '../audits/staticsRadar'
-import cityData from '../config/cityData'
-import {getGroupName,getBrandName,queryTypes,getResByUserId,queryTrend} from '../config/api'
+import {queryTrend,getReportOption} from '../config/api'
 
 class StaticsPage extends React.Component{
 
@@ -31,49 +30,15 @@ class StaticsPage extends React.Component{
             AResult:{},
             BResult:{},
             ARadarDataList:[],
-            BRadarDataList:[]
+            BRadarDataList:[],
+            cityData:[],
+            leimus:[]
+
         };
       }
 
-    componentDidMount() {
-        getGroupName().then(data => {
-            if(data.success){
-                this.state.groups.push({label:'不限',value:''})
-                for(let op of data.list){
-                    this.state.groups.push({label:op.name,value:op.name})
-                }
-            }
-        })
-        getBrandName().then(data => {
-            if(data.success){
-                this.state.brands.push({label:'不限',value:''})
-                for(let op of data.list){
-                    this.state.brands.push({label:op.name,value:op.name})
-                }
-            }
-        })
-        queryTypes().then(data => {
-            if(data.success){
-                this.state.types.push({label:'不限',value:''})
-                for(let op of data.list){
-                    this.state.types.push({label:op.name,value:op.name})
-                }
-            }
-        })
-        getResByUserId().then(data => {
-            if(data.success){
-                let arr = [];
-                arr.push({label:'不限', value:''})
-                for(let op of data.list){
-                    arr.push({label:op.name,value:op.id});
-                }
-                this.setState({
-                    resOptions:arr
-                })
-            }else{
-                Toast.fail(data.msg, 1);
-            }
-        })
+    async componentWillMount() {
+        await this.setAllOptions()
     }
     back = e => {
         const {history} = this.props
@@ -126,6 +91,76 @@ class StaticsPage extends React.Component{
     setBResult(BResult){
         this.setState({BResult:BResult});
     }
+
+    setAllOptions(startDate,endDate,sValue,bValue,pickerValue,typeValue,resValue){
+        getReportOption(
+            startDate,
+            endDate,
+            sValue,
+            bValue,
+            typeof(pickerValue) !== "undefined"?pickerValue[0]:'',
+            typeof(pickerValue) !== "undefined"&&typeof(pickerValue[1]) !== "undefined"?pickerValue[1]:'',
+            typeof(pickerValue) !== "undefined"&&typeof(pickerValue[2]) !== "undefined"?pickerValue[2]:'',
+            typeValue,
+            resValue,'','').then(data => {
+            console.log(data)
+            if(data.success){
+                let brands = [{label:'不限',value:''}];
+                let groups=[{label:'不限',value:''}];
+                let types=[{label:'不限',value:''}];
+                let resOptions=[{label:'不限',value:null}];
+                let cityData=[{label:'不限',value:''}]
+                let leimus=[{label:'不限',value:''}]
+                for(let op of data.brands){
+                    brands.push({label:op,value:op})
+                }
+                for(let op of data.groups){
+                    groups.push({label:op,value:op})
+                }
+                for(let op of data.types){
+                    types.push({label:op,value:op})
+                }
+                for(let op of data.rest){
+                    resOptions.push({label:op.name,value:op.id})
+                }
+                for(let province in data.qy){
+                    let cities = [{label:'不限',value:''}];
+                    for(let city in data.qy[province].childs){
+                        let countries = [{label:'不限',value:''}];
+                        for(let country in data.qy[province].childs[city].childs){
+                            countries.push({
+                                label:data.qy[province].childs[city].childs[country].value,
+                                value:data.qy[province].childs[city].childs[country].name,
+                            })
+                        }
+                        cities.push({
+                            label:data.qy[province].childs[city].value,
+                            value:data.qy[province].childs[city].name,
+                            children:countries
+                        })
+                    }
+                    cityData.push({
+                        label:data.qy[province].value,
+                        value:data.qy[province].name,
+                        children:cities
+                    })
+                }
+                for(let op of data.leimu){
+                    leimus.push({label:op.name,value:op.id})
+                }
+
+
+                this.setState({
+                    brands:brands,
+                    groups:groups,
+                    types:types,
+                    resOptions:resOptions,
+                    cityData:cityData,
+                    leimus:leimus
+                })
+            }
+        })
+    }
     render(){
         const tabs = [
             { title: '门店排名' },
@@ -133,7 +168,7 @@ class StaticsPage extends React.Component{
             { title: '数据对比' },
         ];
 
-        const {groups,brands,types,resOptions} = this.state
+        const {groups,brands,types,resOptions,cityData,leimus} = this.state
 
 
         return <div>
@@ -147,11 +182,11 @@ class StaticsPage extends React.Component{
             <StickyContainer style={{marginTop:45}}>
                         <Tabs tabs={tabs}
                               initialPage={0}
-                              onChange={(tab, index) => { console.log('onChange', index, tab); }}
+                              onChange={(tab, index) => {this.setAllOptions() }}
                               onTabClick={(tab, index) => {index === 2?this.setState({bottomDisplay:''}):this.setState({bottomDisplay:'none'})}}
                         >
                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', }}>
-                                <StaticsAll cityData={cityData} groups={groups} brands={brands} types={types} resOptions={resOptions}></StaticsAll>
+                                <StaticsAll leimus={leimus} setAllOptions={(startDate,endDate,sValue,bValue,pickerValue,typeValue,resValue) => this.setAllOptions(startDate,endDate,sValue,bValue,pickerValue,typeValue,resValue)} cityData={cityData} groups={groups} brands={brands} types={types} resOptions={resOptions}></StaticsAll>
                                 {/*
                                 <StaticsCompare
                                     setBResult = {(BResult) => this.setBResult(BResult)}
@@ -159,7 +194,7 @@ class StaticsPage extends React.Component{
                                  */}
                             </div>
                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', }}>
-                                <StaticsType cityData={cityData} groups={groups} brands={brands} types={types} resOptions={resOptions}></StaticsType>
+                                <StaticsType setAllOptions={(startDate,endDate,sValue,bValue,pickerValue,typeValue,resValue) => this.setAllOptions(startDate,endDate,sValue,bValue,pickerValue,typeValue,resValue)} cityData={cityData} groups={groups} brands={brands} types={types} resOptions={resOptions}></StaticsType>
                             </div>
                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', }}>
                                 {!this.state.comparing?<StaticsCompare

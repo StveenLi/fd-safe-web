@@ -17,7 +17,7 @@ class StaticsCompare extends React.Component{
         this.state = {
             AOrB:true,
             startDate:'',
-            endDate:'',
+            endDate:new Date(),
             resValue:'',
             sValue:'',
             bValue:'',
@@ -41,6 +41,9 @@ class StaticsCompare extends React.Component{
     }
 
     componentDidMount() {
+        let startDate = new Date();
+        startDate.setMonth(startDate.getMonth()-3);
+        this.setState({startDate:startDate})
     }
 
 
@@ -239,6 +242,7 @@ class StaticsCompare extends React.Component{
                 docked={this.state.docked}
                 setStartDate={date => this.setState({ startDate:date })}
                 setEndDate={date => this.setState({ endDate:date })}
+                panelHeight={270}
             />
 
 

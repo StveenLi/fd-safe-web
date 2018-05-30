@@ -36,7 +36,11 @@ class ReportList extends React.Component{
         let dataList = this.props.history.location.state[0].transmitParam;
         let dataListUnGood = [];
         for(let data of dataList){
-            if(data.scores < 80){
+            if(data.isSign){
+                if(data.isSign === 1){
+                    dataListUnGood.push(data);
+                }
+            }else if(data.scores < 80){
                 dataListUnGood.push(data);
             }
         }
@@ -47,9 +51,6 @@ class ReportList extends React.Component{
     onModChange(e){
 
         const {dataList,dataListUnGood} = this.state
-
-
-        console.log(e)
         this.setState({
             selectedValue:!this.state.selectedValue
         })

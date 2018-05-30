@@ -34,7 +34,7 @@ class Report extends React.Component{
             resOptions: [],
             resValue: '',
             startDate: '',
-            endDate: '',
+            endDate: new Date(),
             startNums: '',
             endNums: '',
             selectedAuditValue: '0',
@@ -54,7 +54,9 @@ class Report extends React.Component{
 
     componentDidMount() {
 
-
+        let startDate = new Date();
+        startDate.setMonth(startDate.getMonth()-3);
+        this.setState({startDate:startDate})
         this.setAllOptions();
         //getGroupName().then(data => {
         //    this.state.groups.push({label:'不限',value:''})
@@ -235,11 +237,11 @@ class Report extends React.Component{
         const {startDate,endDate,sValue,bValue,pickerValue,selectedValue,tValue,resValue,startNums,endNums} = this.state
 
         queryAssessHis(
-            startDate,endDate,sValue,bValue,pickerValue[0],
+            startDate.format('yyyy-MM-hh'),endDate.format('yyyy-MM-hh')
+            ,sValue,bValue,pickerValue[0],
             pickerValue[1]?pickerValue[1]:'',
             pickerValue[2]?pickerValue[2]:'','',tValue,resValue,startNums,endNums
         ).then(data => {
-            console.log(data)
             if(data.success){
                 this.props.history.push('/reportList',[{transmitParam:data.list}])
             }
