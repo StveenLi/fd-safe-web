@@ -16,6 +16,7 @@ import PlanPage from '../audits/plans'
 import StaticPage from '../audits/statics'
 import StaticsRadar from '../audits/staticsRadar'
 import AuditQuestions from '../audits/auditQuestions'
+import AuditQuestionsByList from '../audits/auditQuestionsByList'
 import AuditQuestionsResult from '../audits/auditQuestions_result'
 import QuestionDetail from '../audits/questionDetail'
 import TrainIndex from '../train/tarinIndex'
@@ -45,6 +46,7 @@ const Routes = () => (
                 <PrivateRoute path="/audits" component={AuditPage}/>
                 <PrivateRoute path="/startAudit" component={StartAuditPage}/>
                 <PrivateRoute path="/auditQuestions" component={AuditQuestions}/>
+                <PrivateRoute path="/auditQuestionsByList" component={AuditQuestionsByList}/>
                 <PrivateRoute path="/auditQuestionsResult" component={AuditQuestionsResult}/>
                 <PrivateRoute path="/questionDetail/:qid" component={QuestionDetail}/>
                 <PrivateRoute path="/law" component={LawList}/>

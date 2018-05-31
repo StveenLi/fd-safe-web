@@ -48,7 +48,7 @@ class PlanPage extends React.Component{
             transmitParam.typeId = item.planType;
             transmitParam.planId = item.planId;
             localStorage.setItem('auditLocation','1');
-            this.props.history.push('/auditQuestions',[{transmitParam:transmitParam}]);
+            this.props.history.push('/auditQuestionsByList',[{transmitParam:transmitParam}]);
         }
     }
 
