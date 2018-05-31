@@ -160,51 +160,26 @@ class StaticsAll extends React.Component{
                 title: {
                     text: '历史趋势'
                 },
-                tooltip : {
-                    trigger: 'axis',
-                    axisPointer: {
-                        type: 'cross',
-                        label: {
-                            backgroundColor: '#e9f3ff'
-                        }
-                    }
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: dates
                 },
-                legend: {
-                    data:['']
+                yAxis: {
+                    type: 'value'
                 },
-                grid: {
-                    left: '3%',
-                    right: '4%',
-                    bottom: '3%',
-                    containLabel: true
-                },
-                xAxis : [
-                    {
-                        type : 'category',
-                        boundaryGap : false,
-                        data : dates
-                    }
-                ],
-                yAxis : [
-                    {
-                        type : 'value'
-                    }
-                ],
-                series : [
-                    {
-                        name:'',
-                        type:'line',
-                        stack: '总量',
-                        areaStyle: {normal: {color:this.state.staticsLineColor == '#81B7FF'?'#dfedff':'#ffeeee'}},
-                        lineStyle:{
-                            color:this.state.staticsLineColor
-                        },
-                        itemStyle:{
-                            color:this.state.staticsLineColor
-                        },
-                        data:finalDatas
-                    }
-                ]
+                series: [{
+                    lineStyle:{
+                        color:this.state.staticsLineColor
+                    },
+                    itemStyle:{
+                        color:this.state.staticsLineColor
+                    },
+                    data:finalDatas,
+                    type: 'line',
+                    areaStyle: {normal: {color:this.state.staticsLineColor == '#81B7FF'?'#dfedff':'#ffeeee'}},
+                }],
+
             }
         })
         var dom = document.getElementById("allStatics");
@@ -345,7 +320,7 @@ class StaticsAll extends React.Component{
             </div>
             <div style={{flex:1,textAlign:'right',padding:15,fontSize:16,marginBottom:10}}>统计门店数量 {this.state.rankResList.length}</div>
 
-            <div id="allStatics" style={{width:screenWidth,height:300,padding:15,backgroundColor: '#fff',marginTop:10,textAlign:'center' }}>
+            <div id="allStatics" style={{width:screenWidth,height:300,backgroundColor: '#fff',marginTop:10,textAlign:'center' }}>
 
                 {rankResList.length>0?null:'暂无数据'}
             </div>

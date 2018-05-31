@@ -186,40 +186,18 @@ class StaticsType extends React.Component{
             finalDatas.push(item.value)
         })
         this.setState({
+            title: {
+                text: '历史趋势'
+            },
             circleOption:{
-                title: {
-                    text: '历史趋势'
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: dates
                 },
-                tooltip : {
-                    trigger: 'axis',
-                    axisPointer: {
-                        type: 'cross',
-                        label: {
-                            backgroundColor: '#e9f3ff'
-                        }
-                    }
+                yAxis: {
+                    type: 'value'
                 },
-                legend: {
-                    data:['']
-                },
-                grid: {
-                    left: '3%',
-                    right: '4%',
-                    bottom: '3%',
-                    containLabel: true
-                },
-                xAxis : [
-                    {
-                        type : 'category',
-                        boundaryGap : false,
-                        data : dates
-                    }
-                ],
-                yAxis : [
-                    {
-                        type : 'value'
-                    }
-                ],
                 series : [
                     {
                         name:'',
@@ -234,7 +212,9 @@ class StaticsType extends React.Component{
                         },
                         data:finalDatas
                     }
-                ]
+                ],
+
+
             }
         })
         var myCircleChart = echarts.init(document.getElementById("typeCircleStatics"));

@@ -3,12 +3,13 @@
  */
 
 import React from 'react'
-import {NavBar,ImagePicker,Button} from 'antd-mobile';
+import {NavBar,ImagePicker,Button,Toast} from 'antd-mobile';
 import styles,{screenWidth} from '../config/style'
-import {upload} from '../config/api'
+import {uploadByBase64} from '../config/api'
 import {BLUE} from '../config/style'
 import Viewer from 'react-viewer';
 import 'react-viewer/dist/index.css';
+import lrz from 'lrz';
 const data = [];
 
 class Remarks extends React.Component{
@@ -43,8 +44,6 @@ class Remarks extends React.Component{
                         files:fileDatas
                     })
                 }
-
-
                 document.getElementById("textVal").value = remark.content
                 break;
             }
@@ -54,21 +53,29 @@ class Remarks extends React.Component{
     }
 
     onChange = (files, type, index) => {
+
         this.setState({
             files,
         });
         if(type === 'add'){
+            Toast.loading('压缩上传中……', 0, true);
             let _file;
             if((typeof(index) == "undefined")){
                 index = 0
             }
             if(files instanceof Array){
-                _file = files[files.length-1].file;
-                upload(_file).then((data) => {
-                    if(data.success){
-                        this.state.images.push(data.url);
-                    }
-                })
+                //_file = files[files.length-1].file;
+                lrz(files[files.length-1].url, {quality:0.2})
+                    .then((rst)=>{
+                        // 处理成功会执行
+                        uploadByBase64(rst.base64).then((data) => {
+                            if(data.success){
+                                Toast.hide();
+                                this.state.images.push(data.url);
+                            }
+                        })
+                    })
+
             }
         }
         if(type === 'remove'){

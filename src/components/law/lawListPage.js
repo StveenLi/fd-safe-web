@@ -46,7 +46,7 @@ class LawList extends React.Component{
                 icon={<Icon type="left" />}
                 onLeftClick={() => this.back()}
             >法律法规</NavBar>
-            {/*<SearchBar
+             {/*<SearchBar
 
 
                 placeholder="搜索内容"
@@ -56,7 +56,7 @@ class LawList extends React.Component{
 
                 {
                     this.state.dataList.map((data,index) => {
-                        return <Item multipleLine onClick={() => {this.props.history.push('/lawDetail')}}>
+                        return <Item multipleLine onClick={() => {this.props.history.push('/lawDetail',data)}}>
                                 {data.title}<Brief>{data.type}</Brief>
                             <Brief>{data.creatTime}</Brief>
                         </Item>
