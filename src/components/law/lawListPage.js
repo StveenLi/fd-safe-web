@@ -58,7 +58,7 @@ class LawList extends React.Component{
                     this.state.dataList.map((data,index) => {
                         return <Item multipleLine onClick={() => {this.props.history.push('/lawDetail',data)}}>
                                 {data.title}<Brief>{data.type}</Brief>
-                            <Brief>{data.creatTime}</Brief>
+                            <Brief>{data.creatTimetp}</Brief>
                         </Item>
                     })
                 }

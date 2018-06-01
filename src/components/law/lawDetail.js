@@ -45,7 +45,7 @@ class LawDetail extends React.Component{
 
                  <div>
                      <div style={{fontSize:16,padding:10}}>{data.title}</div>
-                     <div style={{color:'#CFCFCF',padding:5}}>日期 : {data.creatTime}</div>
+                     <div style={{color:'#CFCFCF',padding:5}}>日期 : {data.creatTimetp}</div>
                  </div>
 
                  <div style={{borderStyle:'solid',borderColor:GREY,borderWidth:1}}></div>

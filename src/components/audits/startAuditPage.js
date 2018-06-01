@@ -114,7 +114,7 @@ class StartAuditPage extends React.Component{
                             onChange={date => this.setState({ date })}
                             disabled={true}
                         >
-                            <List.Item arrow="horizontal">审核日期</List.Item>
+                            <List.Item>审核日期</List.Item>
                         </DatePicker>
                         <Picker
                             cols={1}
