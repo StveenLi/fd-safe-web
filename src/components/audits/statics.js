@@ -198,6 +198,7 @@ class StaticsPage extends React.Component{
                             </div>
                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', }}>
                                 {!this.state.comparing?<StaticsCompare
+                                    setAllOptions={(startDate,endDate,sValue,bValue,pickerValue,typeValue,resValue) => this.setAllOptions(startDate,endDate,sValue,bValue,pickerValue,typeValue,resValue)}
                                     setBResult = {(BResult) => this.setBResult(BResult)}
                                     setAResult = {(AResult) => this.setAResult(AResult)}
                                     cityData={cityData}

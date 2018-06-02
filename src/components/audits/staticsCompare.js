@@ -60,9 +60,9 @@ class StaticsCompare extends React.Component{
                 tValue:tValue,
                 pickerValue:pickerValue
             }
+
             this.setState({
-                startDate:AResult.startDate,
-                endDate:AResult.endDate,
+
                 resValue:AResult.resValue,
                 sValue:AResult.sValue,
                 bValue:AResult.bValue,
@@ -72,6 +72,15 @@ class StaticsCompare extends React.Component{
                 BResult:_BResult
 
             })
+
+            if(AResult.startDate&&AResult.endDate){
+                this.setState({
+                    startDate:AResult.startDate,
+                    endDate:AResult.endDate,
+                })
+            }
+            this.props.setAllOptions(AResult.startDate,AResult.endDate,AResult.sValue,AResult.bValue,AResult.pickerValue,AResult.tValue,AResult.resValue);
+
         }
     }
 
@@ -89,8 +98,6 @@ class StaticsCompare extends React.Component{
 
             }
             this.setState({
-                startDate:BResult.startDate,
-                endDate:BResult.endDate,
                 resValue:BResult.resValue,
                 sValue:BResult.sValue,
                 bValue:BResult.bValue,
@@ -101,11 +108,21 @@ class StaticsCompare extends React.Component{
                 AResult:_AResult
 
             })
+            if(BResult.startDate&&BResult.endDate){
+                this.setState({
+                    startDate:BResult.startDate,
+                    endDate:BResult.endDate,
+                })
+            }
+
+
+            this.props.setAllOptions(BResult.startDate,BResult.endDate,BResult.sValue,BResult.bValue,BResult.pickerValue,BResult.tValue,BResult.resValue);
+
         }
     }
 
-    setGroupVal(v){
-        let {AOrB,AResult,BResult} = this.state
+    async setGroupVal(v){
+        let {AOrB,AResult,BResult,startDate,endDate,sValue,bValue,pickerValue,typeValue,resValue} = this.state
         if(AOrB){
             AResult.sValue = v;
             this.props.setAResult(AResult)
@@ -113,11 +130,15 @@ class StaticsCompare extends React.Component{
             BResult.sValue = v;
             this.props.setBResult(BResult)
         }
-        this.setState({ sValue: v });
+        await this.setState({ sValue: v });
+        let startDate1 = startDate.format('yyyy-MM-dd');
+        let endDate1 = endDate.format('yyyy-MM-dd');
+        this.props.setAllOptions(startDate1,endDate1,v,bValue,pickerValue,typeValue,resValue);
+
     }
 
-    setBrandsValue(v){
-        let {AOrB,AResult,BResult} = this.state
+    async setBrandsValue(v){
+        let {AOrB,AResult,BResult,startDate,endDate,sValue,bValue,pickerValue,typeValue,resValue} = this.state
         if(AOrB){
             AResult.bValue = v;
             this.props.setAResult
@@ -125,11 +146,17 @@ class StaticsCompare extends React.Component{
             BResult.bValue = v;
             this.props.setBResult(BResult)
         }
-        this.setState({ bValue: v })
+        await this.setState({ bValue: v })
+        let startDate1 = startDate.format('yyyy-MM-dd');
+        let endDate1 = endDate.format('yyyy-MM-dd');
+        this.props.setAllOptions(startDate1,endDate1,sValue,v,pickerValue,typeValue,resValue);
+
     }
 
-    setCountriesValue(v){
-        let {AOrB,AResult,BResult} = this.state
+
+
+    async setCountriesValue(v){
+        let {AOrB,AResult,BResult,startDate,endDate,sValue,bValue,pickerValue,tValue,resValue} = this.state
         if(AOrB){
             AResult.pickerValue = v;
             this.props.setAResult(AResult)
@@ -137,11 +164,16 @@ class StaticsCompare extends React.Component{
             BResult.pickerValue = v;
             this.props.setBResult(BResult)
         }
-        this.setState({ pickerValue: v })
+        await this.setState({ pickerValue: v })
+        let startDate1 = startDate.format('yyyy-MM-dd');
+        let endDate1 = endDate.format('yyyy-MM-dd');
+        pickerValue = v;
+        this.props.setAllOptions(startDate1,endDate1,sValue,bValue,pickerValue,tValue,resValue);
+
     }
 
-    setTypesValue(v){
-        let {AOrB,AResult,BResult} = this.state
+    async setTypesValue(v){
+        let {AOrB,AResult,BResult,startDate,endDate,sValue,bValue,pickerValue,tValue,resValue} = this.state
         if(AOrB){
             AResult.tValue = v;
             this.props.setAResult(AResult)
@@ -149,11 +181,15 @@ class StaticsCompare extends React.Component{
             BResult.tValue = v;
             this.props.setBResult(BResult)
         }
-        this.setState({ tValue: v })
+        await this.setState({ tValue: v })
+        let startDate1 = startDate.format('yyyy-MM-dd');
+        let endDate1 = endDate.format('yyyy-MM-dd');
+        this.props.setAllOptions(startDate1,endDate1,sValue,bValue,pickerValue,v,resValue);
+
     }
 
-    setResValue(v){
-        let {AOrB,AResult,BResult} = this.state
+    async setResValue(v){
+        let {AOrB,AResult,BResult,startDate,endDate,sValue,bValue,pickerValue,typeValue,resValue} = this.state
         if(AOrB){
             AResult.resValue = v;
             this.props.setAResult(AResult)
@@ -161,9 +197,12 @@ class StaticsCompare extends React.Component{
             BResult.resValue = v;
             this.props.setBResult(BResult)
         }
-        this.setState({ resValue: v })
-    }
+        await this.setState({ resValue: v })
+        let startDate1 = startDate.format('yyyy-MM-dd');
+        let endDate1 = endDate.format('yyyy-MM-dd');
+        this.props.setAllOptions(startDate1,endDate1,sValue,bValue,pickerValue,typeValue,v);
 
+    }
     render(){
         let {AOrB} = this.state
         const {groups,brands,types,resOptions} = this.props
