@@ -163,11 +163,13 @@ export const getBrandName = () => {
 
 
 //提交审核
-export const doStatistics = (planId,signUrl) => {
+export const doStatistics = (planId,signUrl,ownSignUrl,signCn) => {
     console.log(planId);
     let formData = new FormData();
     formData.append('planId',planId);
     formData.append('signUrl',signUrl);
+    formData.append('ownSignUrl',ownSignUrl);
+    formData.append('signCn',signCn);
     return new Requester(_POST_(formData),'/rest/assess/doStatistics').do_fetch();
 }
 

@@ -3,7 +3,7 @@
  */
 
 import React from 'react'
-import { Accordion, List,NavBar,Icon,Button,Toast} from 'antd-mobile';
+import { Accordion, List,NavBar,Icon,Button,Toast,InputItem} from 'antd-mobile';
 import SignatureCanvas from 'react-signature-canvas'
 import SignaturePad from '../signature/index.js'
 import {screenWidth,FONTGREY,GREY,BLUE} from '../config/style'
@@ -24,7 +24,8 @@ class AuditQuestions extends React.Component{
             questionIds:[],
             unDoIds:[],
             reserSignUrl:'',
-            auditerSignUrl:''
+            auditerSignUrl:'',
+            signText:''
         };
       }
 
@@ -51,11 +52,13 @@ class AuditQuestions extends React.Component{
     }
 
     toFuncPage(){
-        const {reserSignUrl,auditerSignUrl} = this.state
+        const {reserSignUrl,auditerSignUrl,signText} = this.state
         if(reserSignUrl==''||auditerSignUrl==''){
             Toast.fail('双方签名确认之后才可提交',1);
+        }else if(signText == ''){
+            Toast.fail('餐厅负责人签名标注不能为空',1);
         }else{
-            doStatistics(this.state.locationState.planId,'123').then(data => {
+            doStatistics(this.state.locationState.planId,reserSignUrl,auditerSignUrl,signText).then(data => {
                 if(data.success){
                     this.props.history.push('/auditComplete',[{planId:this.state.locationState.planId,transmitParam:data.list}]);
                 }else {
@@ -123,10 +126,10 @@ class AuditQuestions extends React.Component{
     
     setAudits(childAssess){
             let {unDoIds} = this.state;
-            return <Accordion defaultActiveKey="0" accordion openAnimation={{}} className="my-accordion"
+            return <Accordion activeKey={['0','1','2','3','4','5','6','7']} className="my-accordion"
                        onChange={this.onChange}>
                 {childAssess.map((firstAudit, aindex) => {
-                    return <Accordion.Panel header={firstAudit.fristTitle} className="pad"
+                    return <Accordion.Panel  header={firstAudit.fristTitle} className="pad"
                                             key={aindex}>
                         {
                             firstAudit.childAssess.map((secondAudit, index) => {
@@ -135,18 +138,17 @@ class AuditQuestions extends React.Component{
 
                                     {
                                         secondAudit.assessOptions.map((thirdItem, index) => {
-                                            return <div>
-                                                <div style={{fontSize:15,color:'#e41717'}}>{`${thirdItem.title}`}</div>
-                                                <div style={{fontSize:15,color:FONTGREY}}>备注：{thirdItem.remarks}</div>
-                                                <div>
-                                                    {
-                                                        thirdItem.imgs instanceof Array?thirdItem.imgs.map((fourthItem,index) => {
-                                                            return <Zmage style={{width:'25%',height:'25%'}} src={fourthItem}></Zmage>
-                                                        }):null
-                                                    }
-                                                </div>
-
-                                            </div>
+                                            return <div key={index}>
+                                                        <div style={{fontSize:15,color:'#e41717'}}>{thirdItem.title}</div>
+                                                        <div style={{fontSize:15,color:FONTGREY}}>备注：{thirdItem.remarks}</div>
+                                                        <div>
+                                                            {
+                                                                thirdItem.imgs instanceof Array?thirdItem.imgs.map((fourthItem,index) => {
+                                                                    return <Zmage style={{width:'25%',height:'25%'}} src={fourthItem}></Zmage>
+                                                                }):null
+                                                            }
+                                                        </div>
+                                                    </div>
                                         })
                                     }
                                 </List.Item>
@@ -159,6 +161,57 @@ class AuditQuestions extends React.Component{
         }
 
 
+    refreshLocation(){
+        this.getLocation();
+
+    }
+
+
+    getLocation(){
+        const {locationState} = this.state;
+        let self = this;
+        if (navigator.geolocation)
+        {
+            navigator.geolocation.getCurrentPosition(savePosition);
+        }
+        else{
+            console.log('未被允许');
+        }
+
+
+        function savePosition(position){
+            self.setState({hereAddress:'查询中……'});
+            localStorage.setItem('Latitude',position.coords.latitude);
+            localStorage.setItem('Longitude',position.coords.longitude);
+            self.setState({
+                locationX:position.coords.longitude,
+                locationY:position.coords.latitude
+            })
+            getAddressByXY(locationState.resId[0],position.coords.longitude,position.coords.latitude).then(data => {
+                if(data.success){
+                    self.setState({hereAddress:data.address});
+                }else{
+                    self.setState({hereAddress:data.msg});
+                }
+            })
+        }
+    }
+    //savePosition(position){
+    //    const {locationState} = this.state;
+    //    localStorage.setItem('Latitude',position.coords.latitude);
+    //    localStorage.setItem('Longitude',position.coords.longitude);
+    //    this.setState({
+    //        locationX:position.coords.longitude,
+    //        locationY:position.coords.latitude
+    //    })
+    //    getAddressByXY(locationState.resId[0],position.coords.longitude,position.coords.latitude).then(data => {
+    //        if(data.success){
+    //            this.setState({hereAddress:data.address});
+    //        }else{
+    //            this.setState({hereAddress:data.msg});
+    //        }
+    //    })
+    //}
     render(){
 
         const {resAuditList} = this.state;
@@ -193,11 +246,20 @@ class AuditQuestions extends React.Component{
                 backgroundColor="#fff"
                 canvasProps={{width:screenWidth,height:250,className: 'sigCanvas'}}
                 ref={(ref) => { this.sigPad = ref }} />
+            <InputItem
+                type='text'
+                placeholder="请输入签名"
+                clear
+                onChange={(v) => { this.setState({signText:v}) }}
+                onBlur={(v) => { this.setState({signText:v}) }}
+                keyboardAlign="right"
+                textAlign="right"
+            >签名标注</InputItem>
             <div style={{margin:15,display:'flex',flexDirection:'row'}}>
-                <Button style={{flex:1}} type="ghost" size='small'  onClick={() => this.clear()}>
+                <Button style={{flex:1,marginRight:5}} type="ghost" size='small'  onClick={() => this.clear()}>
                     重写
                 </Button>
-                <Button style={{flex:1}} type="ghost" size='small'  onClick={() => this.trim()}>
+                <Button style={{flex:1,marginLeft:5}} type="ghost" size='small'  onClick={() => this.trim()}>
                     确认
                 </Button>
             </div>
@@ -211,19 +273,20 @@ class AuditQuestions extends React.Component{
                 backgroundColor="#fff"
                 canvasProps={{width:screenWidth,height:250,className: 'sigCanvas'}}
                 ref={(ref) => { this.sigPadAuditer = ref }} />
+
             <div style={{margin:15,display:'flex',flexDirection:'row'}}>
-                <Button style={{flex:1}} type="ghost" size='small'  onClick={() => this.auditerClear()}>
+                <Button style={{flex:1,marginRight:5}} type="ghost" size='small'  onClick={() => this.auditerClear()}>
                     重写
                 </Button>
-                <Button style={{flex:1}} type="ghost" size='small'  onClick={() => this.auditerTrim()}>
+                <Button style={{flex:1,marginLeft:5}} type="ghost" size='small'  onClick={() => this.auditerTrim()}>
                     确认
                 </Button>
             </div>
             <div style={{marginTop:10,marginBottom:85}}>
                 <div style={{margin: '5px 5px 5px 10px',display:'flex',flexDirection:'row'}}>
                     <img style={{marginTop:3}} src={require('../assets/icon/location.png')} width={20} height={20}></img>
-                    <div style={{flex:1,margin: '5px 5px 5px 10px'}}>{this.state.hereAddress==''?this.state.hereAddress:'暂无位置数据'}</div>
-                    <div style={{marginRight:20}}><img style={{marginTop:3}} src={require('../assets/icon/refresh.png')} width={20} height={20}></img></div>
+                    <div style={{flex:1,margin: '5px 5px 5px 10px'}}>{this.state.hereAddress}</div>
+                    <div style={{marginRight:20}} onClick={() => this.refreshLocation()}><img style={{marginTop:3}} src={require('../assets/icon/refresh.png')} width={20} height={20}></img></div>
                 </div>
                 <div></div>
             </div>
