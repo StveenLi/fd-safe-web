@@ -65,13 +65,16 @@ class Remarks extends React.Component{
             }
             if(files instanceof Array){
                 //_file = files[files.length-1].file;
-                lrz(files[files.length-1].url, {quality:0.2})
+                lrz(files[files.length-1].url, {quality:0.1})
                     .then((rst)=>{
                         // 处理成功会执行
                         uploadByBase64(rst.base64).then((data) => {
                             if(data.success){
                                 Toast.hide();
                                 this.state.images.push(data.url);
+                            }else{
+                                Toast.hide();
+                                Toast.fail(data.msg,1);
                             }
                         })
                     })

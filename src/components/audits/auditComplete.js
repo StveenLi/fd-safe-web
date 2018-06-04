@@ -146,7 +146,7 @@ class AuditComplete extends React.Component{
     };
     render(){
 
-        let scoreColor = this.state.importants.length>0?'#ff5b5b':this.state.keys.length>3?'#ff5b5b':this.state.sumCore>80?'#0cc1a3':'#ff5b5b'
+        let scoreColor = this.state.importants.length>3?'#ff5b5b':this.state.keys.length>0?'#ff5b5b':this.state.sumCore>80?'#0cc1a3':'#ff5b5b'
         return <div style={{textAlign:'center'}}>
             <NavBar
                 mode="light"
