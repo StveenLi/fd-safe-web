@@ -7,10 +7,10 @@ import { List,NavBar,Icon,Popover,Checkbox,Modal,Toast} from 'antd-mobile';
 import styles,{GREY,BLUE} from '../config/style'
 import {getQuestionDetail,submitAssess} from '../config/api'
 import Remarks from './remarks'
+import fastclick from 'fastclick'
 const Item = Popover.Item;
 const CheckboxItem = Checkbox.CheckboxItem;
 const alert = Modal.alert;
-
 
 class QuestionDetail extends React.Component{
     // 构造
@@ -44,7 +44,7 @@ class QuestionDetail extends React.Component{
                 transmitParam.resId = locationState.resId;
                 transmitParam.typeId = locationState.typeId;
                 transmitParam.planId = locationState.planId;
-                history.push('/auditQuestions',[{transmitParam:transmitParam}]);
+                history.replace('/auditQuestions',[{transmitParam:transmitParam}]);
             } },
         ])
         
@@ -111,6 +111,7 @@ class QuestionDetail extends React.Component{
     }
 
     componentDidMount() {
+        fastclick.attach(document.body, {})
     }
 
     //切换页面重新获取数据
