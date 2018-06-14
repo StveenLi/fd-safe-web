@@ -41,7 +41,9 @@ class AuditComplete extends React.Component{
                 this.state.sumCore = tran.value;
             }
             else if(tran.name!=='ZF'){
-                indicatorList.push({ text: tran.name, max: 100 });
+                let text = '';
+                tran.name.length<7?text=tran.name:text=tran.name.substr(0,7)+'\n'+tran.name.substr(7,tran.name.length)
+                indicatorList.push({ text: text, max: 100 });
                 dataVals.push(parseInt(tran.value))
             }
         }
@@ -65,8 +67,12 @@ class AuditComplete extends React.Component{
                         name: {
                             formatter:'【{value}】',
                             textStyle: {
-                                color:'#72ACD1'
+                                color:'red',
+                                backgroundColor: '#999',
+                                borderRadius: 3,
+                                margin:[0,0,0,-30]
                             }
+
                         },
                         splitArea: {
                             areaStyle: {
@@ -89,7 +95,8 @@ class AuditComplete extends React.Component{
                     {
                         indicator: indicatorList,
                         center: ['50%', '50%'],
-                        radius: 120
+                        radius: 100,
+                        //startAngle: 100
                     }
                 ],
                 series: [
@@ -162,19 +169,19 @@ class AuditComplete extends React.Component{
 
 
             <div style={{textAlign:'left',marginTop:10}}>
-                <div style={{background:'#fff',padding:15,fontSize:16}}>不符合的严重项</div>
+                <div style={{background:'#fff',padding:15,fontSize:16}}>不符合的关键项</div>
                 {this.state.importants.map((important,index) => {
-                    return <div key={index} style={{background:GREY,padding:10,color:'#ff5b5b'}}>{important.name}</div>
+                    return <div key={index} style={{background:GREY,padding:10,color:'#ff5b5b'}}>{important.name.substr(2,important.name.length)}</div>
                 })}
             </div>
             <div style={{textAlign:'left',marginTop:10}}>
-                <div style={{background:'#fff',padding:15,fontSize:16}}>不符合的关键项</div>
+                <div style={{background:'#fff',padding:15,fontSize:16}}>不符合的严重项</div>
                 {this.state.keys.map((key,index) => {
-                    return <div key={index} style={{background:GREY,padding:10,color:'#ff5b5b'}}>{key.name}</div>
+                    return <div key={index} style={{background:GREY,padding:10,color:'#ff5b5b'}}>{key.name.substr(2,key.name.length)}</div>
                 })}
             </div>
 
-            <div id="typeStatics" style={{height:400,padding:15,backgroundColor: '#fff',marginTop:10 }}></div>
+            <div id="typeStatics" style={{height:400,padding:-20,backgroundColor: '#fff',marginTop:10 }}></div>
             <div style={{fontSize:18,color:'#fff',padding: 15,textAlign:'center',backgroundColor:BLUE}}
                  onClick={() => this.props.history.push('/audits')}
             >完成</div>

@@ -69,7 +69,7 @@ class Login extends Component{
 
                     <div>
                         <div style={{padding:'60px 0 0px 0'}}><img style={{width:200}} src={require('../assets/images/baihehua.jpeg')}/></div>
-                        <div style={{fontSize:24,padding:15}}>食品安全</div>
+                        <div style={{fontSize:24,padding:15}}>百合花餐饮业食品安全</div>
                     </div>
                     <div style={{marginTop:30}}>
                         <div style={{borderBottomStyle:'solid',borderBottomWidth:1,borderBottomColor:GREY}}>

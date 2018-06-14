@@ -69,13 +69,15 @@ class AuditQuestions extends React.Component{
 
     }
     clear = () => {
-        this.sigPad.clear()
+        this.sigPad.clear();
+        this.sigPad.on();
     }
     trim = () => {
         this.setState({trimmedDataURL: this.sigPad.getTrimmedCanvas().toDataURL('image/png')})
         uploadByBase64(this.sigPad.getTrimmedCanvas().toDataURL('image/png')).then(data => {
             if(data.success){
                 this.setState({reserSignUrl:data.url})
+                this.sigPad.off();
             }
         })
     }
@@ -85,13 +87,15 @@ class AuditQuestions extends React.Component{
         uploadByBase64(this.sigPadAuditer.getTrimmedCanvas().toDataURL('image/png')).then(data => {
             if(data.success){
                 this.setState({auditerSignUrl:data.url})
+                this.sigPadAuditer.off();
             }
         })
 
     }
 
     auditerClear = () => {
-        this.sigPadAuditer.clear()
+        this.sigPadAuditer.clear();
+        this.sigPadAuditer.on();
     }
 
     
@@ -135,11 +139,12 @@ class AuditQuestions extends React.Component{
                             firstAudit.childAssess.map((secondAudit, index) => {
                                 return <List.Item style={{background:'#fbfbff'}}
                                                   key={index}>
+                                    <div style={{fontSize:15}}>{secondAudit.secondTitle}</div>
 
                                     {
                                         secondAudit.assessOptions.map((thirdItem, index) => {
                                             return <div key={index}>
-                                                        <div style={{fontSize:15,color:'#e41717'}}>{thirdItem.title}</div>
+                                                        <div style={{fontSize:15,color:'#e41717'}}>{thirdItem.title.substr(2,thirdItem.title.length)}</div>
                                                         <div style={{fontSize:15,color:FONTGREY}}>备注：{thirdItem.remarks}</div>
                                                         <div>
                                                             {
