@@ -6,7 +6,7 @@
 import React from 'react'
 import styles,{BLUE} from '../config/style'
 import {Button} from 'antd-mobile'
-
+import {user} from '../config/api'
 class PersonalIndex extends React.Component{
 
     // 构造
@@ -30,7 +30,7 @@ class PersonalIndex extends React.Component{
                 <div style={{display:'flex',backgroundColor: '#4077f8', flexDirection: 'column'}} >
                     <div style={{padding: 10,textAlign: 'center'}}>
                         <div style={{marginTop:30}}><img alt="" src={require('../assets/images/user4.jpg')} style={styles.lg_avatar}/></div>
-                        <div style={{marginTop: 10, fontSize: 17,color:'#fff'}}>小强</div>
+                        <div style={{marginTop: 10, fontSize: 17,color:'#fff'}}>{user.name}</div>
                         <div style={{marginTop: 10, fontSize: 17,color:'#fff'}}>审核人员</div>
                     </div>
                     <div style={{display:'flex',textAlign: 'center',flexDirection:'row',backgroundColor:"rgba(255,255,255,0.5)",padding:10,marginTop:10}}>
