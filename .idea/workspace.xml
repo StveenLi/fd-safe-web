@@ -4,8 +4,6 @@
     <list default="true" id="cc966e70-59e5-419f-bf6d-e7ef27b57a92" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/audits/auditQuestions.js" afterPath="$PROJECT_DIR$/src/components/audits/auditQuestions.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/audits/auditQuestions_result.js" afterPath="$PROJECT_DIR$/src/components/audits/auditQuestions_result.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/audits/questionDetail.js" afterPath="$PROJECT_DIR$/src/components/audits/questionDetail.js" />
     </list>
     <ignored path="fd-web.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -59,10 +57,10 @@
       <file leaf-file-name="auditQuestions.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/audits/auditQuestions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.76957">
-              <caret line="79" column="84" selection-start-line="79" selection-start-column="84" selection-end-line="79" selection-end-column="84" />
+            <state vertical-scroll-proportion="0.28776187">
+              <caret line="56" column="8" selection-start-line="56" selection-start-column="8" selection-end-line="70" selection-end-column="10" />
               <folding>
-                <marker date="1529046573839" expanded="true" signature="4850:4875" placeholder="..." />
+                <marker date="1529046995689" expanded="true" signature="4820:4845" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -403,7 +401,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Mongo Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32977387" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2575377" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5138191" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -861,10 +859,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/audits/auditQuestions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.76957">
-          <caret line="79" column="84" selection-start-line="79" selection-start-column="84" selection-end-line="79" selection-end-column="84" />
+        <state vertical-scroll-proportion="0.28776187">
+          <caret line="56" column="8" selection-start-line="56" selection-start-column="8" selection-end-line="70" selection-end-column="10" />
           <folding>
-            <marker date="1529046573839" expanded="true" signature="4850:4875" placeholder="..." />
+            <marker date="1529046995689" expanded="true" signature="4820:4845" placeholder="..." />
           </folding>
         </state>
       </provider>
