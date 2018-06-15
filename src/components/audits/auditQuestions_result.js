@@ -44,10 +44,11 @@ class AuditQuestions extends React.Component{
         for(let fa of firstAudit.childAssess){
             questionIds.push(fa.auditeId);
         }
-        transmitParam.planId = parseInt(this.state.locationState.typeId[0]);
+        transmitParam.planId = parseInt(this.state.locationState.planId);
         transmitParam.auditName = firstAudit.fristTitle;
-        transmitParam.questionIds = questionIds;
+        transmitParam.questionIds = JSON.parse(localStorage.getItem('questionIds'));
         transmitParam.resId = locationState.resId;
+        transmitParam.typeId = locationState.typeId;
         this.props.history.push(`/questionDetail/${auditId}`,[{transmitParam:transmitParam}]);
     }
 
@@ -60,7 +61,7 @@ class AuditQuestions extends React.Component{
         }else{
             doStatistics(this.state.locationState.planId,reserSignUrl,auditerSignUrl,signText).then(data => {
                 if(data.success){
-                    this.props.history.push('/auditComplete',[{planId:this.state.locationState.planId,transmitParam:data.list}]);
+                    this.props.history.push('/auditComplete',[{planId:this.state.locationState.planId,transmitParam:data.list,resId:this.state.locationState.resId,typeId:this.state.locationState.typeId}]);
                 }else {
                     Toast.fail(data.msg,1)
                 }
@@ -129,7 +130,7 @@ class AuditQuestions extends React.Component{
     
     
     setAudits(childAssess){
-            let {unDoIds} = this.state;
+            let {unDoIds,questionIds} = this.state;
             return <Accordion activeKey={['0','1','2','3','4','5','6','7']} className="my-accordion"
                        onChange={this.onChange}>
                 {childAssess.map((firstAudit, aindex) => {
@@ -138,6 +139,7 @@ class AuditQuestions extends React.Component{
                         {
                             firstAudit.childAssess.map((secondAudit, index) => {
                                 return <List.Item style={{background:'#fbfbff'}}
+                                                  onClick={()=>this.toDetail(secondAudit.auditeId,firstAudit,questionIds)}
                                                   key={index}>
                                     <div style={{fontSize:15}}>{secondAudit.secondTitle}</div>
 

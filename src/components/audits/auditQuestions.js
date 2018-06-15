@@ -46,7 +46,7 @@ class AuditQuestions extends React.Component{
         transmitParam.questionIds = questionIds;
         transmitParam.resId = locationState.resId;
         transmitParam.typeId = locationState.typeId;
-        this.props.history.replace(`/questionDetail/${auditId}`,[{transmitParam:transmitParam}]);
+        this.props.history.push(`/questionDetail/${auditId}`,[{transmitParam:transmitParam}]);
     }
 
     async toFuncPage(){
@@ -54,21 +54,21 @@ class AuditQuestions extends React.Component{
         const {typeId,resId} = this.props.history.location.state[0].transmitParam;
         let dolast = true;
 
-        Toast.loading('查询中……', 0, true);
-        await getAssessList(typeId[0],resId[0]).then(data => {
-            if(data.success){
-                for(let first of data.one.childAssess){
-                    for(let second of first.childAssess){
-                        if(second.isDo!=1){
-                            Toast.hide();
-                            Toast.fail('还未做完所有检查！',1);
-                            dolast = false;
-                            return false;
-                        }
-                    }
-                }
-            }
-        })
+        //Toast.loading('查询中……', 0, true);
+        //await getAssessList(typeId[0],resId[0]).then(data => {
+        //    if(data.success){
+        //        for(let first of data.one.childAssess){
+        //            for(let second of first.childAssess){
+        //                if(second.isDo!=1){
+        //                    Toast.hide();
+        //                    Toast.fail('还未做完所有检查！',1);
+        //                    dolast = false;
+        //                    return false;
+        //                }
+        //            }
+        //        }
+        //    }
+        //})
 
         if(dolast){
             let transmitParam = {};
@@ -77,6 +77,7 @@ class AuditQuestions extends React.Component{
             transmitParam.planId = parseInt(this.state.locationState.planId);
             transmitParam.resId = locationState.resId;
             transmitParam.typeId = locationState.typeId;
+            transmitParam.questionIds = JSON.parse(localStorage.getItem('questionIds'))
             this.props.history.push('/auditQuestionsResult',[{transmitParam:transmitParam}]);
         }
     }
@@ -140,6 +141,7 @@ class AuditQuestions extends React.Component{
                                 if(questionIds.indexOf(secondAudit.auditeId)==-1){
                                         questionIds.push(secondAudit.auditeId);
                                 }
+                                localStorage.setItem('questionIds',JSON.stringify(questionIds));
                                 return <List.Item style={{background:'#fbfbff'}}
                                                   onClick={()=>this.toDetail(secondAudit.auditeId,firstAudit,questionIds)}
                                                   key={index}><div style={{display:'flex',flexDirection:'row'}}><div style={{flex:1}}>&nbsp;&nbsp;&nbsp;&nbsp;{secondAudit.secondTitle}</div>{secondAudit.isDo==1?<div><img style={{width:15}} src={require('../assets/icon/yes.svg')}/></div>:null}</div></List.Item>
