@@ -5,7 +5,7 @@
 import React from 'react'
 import { List,NavBar,Icon,Popover,Checkbox,Modal,Toast} from 'antd-mobile';
 import styles,{GREY,BLUE} from '../config/style'
-import {getQuestionDetail,submitAssess} from '../config/api'
+import {getQuestionDetail,submitAssess,restResult} from '../config/api'
 import Remarks from './remarks'
 import fastclick from 'fastclick'
 const Item = Popover.Item;
@@ -31,7 +31,7 @@ class QuestionDetail extends React.Component{
             toRemarkPage:false,
             currentItem:'',
             currentQuestion:'',
-            remarkList:[]
+            remarkList:[],
         };
       }
     back = e => {
@@ -154,6 +154,18 @@ class QuestionDetail extends React.Component{
             { text: '取消', onPress: () => console.log('cancel'), style: 'default' },
             { text: '确定', onPress: () => this.submitNoUse() },
             ])
+    }
+
+    toUse(){
+
+        const {locationState,auditId} = this.state;
+        restResult(locationState.planId,auditId).then(data => {
+            if(data.success){
+                this.props.history.replace(`/questionDetail/${auditId}`,[{transmitParam:locationState}]);
+            }
+        })
+
+
     }
 
     submitNoUse(){
@@ -396,7 +408,9 @@ class QuestionDetail extends React.Component{
 
 
     render(){
-        const {questionItem,locationState,titleInfo,auditId,toRemarkPage} = this.state;
+        const {questionItem,initQuestionItem,locationState,titleInfo,auditId,toRemarkPage} = this.state;
+        let isUseful = 0;
+
         return !toRemarkPage?<div style={{textAlign:'center'}}>
             <NavBar
                 mode="light"
@@ -406,9 +420,23 @@ class QuestionDetail extends React.Component{
 
             <div style={{marginTop:45,backgroundColor:BLUE,padding:15,color:'#fff',display:'flex',flexDirection:'row'}}>
                 <div style={{flex:1,fontSize:18,marginTop:5}}>{titleInfo.secondTitle}</div>
-                <div
-                    onClick={() => this.noUse()}
-                    style={styles.no_use}>不适用</div>
+
+                {
+                    initQuestionItem.map((item,index) => {
+                        if(item.isKey == 4){
+                            isUseful++;
+                        }
+                    })
+
+                }
+
+                {
+                    isUseful == initQuestionItem.length?<div
+                        onClick={() => this.toUse()}
+                        style={styles.no_use}>适用</div>:<div onClick={() => this.noUse()} style={styles.no_use}>不适用</div>
+                }
+
+
             </div>
             <div style={{backgroundColor:'#fff',padding:15,textAlign:'left',marginBottom:150}}>
                 <div style={{fontSize:18,padding:'15px 15px 0 15px'}}>{titleInfo.thridTitle}</div>

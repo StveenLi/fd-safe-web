@@ -139,15 +139,17 @@ class AuditQuestions extends React.Component{
                         {
                             firstAudit.childAssess.map((secondAudit, index) => {
                                 return <List.Item style={{background:'#fbfbff'}}
-                                                  onClick={()=>this.toDetail(secondAudit.auditeId,firstAudit,questionIds)}
+
                                                   key={index}>
-                                    <div style={{fontSize:15}}>{secondAudit.secondTitle}</div>
+                                    <div style={{fontSize:15}} onClick={()=>this.toDetail(secondAudit.auditeId,firstAudit,questionIds)}>{secondAudit.secondTitle}</div>
 
                                     {
                                         secondAudit.assessOptions.map((thirdItem, index) => {
                                             return <div key={index}>
+                                                <div onClick={()=>this.toDetail(secondAudit.auditeId,firstAudit,questionIds)}>
                                                         <div style={{fontSize:15,color:'#e41717'}}>{thirdItem.title.substr(2,thirdItem.title.length)}</div>
                                                         <div style={{fontSize:15,color:FONTGREY}}>备注：{thirdItem.remarks}</div>
+                                                </div>
                                                         <div>
                                                             {
                                                                 thirdItem.imgs instanceof Array?thirdItem.imgs.map((fourthItem,index) => {
@@ -243,52 +245,57 @@ class AuditQuestions extends React.Component{
                         this.setAudits(childAssess)
                     }
             </div>
-            <div style={{margin:'10px 0'}}>
-                <div style={{margin: '0 5px 5px 10px',display:'flex',flexDirection:'row'}}><img style={{marginTop:3}} src={require('../assets/icon/signature.png')} width={20} height={20}></img>
-                    <div style={{margin: '5px 5px 5px 10px'}}>餐厅负责人签名:</div>
-                </div>
-                <div></div>
-            </div>
-            <SignaturePad
-                backgroundColor="#fff"
-                canvasProps={{width:screenWidth,height:250,className: 'sigCanvas'}}
-                ref={(ref) => { this.sigPad = ref }} />
-            <InputItem
-                type='text'
-                placeholder="请输入签名"
-                clear
-                onChange={(v) => { this.setState({signText:v}) }}
-                onBlur={(v) => { this.setState({signText:v}) }}
-                keyboardAlign="right"
-                textAlign="right"
-            >签名标注</InputItem>
-            <div style={{margin:15,display:'flex',flexDirection:'row'}}>
-                <Button style={{flex:1,marginRight:5}} type="ghost" size='small'  onClick={() => this.clear()}>
-                    重写
-                </Button>
-                <Button style={{flex:1,marginLeft:5}} type="ghost" size='small'  onClick={() => this.trim()}>
-                    确认
-                </Button>
-            </div>
-            <div style={{margin:'10px 0'}}>
-                <div style={{margin: '0 5px 5px 10px',display:'flex',flexDirection:'row'}}><img style={{marginTop:3}} src={require('../assets/icon/signature.png')} width={20} height={20}></img>
-                    <div style={{margin: '5px 5px 5px 10px'}}>审核员签名:</div>
-                </div>
-                <div></div>
-            </div>
-            <SignaturePad
-                backgroundColor="#fff"
-                canvasProps={{width:screenWidth,height:250,className: 'sigCanvas'}}
-                ref={(ref) => { this.sigPadAuditer = ref }} />
+            <Accordion className="my-accordion" onChange={this.onChange}>
+                <Accordion.Panel header="确认签名">
+                    <div style={{margin:'10px 0'}}>
+                        <div style={{margin: '0 5px 5px 10px',display:'flex',flexDirection:'row'}}><img style={{marginTop:3}} src={require('../assets/icon/signature.png')} width={20} height={20}></img>
+                            <div style={{margin: '5px 5px 5px 10px'}}>餐厅负责人签名:</div>
+                        </div>
+                        <div></div>
+                    </div>
+                    <SignaturePad
+                        backgroundColor="#fff"
+                        canvasProps={{width:screenWidth,height:250,className: 'sigCanvas'}}
+                        ref={(ref) => { this.sigPad = ref }} />
+                    <InputItem
+                        type='text'
+                        placeholder="请输入签名"
+                        clear
+                        onChange={(v) => { this.setState({signText:v}) }}
+                        onBlur={(v) => { this.setState({signText:v}) }}
+                        keyboardAlign="right"
+                        textAlign="right"
+                    >签名标注</InputItem>
+                    <div style={{margin:15,display:'flex',flexDirection:'row'}}>
+                        <Button style={{flex:1,marginRight:5}} type="ghost" size='small'  onClick={() => this.clear()}>
+                            重写
+                        </Button>
+                        <Button style={{flex:1,marginLeft:5}} type="ghost" size='small'  onClick={() => this.trim()}>
+                            确认
+                        </Button>
+                    </div>
+                    <div style={{margin:'10px 0'}}>
+                        <div style={{margin: '0 5px 5px 10px',display:'flex',flexDirection:'row'}}><img style={{marginTop:3}} src={require('../assets/icon/signature.png')} width={20} height={20}></img>
+                            <div style={{margin: '5px 5px 5px 10px'}}>审核员签名:</div>
+                        </div>
+                        <div></div>
+                    </div>
+                    <SignaturePad
+                        backgroundColor="#fff"
+                        canvasProps={{width:screenWidth,height:250,className: 'sigCanvas'}}
+                        ref={(ref) => { this.sigPadAuditer = ref }} />
 
-            <div style={{margin:15,display:'flex',flexDirection:'row'}}>
-                <Button style={{flex:1,marginRight:5}} type="ghost" size='small'  onClick={() => this.auditerClear()}>
-                    重写
-                </Button>
-                <Button style={{flex:1,marginLeft:5}} type="ghost" size='small'  onClick={() => this.auditerTrim()}>
-                    确认
-                </Button>
-            </div>
+                    <div style={{margin:15,display:'flex',flexDirection:'row'}}>
+                        <Button style={{flex:1,marginRight:5}} type="ghost" size='small'  onClick={() => this.auditerClear()}>
+                            重写
+                        </Button>
+                        <Button style={{flex:1,marginLeft:5}} type="ghost" size='small'  onClick={() => this.auditerTrim()}>
+                            确认
+                        </Button>
+                    </div>
+                </Accordion.Panel>
+            </Accordion>
+
             <div style={{marginTop:10,marginBottom:85}}>
                 <div style={{margin: '5px 5px 5px 10px',display:'flex',flexDirection:'row'}}>
                     <img style={{marginTop:3}} src={require('../assets/icon/location.png')} width={20} height={20}></img>

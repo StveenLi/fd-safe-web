@@ -334,6 +334,11 @@ export const queryPlanList = () => {
     let formData = new FormData();
     formData.append('userId',user.id);
     return new Requester(_POST_(formData),'/rest/common/queryPlanList').do_fetch();
+}
 
-
+export const restResult = (planId,subjectId) => {
+    let formData = new FormData();
+    formData.append('planId',planId);
+    formData.append('subjectId',subjectId);
+    return new Requester(_POST_(formData),'/rest/assess/restResult').do_fetch();
 }
