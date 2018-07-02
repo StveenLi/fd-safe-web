@@ -153,7 +153,7 @@ class AuditQuestions extends React.Component{
                                                         <div>
                                                             {
                                                                 thirdItem.imgs instanceof Array?thirdItem.imgs.map((fourthItem,index) => {
-                                                                    return <Zmage style={{width:'25%',height:'25%'}} src={fourthItem}></Zmage>
+                                                                    return (index+1)%4 ==0?<span><Zmage style={{width:'25%',height:'25%'}} src={fourthItem}></Zmage><br/></span>:<span><Zmage style={{width:'25%',height:'25%'}} src={fourthItem}></Zmage></span>
                                                                 }):null
                                                             }
                                                         </div>
