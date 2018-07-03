@@ -32,6 +32,7 @@ class QuestionDetail extends React.Component{
             currentItem:'',
             currentQuestion:'',
             remarkList:[],
+            isJumpToRemarkId:''
         };
       }
     back = e => {
@@ -104,7 +105,8 @@ class QuestionDetail extends React.Component{
     componentWillMount() {
         this.setState({
             auditId:this.props.match.params.qid,
-            locationState:this.props.history.location.state[0].transmitParam
+            locationState:this.props.history.location.state[0].transmitParam,
+            isJumpToRemarkId:this.props.history.location.state[0].transmitParam.isJumpToRemarkId
         })
         localStorage.setItem('auditLocation',this.props.history.location.state[0].transmitParam.auditName);
         this.pageChange(this.props.history.location.state[0].transmitParam.planId,this.props.match.params.qid);
@@ -144,6 +146,15 @@ class QuestionDetail extends React.Component{
                     videoUrl:data.one.videoUrl,
                     remarkList:remarkList
                 })
+
+                //if(this.props.history.location.state[0].transmitParam.willRemarkPage){
+                //    let item = this.props.history.location.state[0].transmitParam.optionItem;
+                //    this.setState({
+                //        currentQuestion:item.title,
+                //        currentItem:item.auditeId,
+                //        toRemarkPage:true
+                //    })
+                //}
             }
         })
     }
@@ -297,7 +308,8 @@ class QuestionDetail extends React.Component{
     }
     
      getCheckBoxList(questionItem){
-        const {chooseValues,toRemarkPage,remarkList} = this.state
+        const {chooseValues,toRemarkPage,remarkList,locationState,isJumpToRemarkId} = this.state
+         console.log(locationState)
         let self = this;
         return <List>
             {
@@ -323,7 +335,7 @@ class QuestionDetail extends React.Component{
                                         if (remark.isKey != 4) {
                                             if ((remark.content && remark.content != '') || (remark.images && remark.images.length > 0)) {
                                                 return <div
-                                                    onClick={() => self.setState({currentQuestion:item.label,currentItem:item.value,toRemarkPage:!toRemarkPage,})}
+                                                    onClick={(isJumpToRemarkId&&isJumpToRemarkId == item.value)?(self.setState({currentQuestion:item.label,currentItem:item.value,toRemarkPage:!toRemarkPage})):(() => self.setState({currentQuestion:item.label,currentItem:item.value,toRemarkPage:!toRemarkPage}))}
                                                     style={{textAlign:'right',color:BLUE,paddingRight:15,marginTop:5}}>
                                                     <img style={{marginBottom:2}}
                                                          src={require('../assets/icon/pen.png')}/>已备注
@@ -372,7 +384,12 @@ class QuestionDetail extends React.Component{
                 rArray[i].isKey = remarkValue.isKey
             }
         }
-        this.setState({toRemarkPage:!toRemarkPage,remarkList:rArray})
+        this.setState({toRemarkPage:!toRemarkPage,
+            remarkList:rArray,
+            isJumpToRemarkId:''
+            })
+        this.props.history.location.state[0].transmitParam.isJumpToRemarkId = ''
+
     }
     
     getOverlay(){

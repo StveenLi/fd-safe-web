@@ -36,9 +36,9 @@ class AuditQuestions extends React.Component{
     onChange = (key) => {
         console.log(key);
     }
-    toDetail(auditId,firstAudit){
+    toDetail(auditId,firstAudit,questionIds,isJumpToRemarkId){
         let transmitParam = {};
-        let questionIds = [];
+        questionIds = [];
         const {locationState} = this.state;
 
         for(let fa of firstAudit.childAssess){
@@ -49,6 +49,7 @@ class AuditQuestions extends React.Component{
         transmitParam.questionIds = JSON.parse(localStorage.getItem('questionIds'));
         transmitParam.resId = locationState.resId;
         transmitParam.typeId = locationState.typeId;
+        transmitParam.isJumpToRemarkId = isJumpToRemarkId;
         this.props.history.push(`/questionDetail/${auditId}`,[{transmitParam:transmitParam}]);
     }
 
@@ -141,12 +142,13 @@ class AuditQuestions extends React.Component{
                                 return <List.Item style={{background:'#fbfbff'}}
 
                                                   key={index}>
-                                    <div style={{fontSize:15}} onClick={()=>this.toDetail(secondAudit.auditeId,firstAudit,questionIds)}>{secondAudit.secondTitle}</div>
+                                    <div style={{fontSize:15}}>{secondAudit.secondTitle}</div>
 
                                     {
                                         secondAudit.assessOptions.map((thirdItem, index) => {
+                                            console.log(thirdItem)
                                             return <div key={index}>
-                                                <div onClick={()=>this.toDetail(secondAudit.auditeId,firstAudit,questionIds)}>
+                                                <div onClick={()=>this.toDetail(secondAudit.auditeId,firstAudit,questionIds,thirdItem.auditeId)}>
                                                         <div style={{fontSize:15,color:'#e41717'}}>{thirdItem.title.substr(2,thirdItem.title.length)}</div>
                                                         <div style={{fontSize:15,color:FONTGREY}}>备注：{thirdItem.remarks}</div>
                                                 </div>
