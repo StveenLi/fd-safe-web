@@ -219,6 +219,10 @@ class QuestionDetail extends React.Component{
                     }
                 }
             }
+
+            if(isNoUse){
+                subJson.remarks = '不适用';
+            }
             
             if(isNoUse){
                 subJson.isKey = 4
@@ -241,18 +245,22 @@ class QuestionDetail extends React.Component{
     submitAssessSuccessFunc(location,isSubmit,isRemark){
         const {locationState} = this.state;
         let {auditId} = this.state;
-        if(isSubmit){
-            const {history} = this.props;
-            let transmitParam = {};
-            transmitParam.resId = locationState.resId;
-            transmitParam.typeId = locationState.typeId;
-            transmitParam.planId = locationState.planId;
-            history.push('/auditQuestions',[{transmitParam:transmitParam}]);
+        if(location !== 'back'){
+            if(isSubmit){
+                const {history} = this.props;
+                let transmitParam = {};
+                transmitParam.resId = locationState.resId;
+                transmitParam.typeId = locationState.typeId;
+                transmitParam.planId = locationState.planId;
+                history.push('/auditQuestions',[{transmitParam:transmitParam}]);
+            }else{
+                let nextAuditId = locationState.questionIds[locationState.questionIds.indexOf(parseInt(auditId))+location];
+                this.props.history.replace(`/questionDetail/${nextAuditId}`,[{transmitParam:locationState}]);
+            }
         }else{
-            let nextAuditId = locationState.questionIds[locationState.questionIds.indexOf(parseInt(auditId))+location];
-            this.props.history.replace(`/questionDetail/${nextAuditId}`,[{transmitParam:locationState}]);
-            
+            this.props.history.goBack();
         }
+
         
     }
 
@@ -388,7 +396,11 @@ class QuestionDetail extends React.Component{
             remarkList:rArray,
             isJumpToRemarkId:''
             })
-        this.props.history.location.state[0].transmitParam.isJumpToRemarkId = ''
+        if(this.props.history.location.state[0].transmitParam.isJumpToRemarkId!==''){
+            this.props.history.location.state[0].transmitParam.isJumpToRemarkId = '';
+            this.initSubJsonController('back')
+        }
+
 
     }
     

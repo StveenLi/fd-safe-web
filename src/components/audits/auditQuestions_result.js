@@ -152,10 +152,10 @@ class AuditQuestions extends React.Component{
                                                         <div style={{fontSize:15,color:'#e41717'}}>{thirdItem.title.substr(2,thirdItem.title.length)}</div>
                                                         <div style={{fontSize:15,color:FONTGREY}}>备注：{thirdItem.remarks}</div>
                                                 </div>
-                                                        <div>
+                                                        <div >
                                                             {
                                                                 thirdItem.imgs instanceof Array?thirdItem.imgs.map((fourthItem,index) => {
-                                                                    return (index+1)%4 ==0?<span><Zmage style={{width:'25%',height:'25%'}} src={fourthItem}></Zmage><br/></span>:<span><Zmage style={{width:'25%',height:'25%'}} src={fourthItem}></Zmage></span>
+                                                                    return (index+1)%4 ==0?<span><Zmage controller={{zoom: false}} style={{margin:5,height:100}} src={fourthItem}></Zmage><br/></span>:<span><Zmage controller={{zoom: false}} style={{margin:5,height:100}} src={fourthItem}></Zmage></span>
                                                                 }):null
                                                             }
                                                         </div>

@@ -4,7 +4,7 @@
 
 
 import React from 'react'
-import { NavBar,Icon,Picker, List,DatePicker,Toast} from 'antd-mobile';
+import { NavBar,Icon,Picker, List,DatePicker,Toast,InputItem} from 'antd-mobile';
 import {BLUE} from '../config/style'
 import {getResByUserId,getAuditsType,user,queryPlan} from '../config/api'
 
@@ -33,7 +33,12 @@ class StartAuditPage extends React.Component{
     };
 
     componentDidMount() {
-        getResByUserId().then(data => {
+        this.getCanTingList('');
+    }
+
+
+    getCanTingList(name){
+        getResByUserId(name).then(data => {
             console.log(data)
             if(data.success){
                 let arr = [];
@@ -85,8 +90,12 @@ class StartAuditPage extends React.Component{
                 Toast.fail(data.msg, 1); return;
             }
         })
+    }
 
+    _bindSearchRest(v){
+        //console.log('onChange',v);
 
+        this.getCanTingList(v);
     }
 
     render(){
@@ -118,7 +127,8 @@ class StartAuditPage extends React.Component{
                         </DatePicker>
                         <Picker
                             cols={1}
-                            data={resOptions}
+                            title={<InputItem style={{margin:5,height:30}} placeholder="输入要搜索的门店名" onChange={(v)=>this._bindSearchRest(v)} ></InputItem>}
+                                data={resOptions}
                             value={this.state.sValue}
                             onOk={(v) => this.selectResTrue(v)}
                             onChange={v => this.setState({ sValue: v })}

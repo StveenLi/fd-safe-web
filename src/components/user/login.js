@@ -64,6 +64,11 @@ class Login extends Component{
         });
     }
 
+    toCall(){
+        window.location.href = "tel:13761057837"
+    }
+
+
     render(){
         return <div style={{display:'flex',flexDirection:'column',background:"#fff",textAlign:'center',padding:'0 15px',height:screenHeight}}>
 
@@ -102,7 +107,10 @@ class Login extends Component{
 
                             </div>
                         </div>
-                        <div style={{textAlign:'left',marginLeft:20,marginTop:20,color:ORANGE}}>收不到验证码？</div>
+                        <div
+
+                            onClick={() => this.toCall()}
+                            style={{textAlign:'left',marginLeft:20,marginTop:20,color:ORANGE}}>收不到验证码？</div>
                     </div>
 
                     <div style={{marginTop:30}}>
@@ -110,7 +118,7 @@ class Login extends Component{
                                 onClick={()=>this.userLogin()}
                                 type="primary" style={{margin:'15px 30px',backgroundColor:BLUE}}>登录</Button>
                     </div>
-            <div style={{marginTop:30}}>没有账号？找<span style={{color:ORANGE}}>客服</span></div>
+            <div style={{marginTop:30}}>没有账号？找<span style={{color:ORANGE}} onClick={() => this.toCall()}>客服</span></div>
         </div>
     }
 }

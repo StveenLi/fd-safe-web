@@ -96,9 +96,10 @@ export const getNotice = () => {
     return new Requester(_POST_(formData),'/rest/index/getNotice').do_fetch();
 }
 
-export const getResByUserId = () => {
+export const getResByUserId = (name) => {
     let formData = new FormData();
     formData.append('userId',user.id);
+    formData.append('name',name);
     return new Requester(_POST_(formData),'/rest/assess/getCanting').do_fetch();
 }
 
