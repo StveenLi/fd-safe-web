@@ -396,10 +396,15 @@ class QuestionDetail extends React.Component{
             remarkList:rArray,
             isJumpToRemarkId:''
             })
-        if(this.props.history.location.state[0].transmitParam.isJumpToRemarkId!==''){
-            this.props.history.location.state[0].transmitParam.isJumpToRemarkId = '';
-            this.initSubJsonController('back')
+
+        console.log();
+        if(this.props.history.location.state[0].transmitParam.isJumpToRemarkId!=undefined){
+            if(this.props.history.location.state[0].transmitParam.isJumpToRemarkId!==''){
+                this.props.history.location.state[0].transmitParam.isJumpToRemarkId = '';
+                this.initSubJsonController('back')
+            }
         }
+
 
 
     }
