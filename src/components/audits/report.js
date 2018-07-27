@@ -235,9 +235,9 @@ class Report extends React.Component{
 
     serachReport(){
         const {startDate,endDate,sValue,bValue,pickerValue,selectedValue,tValue,resValue,startNums,endNums} = this.state
-
+        console.log(endDate.format('yyyy-MM-dd'));
         queryAssessHis(
-            startDate.format('yyyy-MM-hh'),endDate.format('yyyy-MM-hh')
+            startDate.format('yyyy-MM-dd'),endDate.format('yyyy-MM-dd')
             ,sValue,bValue,pickerValue[0],
             pickerValue[1]?pickerValue[1]:'',
             pickerValue[2]?pickerValue[2]:'','',tValue,resValue,startNums,endNums
