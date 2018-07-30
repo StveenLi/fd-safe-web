@@ -32,7 +32,7 @@ class Sign extends React.Component{
         this.sigPad.on();
     }
     trim = () => {
-        if(this.state.signText==''){
+        if(this.state.signText==''&&this.props.currentSigner==1){
             Toast.fail('餐厅负责人签名标注不能为空',1);
             return;
         }
@@ -59,7 +59,7 @@ class Sign extends React.Component{
                     backgroundColor="#fff"
                     canvasProps={{width:screenWidth,height:250,className: 'sigCanvas'}}
                     ref={(ref) => { this.sigPad = ref }} />
-                <InputItem
+                {this.props.currentSigner==1?<InputItem
                     type='text'
                     placeholder="请输入签名"
                     clear
@@ -67,7 +67,8 @@ class Sign extends React.Component{
                     onBlur={(v) => { this.setState({signText:v}) }}
                     keyboardAlign="right"
                     textAlign="right"
-                >签名标注</InputItem>
+                >签名标注</InputItem>:null}
+
                 <div style={{margin:15,display:'flex',flexDirection:'row'}}>
                     <Button style={{flex:1,marginRight:5}} type="ghost" size='small'  onClick={() => this.clear()}>
                         重写
