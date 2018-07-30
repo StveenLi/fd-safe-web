@@ -60,10 +60,8 @@ class AuditQuestions extends React.Component{
 
     toFuncPage(){
         const {reserSignUrl,auditerSignUrl,signText,url1,url2} = this.state
-        if(reserSignUrl==''||auditerSignUrl==''){
+        if(url1==''||url2==''){
             Toast.fail('双方签名确认之后才可提交',1);
-        }else if(signText == ''){
-            Toast.fail('餐厅负责人签名标注不能为空',1);
         }else{
             doStatistics(this.state.locationState.planId,url1,url2,signText).then(data => {
                 if(data.success){
