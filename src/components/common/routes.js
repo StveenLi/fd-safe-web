@@ -31,6 +31,7 @@ import Report from '../audits/report'
 import ReportDetail from '../audits/reportDetail'
 import ReportList from '../audits/reportList'
 import AuditComplete from '../audits/auditComplete'
+import Sign from '../audits/sign'
 import Login from '../user/login'
 import PrivateRoute from './PrivateRoute'
 import VideoTrain from '../audits/videoTrain'
@@ -68,6 +69,8 @@ const Routes = () => (
                 <PrivateRoute path="/auditComplete" component={AuditComplete}/>
                 <PrivateRoute path="/trainVideoPage" component={VideoTrain}/>
                 <PrivateRoute path="/trainImgDetailPage" component={ImgDetailTrain}/>
+                <PrivateRoute path="/sign" component={Sign}/>
+
             </Switch>
 )
 

@@ -234,8 +234,8 @@ class Report extends React.Component{
 
 
     serachReport(){
+        Toast.loading('查询中，请稍后……', 0, true);
         const {startDate,endDate,sValue,bValue,pickerValue,selectedValue,tValue,resValue,startNums,endNums} = this.state
-        console.log(endDate.format('yyyy-MM-dd'));
         queryAssessHis(
             startDate.format('yyyy-MM-dd'),endDate.format('yyyy-MM-dd')
             ,sValue,bValue,pickerValue[0],
@@ -243,6 +243,7 @@ class Report extends React.Component{
             pickerValue[2]?pickerValue[2]:'','',tValue,resValue,startNums,endNums
         ).then(data => {
             if(data.success){
+                Toast.hide();
                 this.props.history.push('/reportList',[{transmitParam:data.list}])
             }
         })

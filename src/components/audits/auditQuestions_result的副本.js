@@ -9,7 +9,6 @@ import SignaturePad from '../signature/index.js'
 import {screenWidth,FONTGREY,GREY,BLUE} from '../config/style'
 import {getAddressByXY,checkUnStandard,doStatistics,uploadByBase64} from '../config/api'
 import Zmage from 'react-zmage'
-import Sign from './sign'
 
 class AuditQuestions extends React.Component{
     // 构造
@@ -26,11 +25,7 @@ class AuditQuestions extends React.Component{
             unDoIds:[],
             reserSignUrl:'',
             auditerSignUrl:'',
-            signText:'',
-            isSignPage:false,
-            url1:'',
-            url2:'',
-            currentSign:1
+            signText:''
         };
       }
 
@@ -59,13 +54,13 @@ class AuditQuestions extends React.Component{
     }
 
     toFuncPage(){
-        const {reserSignUrl,auditerSignUrl,signText,url1,url2} = this.state
+        const {reserSignUrl,auditerSignUrl,signText} = this.state
         if(reserSignUrl==''||auditerSignUrl==''){
             Toast.fail('双方签名确认之后才可提交',1);
         }else if(signText == ''){
             Toast.fail('餐厅负责人签名标注不能为空',1);
         }else{
-            doStatistics(this.state.locationState.planId,url1,url2,signText).then(data => {
+            doStatistics(this.state.locationState.planId,reserSignUrl,auditerSignUrl,signText).then(data => {
                 if(data.success){
                     this.props.history.push('/auditComplete',[{planId:this.state.locationState.planId,transmitParam:data.list,resId:this.state.locationState.resId,typeId:this.state.locationState.typeId}]);
                 }else {
@@ -212,16 +207,6 @@ class AuditQuestions extends React.Component{
             })
         }
     }
-
-    trimFinish(url,curr,text){
-        this.setState({
-            isSignPage:false,
-            signText:text
-        })
-        curr==1?this.setState({url1:url}):this.setState({url2:url})
-
-
-    }
     //savePosition(position){
     //    const {locationState} = this.state;
     //    localStorage.setItem('Latitude',position.coords.latitude);
@@ -238,21 +223,14 @@ class AuditQuestions extends React.Component{
     //        }
     //    })
     //}
-
-    toSign(curr){
-        this.setState({
-            isSignPage:true,
-            currentSign:curr
-        })
-    }
     render(){
 
-        const {resAuditList,isSignPage,url1,url2,currentSign} = this.state;
+        const {resAuditList} = this.state;
         let childAssess = [];
         if(resAuditList.childAssess instanceof Array){
             childAssess = resAuditList.childAssess;
         }
-        return !isSignPage?<div>
+        return <div>
             <NavBar
                 mode="light"
                 icon={<Icon type="left" />}
@@ -269,28 +247,56 @@ class AuditQuestions extends React.Component{
                         this.setAudits(childAssess)
                     }
             </div>
-                    <div style={{margin:'10px 0'}}>
-                        <div style={{margin: '0 5px 5px 10px',display:'flex',flexDirection:'row'}}>
-                            <img style={{marginTop:3}} src={require('../assets/icon/signature.png')} width={20} height={20}></img>
-                            <div style={{margin: '5px 5px 5px 10px',flex:1}}>餐厅负责人签名:</div>
-                            <div style={{margin: '5px 5px 5px 10px',color:BLUE}} onClick={() => this.toSign(1)}>去签名 ></div>
-                        </div>
-                        <div>
-                            <img src={url1}></img>
-                        </div>
-                    </div>
-
+            <Accordion className="my-accordion" onChange={this.onChange}>
+                <Accordion.Panel header="确认签名">
                     <div style={{margin:'10px 0'}}>
                         <div style={{margin: '0 5px 5px 10px',display:'flex',flexDirection:'row'}}><img style={{marginTop:3}} src={require('../assets/icon/signature.png')} width={20} height={20}></img>
-                            <div style={{margin: '5px 5px 5px 10px',flex:1}}>审核员签名:</div>
-                            <div style={{margin: '5px 5px 5px 10px',color:BLUE}} onClick={() => this.toSign(2)}>去签名 ></div>
-
+                            <div style={{margin: '5px 5px 5px 10px'}}>餐厅负责人签名:</div>
                         </div>
-                        <div>
-                            <img src={url2}></img>
-
-                        </div>
+                        <div></div>
                     </div>
+                    <SignaturePad
+                        backgroundColor="#fff"
+                        canvasProps={{width:screenWidth,height:250,className: 'sigCanvas'}}
+                        ref={(ref) => { this.sigPad = ref }} />
+                    <InputItem
+                        type='text'
+                        placeholder="请输入签名"
+                        clear
+                        onChange={(v) => { this.setState({signText:v}) }}
+                        onBlur={(v) => { this.setState({signText:v}) }}
+                        keyboardAlign="right"
+                        textAlign="right"
+                    >签名标注</InputItem>
+                    <div style={{margin:15,display:'flex',flexDirection:'row'}}>
+                        <Button style={{flex:1,marginRight:5}} type="ghost" size='small'  onClick={() => this.clear()}>
+                            重写
+                        </Button>
+                        <Button style={{flex:1,marginLeft:5}} type="ghost" size='small'  onClick={() => this.trim()}>
+                            确认
+                        </Button>
+                    </div>
+                    <div style={{margin:'10px 0'}}>
+                        <div style={{margin: '0 5px 5px 10px',display:'flex',flexDirection:'row'}}><img style={{marginTop:3}} src={require('../assets/icon/signature.png')} width={20} height={20}></img>
+                            <div style={{margin: '5px 5px 5px 10px'}}>审核员签名:</div>
+                        </div>
+                        <div></div>
+                    </div>
+                    <SignaturePad
+                        backgroundColor="#fff"
+                        canvasProps={{width:screenWidth,height:250,className: 'sigCanvas'}}
+                        ref={(ref) => { this.sigPadAuditer = ref }} />
+
+                    <div style={{margin:15,display:'flex',flexDirection:'row'}}>
+                        <Button style={{flex:1,marginRight:5}} type="ghost" size='small'  onClick={() => this.auditerClear()}>
+                            重写
+                        </Button>
+                        <Button style={{flex:1,marginLeft:5}} type="ghost" size='small'  onClick={() => this.auditerTrim()}>
+                            确认
+                        </Button>
+                    </div>
+                </Accordion.Panel>
+            </Accordion>
 
             <div style={{marginTop:10,marginBottom:85}}>
                 <div style={{margin: '5px 5px 5px 10px',display:'flex',flexDirection:'row'}}>
@@ -305,7 +311,7 @@ class AuditQuestions extends React.Component{
                 <Button style={{background:BLUE}} type="primary" onClick={() => this.toFuncPage()}>审核提交</Button>
             </div>
 
-        </div>:<Sign trimFinish={(url,curr,text)=>this.trimFinish(url,curr,text)} currentSigner={currentSign} ></Sign>
+        </div>
     }
 }
 
