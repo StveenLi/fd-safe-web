@@ -93,8 +93,6 @@ class StartAuditPage extends React.Component{
     }
 
     _bindSearchRest(v){
-        //console.log('onChange',v);
-
         this.getCanTingList(v);
     }
 

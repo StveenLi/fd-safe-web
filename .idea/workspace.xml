@@ -3,7 +3,15 @@
   <component name="ChangeListManager">
     <list default="true" id="cc966e70-59e5-419f-bf6d-e7ef27b57a92" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/audits/sign.js" afterPath="$PROJECT_DIR$/src/components/audits/sign.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/audits/auditQuestions.js" afterPath="$PROJECT_DIR$/src/components/audits/auditQuestions.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/audits/auditQuestions_result.js" afterPath="$PROJECT_DIR$/src/components/audits/auditQuestions_result.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/audits/plans.js" afterPath="$PROJECT_DIR$/src/components/audits/plans.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/audits/questionDetail.js" afterPath="$PROJECT_DIR$/src/components/audits/questionDetail.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/audits/report.js" afterPath="$PROJECT_DIR$/src/components/audits/report.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/audits/startAuditPage.js" afterPath="$PROJECT_DIR$/src/components/audits/startAuditPage.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/common/PrivateRoute.js" afterPath="$PROJECT_DIR$/src/components/common/PrivateRoute.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/config/api.js" afterPath="$PROJECT_DIR$/src/components/config/api.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/home/homeIndex.js" afterPath="$PROJECT_DIR$/src/components/home/homeIndex.js" />
     </list>
     <ignored path="fd-web.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -24,87 +32,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="questionDetail.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/audits/questionDetail.js">
+      <file leaf-file-name="report.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/components/audits/report.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="26" column="25" selection-start-line="26" selection-start-column="25" selection-end-line="26" selection-end-column="25" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="reportList.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/audits/reportList.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="27" column="22" selection-start-line="27" selection-start-column="16" selection-end-line="27" selection-end-column="22" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="videoTrain.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/audits/videoTrain.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.65771025">
+              <caret line="176" column="0" selection-start-line="176" selection-start-column="0" selection-end-line="176" selection-end-column="0" />
               <folding>
-                <element signature="n#!!doc" expanded="true" />
+                <element signature="e#1433#1464#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="sign.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/components/audits/sign.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.31023103">
-              <caret line="38" column="24" selection-start-line="38" selection-start-column="24" selection-end-line="38" selection-end-column="24" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="remarks.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/audits/remarks.js">
+      <file leaf-file-name="startAuditPage.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/audits/startAuditPage.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="104" column="47" selection-start-line="104" selection-start-column="36" selection-end-line="104" selection-end-column="47" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="auditQuestions_result.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/audits/auditQuestions_result.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-27.037037">
-              <caret line="305" column="95" selection-start-line="305" selection-start-column="82" selection-end-line="305" selection-end-column="95" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="auditQuestions_result的副本.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/audits/auditQuestions_result的副本.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="auditQuestionsByList.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/audits/auditQuestionsByList.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="68" column="17" selection-start-line="68" selection-start-column="17" selection-end-line="68" selection-end-column="17" />
+              <caret line="94" column="4" selection-start-line="94" selection-start-column="4" selection-end-line="94" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -113,18 +57,18 @@
       <file leaf-file-name="api.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/config/api.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="98" column="27" selection-start-line="98" selection-start-column="13" selection-end-line="98" selection-end-column="27" />
+            <state vertical-scroll-proportion="-22.518518">
+              <caret line="290" column="1" selection-start-line="290" selection-start-column="1" selection-end-line="290" selection-end-column="1" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="routes.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/common/routes.js">
+      <file leaf-file-name="homeIndex.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/home/homeIndex.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="58" column="64" selection-start-line="58" selection-start-column="64" selection-end-line="58" selection-end-column="64" />
+              <caret line="27" column="40" selection-start-line="27" selection-start-column="40" selection-end-line="27" selection-end-column="40" />
               <folding />
             </state>
           </provider>
@@ -155,7 +99,6 @@
         <option value="$PROJECT_DIR$/src/components/navbar/consultationPage.js" />
         <option value="$PROJECT_DIR$/src/components/train/tarinIndex.js" />
         <option value="$PROJECT_DIR$/src/components/user/message.js" />
-        <option value="$PROJECT_DIR$/src/components/home/homeIndex.js" />
         <option value="$PROJECT_DIR$/src/components/config/style.js" />
         <option value="$PROJECT_DIR$/src/components/config/cityData.js" />
         <option value="$PROJECT_DIR$/src/components/audits/videoTrain.js" />
@@ -163,7 +106,6 @@
         <option value="$PROJECT_DIR$/src/components/navbar/mainPage.js" />
         <option value="$PROJECT_DIR$/src/components/check/checkIndex.js" />
         <option value="$PROJECT_DIR$/src/components/audits/staticsStore.js" />
-        <option value="$PROJECT_DIR$/src/components/common/PrivateRoute.js" />
         <option value="$PROJECT_DIR$/src/components/audits/staticsRadar.js" />
         <option value="$PROJECT_DIR$/src/App.js" />
         <option value="$PROJECT_DIR$/public/es6-promise.min.js" />
@@ -175,7 +117,6 @@
         <option value="$PROJECT_DIR$/src/components/audits/staticsType.js" />
         <option value="$PROJECT_DIR$/src/components/audits/staticsAll.js" />
         <option value="$PROJECT_DIR$/src/components/audits/auditQuestionsByList.js" />
-        <option value="$PROJECT_DIR$/src/components/audits/plans.js" />
         <option value="$PROJECT_DIR$/src/components/law/lawListPage.js" />
         <option value="$PROJECT_DIR$/src/components/law/lawDetail.js" />
         <option value="$PROJECT_DIR$/src/components/audits/statics.js" />
@@ -184,18 +125,21 @@
         <option value="$PROJECT_DIR$/node_modules/antd-mobile/es/modal/alert.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/src/components/audits/auditComplete.js" />
-        <option value="$PROJECT_DIR$/src/components/audits/auditQuestions.js" />
         <option value="$PROJECT_DIR$/src/components/navbar/personalIndex.js" />
-        <option value="$PROJECT_DIR$/src/components/user/login.js" />
-        <option value="$PROJECT_DIR$/src/components/config/api.js" />
-        <option value="$PROJECT_DIR$/src/components/audits/startAuditPage.js" />
-        <option value="$PROJECT_DIR$/src/components/audits/questionDetail.js" />
         <option value="$PROJECT_DIR$/src/components/audits/reportDetail.js" />
         <option value="$PROJECT_DIR$/public/index.html" />
-        <option value="$PROJECT_DIR$/src/components/audits/report.js" />
         <option value="$PROJECT_DIR$/src/components/common/routes.js" />
-        <option value="$PROJECT_DIR$/src/components/audits/auditQuestions_result.js" />
         <option value="$PROJECT_DIR$/src/components/audits/sign.js" />
+        <option value="$PROJECT_DIR$/src/components/audits/startAuditPage.js" />
+        <option value="$PROJECT_DIR$/src/components/audits/questionDetail.js" />
+        <option value="$PROJECT_DIR$/src/components/audits/auditQuestions.js" />
+        <option value="$PROJECT_DIR$/src/components/audits/auditQuestions_result.js" />
+        <option value="$PROJECT_DIR$/src/components/common/PrivateRoute.js" />
+        <option value="$PROJECT_DIR$/src/components/user/login.js" />
+        <option value="$PROJECT_DIR$/src/components/home/homeIndex.js" />
+        <option value="$PROJECT_DIR$/src/components/audits/plans.js" />
+        <option value="$PROJECT_DIR$/src/components/config/api.js" />
+        <option value="$PROJECT_DIR$/src/components/audits/report.js" />
       </list>
     </option>
   </component>
@@ -207,9 +151,9 @@
     <detection-done>true</detection-done>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1" />
-    <option name="y" value="24" />
-    <option name="width" value="1634" />
+    <option name="x" value="11" />
+    <option name="y" value="23" />
+    <option name="width" value="1670" />
     <option name="height" value="1027" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
@@ -237,8 +181,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -286,6 +228,72 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="user" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fd-web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fd-web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fd-web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fd-web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="navbar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fd-web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fd-web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="home" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -385,6 +393,8 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -393,7 +403,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="js-jscs-nodeInterpreter" value="/usr/local/bin/node" />
-    <property name="SearchEverywhereHistoryKey" value="per&#9;FILE&#9;file:///Users/lixin/Documents/fq/food-safe-web/fd-web/src/components/navbar/personalIndex.js&#10;api&#9;FILE&#9;file:///Users/lixin/Documents/fq/food-safe-web/fd-web/src/components/config/api.js&#10;pack&#9;FILE&#9;file:///Users/lixin/Documents/fq/food-safe-web/fd-web/package.json&#10;route&#9;FILE&#9;file:///Users/lixin/Documents/fq/food-safe-web/fd-web/src/components/common/routes.js&#10;rou&#9;FILE&#9;file:///Users/lixin/Documents/fq/food-safe-web/fd-web/src/components/common/routes.js&#10;rout&#9;FILE&#9;file:///Users/lixin/Documents/fq/food-safe-web/fd-web/src/components/common/routes.js&#10;re&#9;FILE&#9;file:///Users/lixin/Documents/fq/food-safe-web/fd-web/src/components/audits/report.js&#10;rema&#9;FILE&#9;file:///Users/lixin/Documents/fq/food-safe-web/fd-web/src/components/audits/remarks.js&#10;pri&#9;FILE&#9;file:///Users/lixin/Documents/fq/food-safe-web/fd-web/src/components/common/PrivateRoute.js&#10;auditcom&#9;FILE&#9;file:///Users/lixin/Documents/fq/food-safe-web/fd-web/src/components/audits/auditComplete.js&#10;checkind&#9;FILE&#9;file:///Users/lixin/Documents/fq/food-safe-web/fd-web/src/components/check/checkIndex.js&#10;main&#9;FILE&#9;file:///Users/lixin/Documents/fq/food-safe-web/fd-web/src/components/navbar/mainPage.js&#10;ap&#9;FILE&#9;file:///Users/lixin/Documents/fq/food-safe-web/fd-web/src/components/config/api.js&#10;static&#9;FILE&#9;file:///Users/lixin/Documents/fq/food-safe-web/fd-web/src/components/audits/staticsRadar.js&#10;que&#9;FILE&#9;file:///Users/lixin/Documents/fq/food-safe-web/fd-web/src/components/audits/questionDetail.js&#10;com&#9;FILE&#9;file:///Users/lixin/Documents/fq/food-safe-web/fd-web/src/components/audits/staticsCompare.js&#10;login&#9;FILE&#9;file:///Users/lixin/Documents/fq/food-safe-web/fd-web/src/components/user/login.js&#10;compa&#9;FILE&#9;file:///Users/lixin/Documents/fq/food-safe-web/fd-web/src/components/audits/staticsCompare.js&#10;mainco&#9;null&#9;null&#10;auditComplete&#9;FILE&#9;file:///Users/lixin/Documents/fq/food-safe-web/fd-web/src/components/audits/auditComplete.js&#10;aud&#9;FILE&#9;file:///Users/lixin/Documents/fq/food-safe-web/fd-web/src/components/audits/auditQuestions.js&#10;routes&#9;FILE&#9;file:///Users/lixin/Documents/fq/food-safe-web/fd-web/src/components/common/routes.js&#10;qu&#9;FILE&#9;file:///Users/lixin/Documents/fq/food-safe-web/fd-web/src/components/audits/questionDetail.js&#10;sta&#9;FILE&#9;file:///Users/lixin/Documents/fq/food-safe-web/fd-web/src/components/audits/staticsAll.js" />
+    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file:///Users/lixin/Documents/fq/food-safe-web/fd-web/src/components/audits/auditQuestions_result的副本.js&#10;per&#9;FILE&#9;file:///Users/lixin/Documents/fq/food-safe-web/fd-web/src/components/navbar/personalIndex.js&#10;api&#9;FILE&#9;file:///Users/lixin/Documents/fq/food-safe-web/fd-web/src/components/config/api.js&#10;pack&#9;FILE&#9;file:///Users/lixin/Documents/fq/food-safe-web/fd-web/package.json&#10;route&#9;FILE&#9;file:///Users/lixin/Documents/fq/food-safe-web/fd-web/src/components/common/routes.js&#10;rou&#9;FILE&#9;file:///Users/lixin/Documents/fq/food-safe-web/fd-web/src/components/common/routes.js&#10;rout&#9;FILE&#9;file:///Users/lixin/Documents/fq/food-safe-web/fd-web/src/components/common/routes.js&#10;re&#9;FILE&#9;file:///Users/lixin/Documents/fq/food-safe-web/fd-web/src/components/audits/report.js&#10;rema&#9;FILE&#9;file:///Users/lixin/Documents/fq/food-safe-web/fd-web/src/components/audits/remarks.js&#10;pri&#9;FILE&#9;file:///Users/lixin/Documents/fq/food-safe-web/fd-web/src/components/common/PrivateRoute.js&#10;auditcom&#9;FILE&#9;file:///Users/lixin/Documents/fq/food-safe-web/fd-web/src/components/audits/auditComplete.js&#10;checkind&#9;FILE&#9;file:///Users/lixin/Documents/fq/food-safe-web/fd-web/src/components/check/checkIndex.js&#10;main&#9;FILE&#9;file:///Users/lixin/Documents/fq/food-safe-web/fd-web/src/components/navbar/mainPage.js&#10;ap&#9;FILE&#9;file:///Users/lixin/Documents/fq/food-safe-web/fd-web/src/components/config/api.js&#10;static&#9;FILE&#9;file:///Users/lixin/Documents/fq/food-safe-web/fd-web/src/components/audits/staticsRadar.js&#10;que&#9;FILE&#9;file:///Users/lixin/Documents/fq/food-safe-web/fd-web/src/components/audits/questionDetail.js&#10;com&#9;FILE&#9;file:///Users/lixin/Documents/fq/food-safe-web/fd-web/src/components/audits/staticsCompare.js&#10;login&#9;FILE&#9;file:///Users/lixin/Documents/fq/food-safe-web/fd-web/src/components/user/login.js&#10;compa&#9;FILE&#9;file:///Users/lixin/Documents/fq/food-safe-web/fd-web/src/components/audits/staticsCompare.js&#10;mainco&#9;null&#9;null&#10;auditComplete&#9;FILE&#9;file:///Users/lixin/Documents/fq/food-safe-web/fd-web/src/components/audits/auditComplete.js&#10;aud&#9;FILE&#9;file:///Users/lixin/Documents/fq/food-safe-web/fd-web/src/components/audits/auditQuestions.js&#10;routes&#9;FILE&#9;file:///Users/lixin/Documents/fq/food-safe-web/fd-web/src/components/common/routes.js&#10;qu&#9;FILE&#9;file:///Users/lixin/Documents/fq/food-safe-web/fd-web/src/components/audits/questionDetail.js&#10;sta&#9;FILE&#9;file:///Users/lixin/Documents/fq/food-safe-web/fd-web/src/components/audits/staticsAll.js" />
     <property name="editor.config.accepted" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../jx-service-app" />
   </component>
@@ -481,19 +491,20 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1" y="24" width="1634" height="1027" extended-state="0" />
+    <frame x="11" y="23" width="1670" height="1027" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18153267" sideWeight="0.48879403" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="TypeScript Compiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32977587" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="TypeScript Compiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32977587" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15532735" sideWeight="0.5048077" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32870865" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Mongo Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32977387" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4290201" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.42874694" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18304668" sideWeight="0.48879403" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26680896" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18153267" sideWeight="0.511206" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -501,7 +512,6 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26737967" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -556,7 +566,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/components/audits/report.js</url>
-          <line>195</line>
+          <line>214</line>
           <option name="timeStamp" value="9" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
@@ -570,34 +580,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/components/audits/audits.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="38" column="24" selection-start-line="38" selection-start-column="24" selection-end-line="38" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/check/checkIndex.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="38" column="22" selection-start-line="38" selection-start-column="22" selection-end-line="38" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/audits/staticsStore.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="4" column="15" selection-start-line="4" selection-start-column="15" selection-end-line="4" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/common/PrivateRoute.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.4074074">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/audits/staticsRadar.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -721,13 +703,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/audits/plans.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="5.3333335">
-          <caret line="49" column="19" selection-start-line="49" selection-start-column="18" selection-end-line="49" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/audits/staticsAll.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -750,23 +725,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/navbar/personalIndex.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="29" column="13" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/audits/auditQuestions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="133" column="59" selection-start-line="133" selection-start-column="59" selection-end-line="133" selection-end-column="59" />
-          <folding>
-            <marker date="1529046995689" expanded="true" signature="4820:4845" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/navbar/mainPage.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -774,48 +732,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/user/message.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/home/homeIndex.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="48" column="36" selection-start-line="48" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/config/style.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="52" column="60" selection-start-line="52" selection-start-column="8" selection-end-line="52" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/config/cityData.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/audits/startAuditPage.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="91" column="10" selection-start-line="91" selection-start-column="10" selection-end-line="91" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/user/login.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="22" column="33" selection-start-line="22" selection-start-column="33" selection-end-line="22" selection-end-column="33" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -839,7 +759,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="18" column="27" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="27" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -851,36 +770,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/audits/report.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="245" column="29" selection-start-line="245" selection-start-column="29" selection-end-line="245" selection-end-column="29" />
-          <folding>
-            <element signature="e#1433#1464#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/audits/reportList.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="27" column="22" selection-start-line="27" selection-start-column="16" selection-end-line="27" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/config/api.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="98" column="27" selection-start-line="98" selection-start-column="13" selection-end-line="98" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/common/routes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="58" column="64" selection-start-line="58" selection-start-column="64" selection-end-line="58" selection-end-column="64" />
           <folding />
         </state>
       </provider>
@@ -903,25 +796,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/audits/auditQuestionsByList.js">
+    <entry file="file://$PROJECT_DIR$/src/components/audits/sign.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="68" column="17" selection-start-line="68" selection-start-column="17" selection-end-line="68" selection-end-column="17" />
+          <caret line="25" column="5" selection-start-line="25" selection-start-column="5" selection-end-line="25" selection-end-column="5" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/static/js/main.a4af2f89.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33333334">
+          <caret line="0" column="1256699" selection-start-line="0" selection-start-column="1256699" selection-end-line="0" selection-end-column="1256699" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/audits/questionDetail.js">
+    <entry file="file://$PROJECT_DIR$/src/components/audits/auditQuestions.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="26" column="25" selection-start-line="26" selection-start-column="25" selection-end-line="26" selection-end-column="25" />
-          <folding />
+          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding>
+            <marker date="1533621786447" expanded="true" signature="5173:5198" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/audits/auditQuestions_result的副本.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state vertical-scroll-proportion="0.028831564">
           <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
@@ -931,26 +836,142 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/audits/remarks.js">
       <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-13.703704">
+          <caret line="104" column="30" selection-start-line="104" selection-start-column="30" selection-end-line="104" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/audits/auditQuestionsByList.js">
+      <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="104" column="47" selection-start-line="104" selection-start-column="36" selection-end-line="104" selection-end-column="47" />
+          <caret line="10" column="26" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/common/routes.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.7777777">
+          <caret line="49" column="57" selection-start-line="49" selection-start-column="37" selection-end-line="49" selection-end-column="57" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/audits/auditQuestions_result.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-27.037037">
-          <caret line="305" column="95" selection-start-line="305" selection-start-column="82" selection-end-line="305" selection-end-column="95" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="140" column="39" selection-start-line="140" selection-start-column="39" selection-end-line="140" selection-end-column="39" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/audits/sign.js">
+    <entry file="file://$PROJECT_DIR$/src/components/config/style.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.31023103">
-          <caret line="38" column="24" selection-start-line="38" selection-start-column="24" selection-end-line="38" selection-end-column="24" />
+        <state vertical-scroll-proportion="-10.037037">
+          <caret line="52" column="26" selection-start-line="52" selection-start-column="8" selection-end-line="52" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/home/homeIndex2.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/navbar/personalIndex.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="19" column="8" selection-start-line="19" selection-start-column="8" selection-end-line="20" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/user/message.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/user/login.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="58" column="52" selection-start-line="58" selection-start-column="52" selection-end-line="58" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/audits/questionDetail.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="12" column="26" selection-start-line="12" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/common/PrivateRoute.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="9" column="75" selection-start-line="9" selection-start-column="75" selection-end-line="9" selection-end-column="75" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/audits/audits.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="59" column="29" selection-start-line="59" selection-start-column="29" selection-end-line="59" selection-end-column="67" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/audits/plans.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="53" column="17" selection-start-line="53" selection-start-column="17" selection-end-line="53" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/audits/startAuditPage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="94" column="4" selection-start-line="94" selection-start-column="4" selection-end-line="94" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/home/homeIndex.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="27" column="40" selection-start-line="27" selection-start-column="40" selection-end-line="27" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/config/api.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-22.518518">
+          <caret line="290" column="1" selection-start-line="290" selection-start-column="1" selection-end-line="290" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/audits/report.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.65771025">
+          <caret line="176" column="0" selection-start-line="176" selection-start-column="0" selection-end-line="176" selection-end-column="0" />
+          <folding>
+            <element signature="e#1433#1464#0" expanded="false" />
           </folding>
         </state>
       </provider>

@@ -3,11 +3,13 @@
  */
 
 import React from 'react'
-import { Accordion, List,NavBar,Icon,Button,Toast} from 'antd-mobile';
+import { Accordion, List,NavBar,Icon,Button,Toast,Modal} from 'antd-mobile';
 import SignatureCanvas from 'react-signature-canvas'
 import SignaturePad from '../signature/index.js'
 import {screenWidth,FONTGREY,GREY,BLUE} from '../config/style'
 import {getAddressByXY,getAssessList,doStatistics} from '../config/api'
+const alert = Modal.alert;
+
 class AuditQuestions extends React.Component{
     // 构造
       constructor(props) {
@@ -24,12 +26,21 @@ class AuditQuestions extends React.Component{
             auditLocation:0
         };
       }
-
     back = e => {
+        alert('返回','确定需要离开审核吗？' ,[
+            { text: '取消', onPress: () => console.log('cancel'), style: 'default' },
+            { text: '确定', onPress: () => {
+                const {history} = this.props
+                history.push('/startAudit');
+            } },
+        ])
 
-        const {history} = this.props
-        history.push('/startAudit');
     };
+    //back = e => {
+    //
+    //    const {history} = this.props
+    //    history.push('/startAudit');
+    //};
     onChange = (key) => {
         console.log(key);
     }

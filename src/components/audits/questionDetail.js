@@ -75,7 +75,20 @@ class QuestionDetail extends React.Component{
         });
     };
     subQuestion(){
+        let {locationState,auditId,remarkList,chooseValues} = this.state;
 
+        for(let remark of remarkList){
+            //如果未选择
+            if(chooseValues.indexOf(remark.itemId)===-1){
+                if(remark.isKey!=4){
+                    if((!remark.content||remark.content==='')&&(!remark.images||remark.images.length===0)){
+                        Toast.fail('请全部做完再提交！', 1);
+                        return;
+                    }
+                }
+            }
+
+        }
         this.initSubJsonController(1,false,true)
 
     }
@@ -214,8 +227,10 @@ class QuestionDetail extends React.Component{
                     subJson.remarks = remark.content;
                     subJson.imgs = remark.images;
                     if(remark.isKey == 4){
-                        subJson.ownPoint = item.point
+                        subJson.ownPoint = 0
                         subJson.isKey = 4;
+                        subJson.remarks = '不适用';
+                        subJson.supPoint = 0;
                     }
                 }
             }
@@ -245,6 +260,9 @@ class QuestionDetail extends React.Component{
     submitAssessSuccessFunc(location,isSubmit,isRemark){
         const {locationState} = this.state;
         let {auditId} = this.state;
+        if(locationState.questionIds.indexOf(parseInt(auditId)) == locationState.questionIds.length-1){
+            location = 'back';
+        }
         if(location !== 'back'){
             if(isSubmit){
                 const {history} = this.props;
@@ -397,7 +415,6 @@ class QuestionDetail extends React.Component{
             isJumpToRemarkId:''
             })
 
-        console.log();
         if(this.props.history.location.state[0].transmitParam.isJumpToRemarkId!=undefined){
             if(this.props.history.location.state[0].transmitParam.isJumpToRemarkId!==''){
                 this.props.history.location.state[0].transmitParam.isJumpToRemarkId = '';

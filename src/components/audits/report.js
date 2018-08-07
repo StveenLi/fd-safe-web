@@ -165,6 +165,25 @@ class Report extends React.Component{
         })
     }
 
+    setRestaurantList(v){
+        const {startDate,endDate} = this.state;
+        let self = this;
+        getReportOption(startDate,endDate,'','','','','','','','','',v).then(data => {
+            if(data.success){
+                let resOptions=[{label:'不限',value:null}];
+                for(let op of data.rest){
+                    resOptions.push({label:op.name,value:op.id})
+                }
+
+                self.setState({
+                    resOptions:resOptions
+                })
+            }
+        })
+    }
+
+
+
     async queryReport_groups(v){
         await this.setState({ sValue: v });
         this.setAllOptions();
@@ -265,7 +284,9 @@ class Report extends React.Component{
         })
 
     }
-
+    _bindSearchRest(v){
+        this.setRestaurantList(v)
+    }
 
 
     render(){
@@ -386,6 +407,7 @@ class Report extends React.Component{
                         </div>}>审核类型</List.Item>
                     {
                         resOptions.length>0?<Picker
+                            title={<InputItem style={{margin:5,height:30}} placeholder="输入要搜索的门店名" onChange={(v)=>this._bindSearchRest(v)} ></InputItem>}
                             cols={1}
                             data={resOptions}
                             value={this.state.resValue}

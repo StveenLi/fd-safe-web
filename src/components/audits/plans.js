@@ -4,8 +4,8 @@
 
 
 import React from 'react'
-import { NavBar,Icon, List} from 'antd-mobile';
-import {queryPlanList} from '../config/api'
+import { NavBar,Icon, List,Button} from 'antd-mobile';
+import {queryPlanList,user,doAddPlan} from '../config/api'
 import {BLUE} from '../config/style'
 const Item = List.Item;
 
@@ -51,25 +51,37 @@ class PlanPage extends React.Component{
             this.props.history.push('/auditQuestionsByList',[{transmitParam:transmitParam}]);
         }
     }
+    addNewPlan(){
+        doAddPlan().then(data => {
+            if(data.success){
+                this.props.history.replace('/auditsPlan')
+            }
+        })
+    }
 
     render(){
 
         const {dataList} = this.state
-
         return <div>
             <div><NavBar
                 mode="light"
                 icon={<Icon type="left" />}
+                rightContent={
+        user.isTestUser==1?<div style={{textAlign:'center',margin: '5px'}}>
+                        <Button type="ghost" inline size="small" style={{ marginTop: '4px' }} onClick={() => this.addNewPlan()}>新增</Button></div>:null
+      }
                 onLeftClick={() => this.back()}
             >审核计划</NavBar></div>
+
             <div style={{flex:1,marginTop:5}}>
 
                 <List style={{marginTop:55}}>
 
+
                     {
                         dataList.map((item,index) => {
                             return <Item key={index} onClick={() => this.toDetail(item)}>
-                                <div style={{display:'flex',flexDirection:'row',padding:'10px'}}>
+                                <div style={{display:'flex',flexDirection:'row',padding:'10px',borderBottomWidth:1,borderBottomStyle:'solid',borderColor:'#F4F4F4'}}>
                                     <div  style={{flex:1,}}>
                                         <div style={{fontSize:18,fontWeight:'bold'}}>{item.planCode}</div>
                                         <div style={{fontSize:14,color:'grey',paddingBottom:10}}>{item.restName}</div>

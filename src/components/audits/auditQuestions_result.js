@@ -142,7 +142,7 @@ class AuditQuestions extends React.Component{
                                             key={aindex}>
                         {
                             firstAudit.childAssess.map((secondAudit, index) => {
-                                return <List.Item style={{background:'#fbfbff'}}
+                                return <List.Item multipleLine wrap style={{background:'#fbfbff'}}
 
                                                   key={index}>
                                     <div style={{fontSize:15}}>{secondAudit.secondTitle}</div>
@@ -153,7 +153,7 @@ class AuditQuestions extends React.Component{
                                             return <div key={index}>
                                                 <div onClick={()=>this.toDetail(secondAudit.auditeId,firstAudit,questionIds,thirdItem.auditeId)}>
                                                         <div style={{fontSize:15,color:'#e41717'}}>{thirdItem.title.substr(2,thirdItem.title.length)}</div>
-                                                        <div style={{fontSize:15,color:FONTGREY}}>备注：{thirdItem.remarks}</div>
+                                                        <div style={{fontSize:15,color:'#080808',fontWeight:'bold'}}>备注：{thirdItem.remarks}</div>
                                                 </div>
                                                         <div >
                                                             {

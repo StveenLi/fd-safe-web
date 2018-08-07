@@ -36,7 +36,8 @@ class Requester {
 
     constructor(header={}, url) {
         //this.host = 'http://192.168.0.158:8080/foodsafety'
-        this.host = 'http://test.linkitchen.com/'
+        //this.host = 'http://test.linkitchen.com/'
+        this.host = 'http://47.97.123.55/'
         this.version = '1.0.0'
         this.url = url
         this.header = header
@@ -88,6 +89,12 @@ export const sendValidCode = (phone) => {
     let formData = new FormData();
     formData.append('phone',phone);
     return new Requester(_POST_(formData),'/rest/user/getVaildCode').do_fetch();
+}
+
+export const doAddPlan = (phone) => {
+    let formData = new FormData();
+    formData.append('userId',user.id);
+    return new Requester(_POST_(formData),'/rest/user/doAddPlan').do_fetch();
 }
 
 export const getNotice = () => {
@@ -310,7 +317,7 @@ export const getKeyOption = (planId) => {
     return new Requester(_POST_(formData),'/rest/assess/getKeyOption').do_fetch();
 }
 
-export const getReportOption = (sstartDate,sendDate,groups,brand,proviceId,cityId,countyId,types,cantingId,startNums,endNums) => {
+export const getReportOption = (sstartDate,sendDate,groups,brand,proviceId,cityId,countyId,types,cantingId,startNums,endNums,restaurantName) => {
     let formData = new FormData();
     formData.append('userId',user.id);
     formData.append('sstartDate',_isUndefined(sstartDate));
@@ -324,6 +331,8 @@ export const getReportOption = (sstartDate,sendDate,groups,brand,proviceId,cityI
     formData.append('cantingId',_isUndefined(cantingId));
     formData.append('startNums',_isUndefined(startNums));
     formData.append('endNums',_isUndefined(endNums));
+    formData.append('restaurantName',_isUndefined(restaurantName));
+    console.log(`userId=${user.id}&sstartDate=${sstartDate}&sendDate=${sendDate}&groups=${groups}&brand=${brand}&proviceId=${proviceId}&cityId=${cityId}&countyId=${countyId}&types=${types}&cantingId=${cantingId}&startNums=${startNums}&endNums=${endNums}&restaurantName=${restaurantName}`)
     return new Requester(_POST_(formData),'/rest/common/queryReport').do_fetch();
 }
 
