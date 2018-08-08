@@ -103,8 +103,7 @@ class Report extends React.Component{
     setAllOptions(){
         const {startDate,endDate,sValue,bValue,pickerValue,typeValue,resValue,startNums,endNums} = this.state;
         getReportOption(
-            startDate,
-            endDate,
+            startDate.format('yyyy-MM-dd'),endDate.format('yyyy-MM-dd'),
             sValue,
             bValue,
             pickerValue[0],
@@ -168,7 +167,7 @@ class Report extends React.Component{
     setRestaurantList(v){
         const {startDate,endDate} = this.state;
         let self = this;
-        getReportOption(startDate,endDate,'','','','','','','','','',v).then(data => {
+        getReportOption(startDate.format('yyyy-MM-dd'),endDate.format('yyyy-MM-dd'),'','','','','','','','','',v).then(data => {
             if(data.success){
                 let resOptions=[{label:'不限',value:null}];
                 for(let op of data.rest){
