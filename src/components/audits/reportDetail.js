@@ -151,7 +151,7 @@ class ReportDetail extends React.Component{
                                                                         let imgs = thirdItem.imgs;
                                                                         return <div key={index}>
                                                                             <div style={{fontSize:15,color:FONTGREY}}>{`${thirdItem.sort}.${thirdItem.title}`}</div>
-                                                                            <div style={{fontSize:15}}>备注：</div>
+                                                                            <div style={{fontSize:15}}>备注：{thirdItem.remarks}</div>
                                                                             <div>
 
                                                                                 {
