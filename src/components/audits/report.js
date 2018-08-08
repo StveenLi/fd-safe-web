@@ -54,9 +54,7 @@ class Report extends React.Component{
 
     componentDidMount() {
 
-        let startDate = new Date();
-        startDate.setMonth(startDate.getMonth()-3);
-        this.setState({startDate:startDate})
+
         this.setAllOptions();
         //getGroupName().then(data => {
         //    this.state.groups.push({label:'不限',value:''})
@@ -101,7 +99,10 @@ class Report extends React.Component{
     }
 
     setAllOptions(){
-        const {startDate,endDate,sValue,bValue,pickerValue,typeValue,resValue,startNums,endNums} = this.state;
+        const {endDate,sValue,bValue,pickerValue,typeValue,resValue,startNums,endNums} = this.state;
+        let startDate = new Date();
+        startDate.setMonth(startDate.getMonth()-3);
+        this.setState({startDate:startDate})
         getReportOption(
             startDate.format('yyyy-MM-dd'),endDate.format('yyyy-MM-dd'),
             sValue,
