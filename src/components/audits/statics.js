@@ -92,10 +92,33 @@ class StaticsPage extends React.Component{
         this.setState({BResult:BResult});
     }
 
+    _bindSearchRest(startDate,endDate,v){
+        console.log(startDate)
+        console.log(endDate)
+
+        this.setRestaurantList(startDate,endDate,v)
+    }
+
+    setRestaurantList(startDate,endDate,v){
+        let self = this;
+        getReportOption(startDate.format('yyyy-MM-dd'),endDate.format('yyyy-MM-dd'),'','','','','','','','','',v).then(data => {
+            if(data.success){
+                let resOptions=[{label:'不限',value:null}];
+                for(let op of data.rest){
+                    resOptions.push({label:op.name,value:op.id})
+                }
+
+                self.setState({
+                    resOptions:resOptions
+                })
+            }
+        })
+    }
+
     setAllOptions(startDate,endDate,sValue,bValue,pickerValue,typeValue,resValue){
+
         getReportOption(
-            startDate,
-            endDate,
+            startDate,endDate,
             sValue,
             bValue,
             typeof(pickerValue) !== "undefined"?pickerValue[0]:'',
@@ -185,7 +208,9 @@ class StaticsPage extends React.Component{
                               onTabClick={(tab, index) => {index === 2?this.setState({bottomDisplay:''}):this.setState({bottomDisplay:'none'})}}
                         >
                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', }}>
-                                <StaticsAll leimus={leimus} setAllOptions={(startDate,endDate,sValue,bValue,pickerValue,typeValue,resValue) => this.setAllOptions(startDate,endDate,sValue,bValue,pickerValue,typeValue,resValue)} cityData={cityData} groups={groups} brands={brands} types={types} resOptions={resOptions}></StaticsAll>
+                                <StaticsAll leimus={leimus}
+                                            _bindSearchRest={(startDate,endDate,v) => this._bindSearchRest(startDate,endDate,v)}
+                                            setAllOptions={(startDate,endDate,sValue,bValue,pickerValue,typeValue,resValue) => this.setAllOptions(startDate,endDate,sValue,bValue,pickerValue,typeValue,resValue)} cityData={cityData} groups={groups} brands={brands} types={types} resOptions={resOptions}></StaticsAll>
                                 {/*
                                 <StaticsCompare
                                     setBResult = {(BResult) => this.setBResult(BResult)}
@@ -193,10 +218,13 @@ class StaticsPage extends React.Component{
                                  */}
                             </div>
                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', }}>
-                                <StaticsType setAllOptions={(startDate,endDate,sValue,bValue,pickerValue,typeValue,resValue) => this.setAllOptions(startDate,endDate,sValue,bValue,pickerValue,typeValue,resValue)} cityData={cityData} groups={groups} brands={brands} types={types} resOptions={resOptions}></StaticsType>
+                                <StaticsType
+                                    _bindSearchRest={(startDate,endDate,v) => this._bindSearchRest(startDate,endDate,v)}
+                                    setAllOptions={(startDate,endDate,sValue,bValue,pickerValue,typeValue,resValue) => this.setAllOptions(startDate,endDate,sValue,bValue,pickerValue,typeValue,resValue)} cityData={cityData} groups={groups} brands={brands} types={types} resOptions={resOptions}></StaticsType>
                             </div>
                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', }}>
                                 {!this.state.comparing?<StaticsCompare
+                                    _bindSearchRest={(startDate,endDate,v) => this._bindSearchRest(startDate,endDate,v)}
                                     setAllOptions={(startDate,endDate,sValue,bValue,pickerValue,typeValue,resValue) => this.setAllOptions(startDate,endDate,sValue,bValue,pickerValue,typeValue,resValue)}
                                     setBResult = {(BResult) => this.setBResult(BResult)}
                                     setAResult = {(AResult) => this.setAResult(AResult)}

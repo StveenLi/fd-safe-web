@@ -6,7 +6,7 @@ import echarts from 'echarts/lib/echarts';
 import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/title';
 import 'echarts/lib/chart/line';
-import {List,DatePicker,Icon,Picker,Button,Toast} from 'antd-mobile'
+import {List,DatePicker,Icon,Picker,Button,Toast,InputItem} from 'antd-mobile'
 import styles,{screenWidth,BLUE,FONTGREY} from '../config/style'
 import SearchComponent from '../common/searchComponent'
 import {queryAssessHis,queryUnitRank,queryDateRange} from '../config/api'
@@ -98,7 +98,7 @@ class StaticsAll extends React.Component{
         await this.setState({ resValue: v });
         const {startDate,endDate,sValue,bValue,pickerValue,typeValue,resValue} = this.state
 
-        this.props.setAllOptions(startDate,endDate,sValue,bValue,pickerValue,typeValue,v);
+        this.props._bindSearchRest(startDate,endDate,sValue,bValue,pickerValue,typeValue,v);
     }
     async queryReport_P_C_C(v){
         await this.setState({ pickerValue: v });
@@ -207,7 +207,7 @@ class StaticsAll extends React.Component{
 
 
     render(){
-        const {rankResList,fiveController,staticsLineColor} = this.state
+        const {startDate,endDate,rankResList,fiveController,staticsLineColor} = this.state
         const {groups,brands,types,resOptions,cityData,leimus} = this.props
         const sidebar = (<List style={{marginLeft:-15}}>
             <Picker
@@ -254,6 +254,7 @@ class StaticsAll extends React.Component{
                 <List.Item arrow="horizontal">类目</List.Item>
             </Picker>
             <Picker
+                title={<InputItem style={{margin:5,height:30}} placeholder="输入要搜索的门店名" onChange={(v)=>this.props._bindSearchRest(startDate,endDate,v)} ></InputItem>}
                 cols={1}
                 data={resOptions}
                 value={this.state.resValue}

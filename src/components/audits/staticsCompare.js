@@ -2,7 +2,7 @@
  * Created by lixin on 2018/4/17.
  */
 import React from 'react'
-import {WhiteSpace,Picker,List} from 'antd-mobile'
+import {WhiteSpace,Picker,List,InputItem} from 'antd-mobile'
 import styles,{GREY} from '../config/style'
 import SearchComponent from '../common/searchComponent'
 
@@ -204,7 +204,7 @@ class StaticsCompare extends React.Component{
 
     }
     render(){
-        let {AOrB} = this.state
+        let {startDate,endDate,AOrB} = this.state
         const {groups,brands,types,resOptions} = this.props
         const {cityData} = this.props
         const sidebar = (<List style={{marginLeft:-15}}>
@@ -253,6 +253,7 @@ class StaticsCompare extends React.Component{
             <WhiteSpace/>
 
             <Picker
+                title={<InputItem style={{margin:5,height:30}} placeholder="输入要搜索的门店名" onChange={(v)=>this.props._bindSearchRest(startDate,endDate,v)} ></InputItem>}
                 cols={1}
                 data={resOptions}
                 value={this.state.resValue}
