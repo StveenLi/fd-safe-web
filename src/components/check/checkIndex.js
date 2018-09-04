@@ -20,7 +20,6 @@ class CheckIndex extends React.Component{
         };
       }
     onChange = (value) => {
-        console.log('checkbox');
         this.setState({
             value,
         });

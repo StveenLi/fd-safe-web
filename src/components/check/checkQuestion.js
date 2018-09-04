@@ -19,8 +19,6 @@ class CheckQuestion extends React.Component{
 
     back = e => {
         const {history} = this.props
-
-        console.log(history)
         history.goBack();
     };
     render(){

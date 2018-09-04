@@ -39,11 +39,9 @@ class StartAuditPage extends React.Component{
 
     getCanTingList(name){
         getResByUserId(name).then(data => {
-            console.log(data)
             if(data.success){
                 let arr = [];
                 for(let op of data.list){
-                    console.log(op);
                     arr.push({label:op.name,value:op.id});
                 }
                 this.setState({

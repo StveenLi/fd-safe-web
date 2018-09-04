@@ -22,10 +22,14 @@ class HomeIndex extends React.Component {
         };
     }
     componentDidMount() {
-        if(JSON.parse(localStorage.getItem('userInfo')).isTestUser!=0&&JSON.parse(localStorage.getItem('userInfo')).isTestUser!=1){
-            localStorage.setItem('isLogin',false);
-            this.props.history.push('/')
+        let userInfo = JSON.parse(localStorage.getItem('userInfo'));
+        if(<userInfo></userInfo>){
+            if(userInfo.isTestUser!=0&&userInfo.isTestUser!=1){
+                localStorage.setItem('isLogin',false);
+                this.props.history.push('/')
+            }
         }
+
 
         getNotice().then(data => {
             if(data.success){

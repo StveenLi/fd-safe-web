@@ -6,7 +6,7 @@ import echarts from 'echarts/lib/echarts';
 import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/title';
 import 'echarts/lib/chart/line';
-import {List,DatePicker,Icon,Drawer,Picker,Button,Toast} from 'antd-mobile'
+import {List,DatePicker,Icon,Picker,Button,Toast} from 'antd-mobile'
 import styles,{screenWidth,BLUE,FONTGREY} from '../config/style'
 import SearchComponent from '../common/searchComponent'
 import {queryAssessHis,queryUnitRank,queryDateRange} from '../config/api'

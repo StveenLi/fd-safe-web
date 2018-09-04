@@ -164,15 +164,12 @@ export const submitAssess = (subArr,nextTopic) => {
 export const getBrandName = () => {
     let formData = new FormData();
     formData.append('userId',user.id);
-    console.log(formData)
-
     return new Requester(_POST_(formData),'/rest/common/queryBrandName').do_fetch();
 }
 
 
 //提交审核
 export const doStatistics = (planId,signUrl,ownSignUrl,signCn) => {
-    console.log(planId);
     let formData = new FormData();
     formData.append('planId',planId);
     formData.append('signUrl',signUrl);
@@ -291,8 +288,6 @@ export const queryPlan = (planType,cantingId) => {
 }
 
 export const upload = (file) => {
-    console.log(file)
-
     let formData = new FormData();
     formData.append('ufile',file);
     return new Requester(_POST_(formData),'/rest/common/upload').do_fetch();
@@ -332,7 +327,7 @@ export const getReportOption = (sstartDate,sendDate,groups,brand,proviceId,cityI
     formData.append('startNums',_isUndefined(startNums));
     formData.append('endNums',_isUndefined(endNums));
     formData.append('restaurantName',_isUndefined(restaurantName));
-    console.log(`userId=${user.id}&sstartDate=${sstartDate}&sendDate=${sendDate}&groups=${groups}&brand=${brand}&proviceId=${proviceId}&cityId=${cityId}&countyId=${countyId}&types=${types}&cantingId=${cantingId}&startNums=${startNums}&endNums=${endNums}&restaurantName=${restaurantName}`)
+    //console.log(`userId=${user.id}&sstartDate=${sstartDate}&sendDate=${sendDate}&groups=${groups}&brand=${brand}&proviceId=${proviceId}&cityId=${cityId}&countyId=${countyId}&types=${types}&cantingId=${cantingId}&startNums=${startNums}&endNums=${endNums}&restaurantName=${restaurantName}`)
     return new Requester(_POST_(formData),'/rest/common/queryReport').do_fetch();
 }
 

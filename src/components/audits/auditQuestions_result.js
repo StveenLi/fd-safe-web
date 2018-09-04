@@ -149,7 +149,6 @@ class AuditQuestions extends React.Component{
 
                                     {
                                         secondAudit.assessOptions.map((thirdItem, index) => {
-                                            console.log(thirdItem)
                                             return <div key={index}>
                                                 <div onClick={()=>this.toDetail(secondAudit.auditeId,firstAudit,questionIds,thirdItem.auditeId)}>
                                                         <div style={{fontSize:15,color:'#e41717'}}>{thirdItem.title.substr(2,thirdItem.title.length)}</div>

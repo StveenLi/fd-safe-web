@@ -236,7 +236,6 @@ class Report extends React.Component{
                                     value:area.id,
                                     children:counties
                                 })
-                                console.log(JSON.stringify(province))
                             })
                         }
                         province.push({

@@ -103,7 +103,6 @@ class StaticsPage extends React.Component{
             typeof(pickerValue) !== "undefined"&&typeof(pickerValue[2]) !== "undefined"?pickerValue[2]:'',
             typeValue,
             resValue,'','').then(data => {
-            console.log(data)
             if(data.success){
                 let brands = [{label:'不限',value:''}];
                 let groups=[{label:'不限',value:''}];

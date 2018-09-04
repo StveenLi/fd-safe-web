@@ -103,9 +103,6 @@ class StaticsRadar extends React.Component{
         }})
     }
     componentDidMount() {
-
-        console.log(JSON.stringify(this.state.option))
-
         var dom = document.getElementById("radar");
         var myChart = echarts.init(dom);
         myChart.setOption(this.state.option);

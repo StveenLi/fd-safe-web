@@ -335,7 +335,6 @@ class QuestionDetail extends React.Component{
     
      getCheckBoxList(questionItem){
         const {chooseValues,toRemarkPage,remarkList,locationState,isJumpToRemarkId} = this.state
-         console.log(locationState)
         let self = this;
         return <List>
             {
