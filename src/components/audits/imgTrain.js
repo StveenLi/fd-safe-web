@@ -43,7 +43,6 @@ class ImgDetailTrain extends React.Component{
             >图文规范</NavBar>
             <div style={{marginTop:55,background:'#fff'}} id="iu">
 
-                {this.state.imgUrl}
 
             </div>
 

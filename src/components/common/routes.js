@@ -36,7 +36,8 @@ import Login from '../user/login'
 import PrivateRoute from './PrivateRoute'
 import VideoTrain from '../audits/videoTrain'
 import ImgDetailTrain from '../audits/imgTrain'
-
+import TrainList from '../train/tarinList'
+import TrainDetail from '../train/tarinDetail'
 
 
 const Routes = () => (
@@ -70,6 +71,8 @@ const Routes = () => (
                 <PrivateRoute path="/trainVideoPage" component={VideoTrain}/>
                 <PrivateRoute path="/trainImgDetailPage" component={ImgDetailTrain}/>
                 <PrivateRoute path="/sign" component={Sign}/>
+                <PrivateRoute path="/trainList" component={TrainList}/>
+                <PrivateRoute path="/trainDetail/:qid" component={TrainDetail}/>
 
             </Switch>
 )

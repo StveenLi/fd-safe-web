@@ -9,7 +9,8 @@ import 'echarts/lib/chart/line';
 import {List,DatePicker,Icon,Picker,Button,Toast,InputItem} from 'antd-mobile'
 import styles,{screenWidth,BLUE,FONTGREY} from '../config/style'
 import SearchComponent from '../common/searchComponent'
-import {queryAssessHis,queryUnitRank,queryDateRange} from '../config/api'
+import {queryAssessHis,queryUnitRank,queryDateRange,getTop10} from '../config/api'
+import GREY from "../config/style.js";
 
 class StaticsAll extends React.Component{
 
@@ -41,6 +42,7 @@ class StaticsAll extends React.Component{
             rankResList:[],
             fiveController:true,
             staticsLineColor:'#81B7FF',
+            rankList:[]
 
         };
       }
@@ -130,6 +132,14 @@ class StaticsAll extends React.Component{
                 this.setState({
                     rankResList:data.list
                 })
+
+                let resIds = '';
+                for(let item of data.list){
+                    resIds += item.id+',';
+                }
+
+                resIds = resIds.substr(0,resIds.length-1)
+                this.getTop10(resIds,startDate.format('yyyy-MM-dd'),endDate.format('yyyy-MM-dd'));
             }
         })
     }
@@ -205,9 +215,21 @@ class StaticsAll extends React.Component{
         this.serachResults(0)
     }
 
+    getTop10(ids,startDate,endDate){
+        getTop10(ids,startDate,endDate).then(data => {
+            if(data.success){
+                this.setState({
+                    rankList:data.list
+                })
+            }
+        })
+    }
+
+
+
 
     render(){
-        const {startDate,endDate,rankResList,fiveController,staticsLineColor} = this.state
+        const {startDate,endDate,rankResList,fiveController,staticsLineColor,rankList} = this.state
         const {groups,brands,types,resOptions,cityData,leimus} = this.props
         const sidebar = (<List style={{marginLeft:-15}}>
             <Picker
@@ -302,14 +324,14 @@ class StaticsAll extends React.Component{
                             <div>
                                 {
                                     rankResList.map((item,index) => {
-                                        return <div key={index} style={{fontSize:10,marginTop:5,padding:2}}>{item.name}</div>
+                                        return <div key={index} key={index} style={{fontSize:10,marginTop:5,padding:2}}>{item.name}</div>
                                     })
                                 }
                             </div>
                             <div style={{flex:1}}>
                                 {
                                     rankResList.map((item,index) => {
-                                        return <div onClick={() => this.queryDateRange(item)} style={{fontSize:10,marginTop:5,textAlign:'right',backgroundColor:staticsLineColor,padding:2,marginLeft:10,width:`${item.value}%`,color:'#fff'}}>{item.value}</div>
+                                        return <div key={index} onClick={() => this.queryDateRange(item)} style={{fontSize:10,marginTop:5,textAlign:'right',backgroundColor:staticsLineColor,padding:2,marginLeft:10,width:`${item.value}%`,color:'#fff'}}>{item.value}</div>
 
                                     })
                                 }
@@ -324,6 +346,23 @@ class StaticsAll extends React.Component{
             <div id="allStatics" style={{width:screenWidth,height:300,backgroundColor: '#fff',marginTop:10,textAlign:'center' }}>
 
                 {rankResList.length>0?null:'暂无数据'}
+            </div>
+
+            <div style={{flex:1,textAlign:'right',padding:15,fontSize:16,marginBottom:10}}>TOP10问题点</div>
+            <div style={{background:'#fff',marginBottom:20}}>
+                {rankList.map((item,index)=>{
+
+                    return index%2==0?<div style={{display:'flex',flexDirection:'row',marginLeft:10,marginRight:10}} key={index}>
+                        <div style={{padding:10,overflow:'hidden',whiteSpace:'nowrap',textOverflow:'ellipsis',width:300}}>{item.name}</div>
+                        <div style={{padding:10,flex:1,textAlign:'right'}}><span style={{fontSize:18,color:'red'}}>{item.value}</span>次</div>
+                    </div>:
+                    <div style={{display:'flex',flexDirection:'row',marginLeft:10,marginRight:10,background:'#eee'}} key={index}>
+                        <div style={{padding:10,overflow:'hidden',whiteSpace:'nowrap',textOverflow:'ellipsis',width:300}}>{item.name}</div>
+                        <div style={{padding:10,flex:1,textAlign:'right'}}><span style={{fontSize:18,color:'red'}}>{item.value}</span>次</div>
+                    </div>
+
+                    })}
+
             </div>
         </div>
 

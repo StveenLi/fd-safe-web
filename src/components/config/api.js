@@ -35,8 +35,8 @@ const _POST_ = (body) => {
 class Requester {
 
     constructor(header={}, url) {
-        //this.host = 'http://192.168.0.158:8080/foodsafety'
-        this.host = 'http://test.linkitchen.com/'
+        this.host = 'http://192.168.0.191:8080/foodsafety'
+        //this.host = 'http://test.linkitchen.com/'
         //this.host = 'http://47.97.123.55/'
         this.version = '1.0.0'
         this.url = url
@@ -346,4 +346,29 @@ export const restResult = (planId,subjectId) => {
     formData.append('planId',planId);
     formData.append('subjectId',subjectId);
     return new Requester(_POST_(formData),'/rest/assess/restResult').do_fetch();
+}
+
+export const getTrainIndex = () => {
+    return new Requester(_POST_(),'/rest/assess/queryAuditeList').do_fetch();
+}
+
+export const getTrainList = (id) => {
+    let formData = new FormData();
+    formData.append('auditeId',id);
+    return new Requester(_POST_(formData),'/rest/assess/queryAuditeInfo').do_fetch();
+}
+
+export const getTrainDetail = (id) => {
+    let formData = new FormData();
+    formData.append('auditeId',id);
+    return new Requester(_POST_(formData),'/rest/notice/queryTrain').do_fetch();
+}
+
+
+export const getTop10 = (restIds,sstartDate,sendDate) => {
+    let formData = new FormData();
+    formData.append('restIds',restIds);
+    formData.append('sstartDate',sstartDate);
+    formData.append('sendDate',sendDate);
+    return new Requester(_POST_(formData),'/rest/assessAnalysis/queryOptionTop10').do_fetch();
 }

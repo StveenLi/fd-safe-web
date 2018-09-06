@@ -82,7 +82,7 @@ class HomeIndex extends React.Component {
                         <MainComponent noticeList={noticeList}></MainComponent>
                     </TabBar.Item>
                     <TabBar.Item
-                        icon={<div style={{width: '22px',height: '22px',background: `url(${require("../assets/icon/zx.png")}) center center /  21px 21px no-repeat` }}/>}
+                        icon={<div style={{width: '22px',height: '22px',background: `url(${require("../assets/icon/zx.png") }) center center /  21px 21px no-repeat` }}/>}
                         selectedIcon={<div style={{width: '22px',height: '22px',background: `url(${require("../assets/icon/zx_activity.png")}) center center /  21px 21px no-repeat` }}/>}
                         title="咨询"
                         key="Friend"
