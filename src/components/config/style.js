@@ -53,7 +53,10 @@ const styles = {
         borderColor:'#fff',borderWidth:1,borderStyle:'solid',borderRadius:5,paddingTop:5,paddingBottom:5,paddingLeft:15,paddingRight:15
     },
     no_use_blue:{
-        marginRight:20,marginBottom:10,width:43,color:BLUE,borderColor:BLUE,borderWidth:1,borderStyle:'solid',borderRadius:5,paddingTop:5,paddingBottom:5,paddingLeft:15,paddingRight:15
+        marginRight:20,marginBottom:10,width:64,color:'#fff',borderColor:BLUE,borderWidth:1,borderStyle:'solid',borderRadius:5,paddingTop:5,paddingBottom:5,paddingLeft:15,paddingRight:15,background:BLUE
+    },
+    no_use_grey:{
+        marginRight:20,marginBottom:10,width:64,color:GREY,borderColor:GREY,borderWidth:1,borderStyle:'solid',borderRadius:5,paddingTop:5,paddingBottom:5,paddingLeft:15,paddingRight:15
     },
     five_rank:{
         textAlign:'center',fontSize:10,borderStyle:'solid',borderWidth:'1px 0px 1px 1px',borderColor:BLUE,color:BLUE,borderBottomLeftRadius:'50%',borderTopLeftRadius:'50%',padding:'0px 3px 0px 5px',lineHeight:'18px',height:20

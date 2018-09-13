@@ -155,7 +155,12 @@ class AuditQuestions extends React.Component{
                                 localStorage.setItem('questionIds',JSON.stringify(questionIds));
                                 return <List.Item style={{background:'#fbfbff'}}
                                                   onClick={()=>this.toDetail(secondAudit.auditeId,firstAudit,questionIds)}
-                                                  key={index}><div style={{display:'flex',flexDirection:'row'}}><div style={{flex:1}}>&nbsp;&nbsp;&nbsp;&nbsp;{secondAudit.secondTitle}</div>{secondAudit.isDo==1?<div><img style={{width:15}} src={require('../assets/icon/yes.svg')}/></div>:null}</div></List.Item>
+                                                  key={index}>
+                                            <div style={{display:'flex',flexDirection:'row'}}>
+                                                <div style={{flex:1}}>&nbsp;&nbsp;&nbsp;&nbsp;{secondAudit.secondTitle}</div>
+                                                    {secondAudit.isDo==1?<div><img style={{width:15}} src={require('../assets/icon/yes.svg')}/></div>:null}
+                                            </div>
+                                </List.Item>
                             })
                         }
                     </Accordion.Panel>

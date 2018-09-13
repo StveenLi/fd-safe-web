@@ -35,8 +35,8 @@ const _POST_ = (body) => {
 class Requester {
 
     constructor(header={}, url) {
-        this.host = 'http://192.168.0.191:8080/foodsafety'
-        //this.host = 'http://test.linkitchen.com/'
+        //this.host = 'http://192.168.0.200:8080/foodsafety'
+        this.host = 'http://test.linkitchen.com/'
         //this.host = 'http://47.97.123.55/'
         this.version = '1.0.0'
         this.url = url
@@ -158,6 +158,12 @@ export const submitAssess = (subArr,nextTopic) => {
     formData.append('jsonData',subArr);
     formData.append('nextTopic',nextTopic);
     return new Requester(_POST_(formData),'/rest/assess/doSubmitAssess').do_fetch();
+}
+
+export const doSubmitOption = (jsonObject) => {
+    let formData = new FormData();
+    formData.append('jsonObject',jsonObject);
+    return new Requester(_POST_(formData),'/rest/assess/doSubmitOption').do_fetch();
 }
 
 //获得品牌列表
@@ -371,4 +377,11 @@ export const getTop10 = (restIds,sstartDate,sendDate) => {
     formData.append('sstartDate',sstartDate);
     formData.append('sendDate',sendDate);
     return new Requester(_POST_(formData),'/rest/assessAnalysis/queryOptionTop10').do_fetch();
+}
+
+export const doCancelOption = (planId,auditeId) => {
+    let formData = new FormData();
+    formData.append('planId',planId);
+    formData.append('auditeId',auditeId);
+    return new Requester(_POST_(formData),'/rest/assess/doCancelOption').do_fetch();
 }

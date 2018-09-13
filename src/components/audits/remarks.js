@@ -26,30 +26,28 @@ class Remarks extends React.Component{
             images:[],
             textValue:'',
             visible: false,
-            chooseIndex:0
+            chooseIndex:0,
+            currentItem:{}
         };
       }
 
 
     componentDidMount() {
         let fileDatas = [];
-        for(let remark of this.props.remarkList){
-            if(remark.itemId == this.props.currentItem){
-                if(remark.images instanceof Array){
-                    for(let img of remark.images){
-                        fileDatas.push({url:img,id:remark.images.indexOf(img)})
-                    }
-                    this.setState({
-                        images:remark.images,
-                        files:fileDatas
-                    })
-                }
-                document.getElementById("textVal").value = remark.content
-                break;
+        let currentItem = JSON.parse(this.props.currentItem);
+        this.setState({
+            currentItem:currentItem
+        })
+        if(currentItem.imgs instanceof Array){
+            for(let img of currentItem.imgs){
+                fileDatas.push({url:img,id:currentItem.imgs.indexOf(img)})
             }
-
+            this.setState({
+                images:currentItem.imgs,
+                files:fileDatas
+            })
         }
-
+        document.getElementById("textVal").value = currentItem.remarks
     }
 
     onChange = (files, type, index) => {
@@ -95,21 +93,26 @@ class Remarks extends React.Component{
 
     _onSure(isNoUse){
 
+
         let remarkValue = {};
-        remarkValue.itemId = this.props.currentItem
+        remarkValue.item = JSON.parse(this.props.currentItem)
         remarkValue.content = document.getElementById('textVal').value;
         remarkValue.images = this.state.images
         if(isNoUse){
             remarkValue.isKey = 4
+        }
+
+        if(document.getElementById('textVal').value==''&&this.state.images.length==0){
+            Toast.fail('请填写备注内容再确认！', 1);
+            return;
         }
         this.props.changePageStatus(remarkValue)
     }
 
 
     render(){
-        const { files } = this.state;
-
-        return <div>
+        const { files,currentItem } = this.state;
+         return <div>
 
             <NavBar
                 mode="light"
@@ -117,15 +120,13 @@ class Remarks extends React.Component{
             > 备注</NavBar>
             <div></div>
             <div style={{marginTop:50,padding:15,fontSize:16}}>
-                {this.props.currentQuestion}
+                {currentItem.title}
 
             </div>
             <div style={{display:'flex',flexDirection:'row'}}>
                 <div style={{flex:1}}></div>
 
-                <div
-                    onClick={() => this._onSure(true)}
-                    style={styles.no_use_blue}>不适用</div>
+
             </div>
             <div style={{backgroundColor:'#fff'}}>
                 <textarea id="textVal" style={{fontSize:16,padding:15,width:screenWidth-50,height:200}}>
