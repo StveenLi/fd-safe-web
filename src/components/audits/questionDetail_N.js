@@ -478,11 +478,17 @@ class QuestionDetail extends React.Component{
 
                     return <div key={index}>
                         <div style={{fontSize:16}}>{item.title}</div>
+                        {item.ownPoint==null?<div style={{display:'flex',textAlign:'center',padding:10}}>
+                        <div style={styles.no_use_blue_empty} onClick={()=>this._handleAccord(item,index)}>符合标准</div>
+                        <div style={styles.no_use_blue_empty} onClick={()=>this._handleToRemark(item,index)}>问题描述</div>
+                        <div style={styles.no_use_blue_empty} onClick={()=>this._handleNoUse(item,index)}>不适用</div>
+                    </div>:
+
                         <div style={{display:'flex',textAlign:'center',padding:10}}>
                             {item.ownPoint>0||item.ownPoint==null?<div style={styles.no_use_blue} onClick={()=>this._handleAccord(item,index)}>符合标准</div>:<div style={styles.no_use_grey}>符合标准</div>}
                             {item.ownPoint<0||item.ownPoint==null?<div style={styles.no_use_blue} onClick={()=>this._handleToRemark(item,index)}>问题描述</div>:<div style={styles.no_use_grey}>问题描述</div>}
                             {item.isKey == 4||item.ownPoint==null?<div style={styles.no_use_blue} onClick={()=>this._handleNoUse(item,index)}>不适用</div>:<div style={styles.no_use_grey}>不适用</div>}
-                        </div>
+                        </div>}
                     </div>
 
                     /*return <div disabled={isdisabled} defaultChecked={chooseValues.indexOf(item.value)>-1} key={index} wrap key={index}

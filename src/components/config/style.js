@@ -55,6 +55,9 @@ const styles = {
     no_use_blue:{
         marginRight:20,marginBottom:10,width:64,color:'#fff',borderColor:BLUE,borderWidth:1,borderStyle:'solid',borderRadius:5,paddingTop:5,paddingBottom:5,paddingLeft:15,paddingRight:15,background:BLUE
     },
+    no_use_blue_empty:{
+        color:BLUE,marginRight:20,marginBottom:10,width:64,borderColor:BLUE,borderWidth:1,borderStyle:'solid',borderRadius:5,paddingTop:5,paddingBottom:5,paddingLeft:15,paddingRight:15,background:'#fff'
+    },
     no_use_grey:{
         marginRight:20,marginBottom:10,width:64,color:GREY,borderColor:GREY,borderWidth:1,borderStyle:'solid',borderRadius:5,paddingTop:5,paddingBottom:5,paddingLeft:15,paddingRight:15
     },

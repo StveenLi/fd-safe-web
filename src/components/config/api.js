@@ -35,7 +35,7 @@ const _POST_ = (body) => {
 class Requester {
 
     constructor(header={}, url) {
-        //this.host = 'http://192.168.0.200:8080/foodsafety'
+        //this.host = 'http://192.168.0.101:8080/foodsafety'
         this.host = 'http://test.linkitchen.com/'
         //this.host = 'http://47.97.123.55/'
         this.version = '1.0.0'
