@@ -23,12 +23,14 @@ class HomeIndex extends React.Component {
     }
     componentDidMount() {
         let userInfo = JSON.parse(localStorage.getItem('userInfo'));
-        if(<userInfo></userInfo>){
-            if(userInfo.isTestUser!=0&&userInfo.isTestUser!=1){
-                localStorage.setItem('isLogin',false);
-                this.props.history.push('/')
-            }
-        }
+
+        //console.log(userInfo)
+        //if(userInfo){
+        //    if(userInfo.isTestUser!=0&&userInfo.isTestUser!=1){
+        //        localStorage.setItem('isLogin',false);
+        //        this.props.history.push('/')
+        //    }
+        //}
 
 
         getNotice().then(data => {
