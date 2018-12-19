@@ -39,11 +39,13 @@ import VideoTrain from '../audits/videoTrain'
 import ImgDetailTrain from '../audits/imgTrain'
 import TrainList from '../train/tarinList'
 import TrainDetail from '../train/tarinDetail'
-
+import PersonalBasicResult from '../check/personalBasicResult'
+import BasicResultDetail from '../check/basicResultDetail'
+import HistoryQuestionAll from '../check/historyQuestionAll'
+import CheckQuestionUpGrade from '../check/checkQuestionUpGrade'
 
 const Routes = () => (
             <Switch>
-
                 <Route exact path="/" component={Login}/>
                 <PrivateRoute path="/home" component={HomeIndex}/>
                 <PrivateRoute path="/audits" component={AuditPage}/>
@@ -74,7 +76,10 @@ const Routes = () => (
                 <PrivateRoute path="/sign" component={Sign}/>
                 <PrivateRoute path="/trainList" component={TrainList}/>
                 <PrivateRoute path="/trainDetail/:qid" component={TrainDetail}/>
-
+                <PrivateRoute path="/personalBasicResult" component={PersonalBasicResult}/>
+                <PrivateRoute path="/basicResultDetail" component={BasicResultDetail} />
+                <PrivateRoute path="/historyQuestionAll" component={HistoryQuestionAll} />
+                <PrivateRoute path="/checkQuestionUpGrade" component={CheckQuestionUpGrade} />
             </Switch>
 )
 

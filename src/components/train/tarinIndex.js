@@ -30,7 +30,6 @@ class TrainIndex extends React.Component{
 
     componentDidMount() {
         getTrainIndex().then(data => {
-            console.log(data)
             if(data.success){
                 this.setState({
                     tlist:data.list

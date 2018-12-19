@@ -17,7 +17,6 @@ class ReportList extends React.Component{
         // 初始状态
         this.state = {
             dataList:[],
-
             dataListUnGood:[],
             selectedValue:false
         };
@@ -34,6 +33,7 @@ class ReportList extends React.Component{
 
     componentWillMount() {
         let dataList = this.props.history.location.state[0].transmitParam;
+        console.log(dataList)
         let dataListUnGood = [];
         for(let data of dataList){
             if(data.isSign){

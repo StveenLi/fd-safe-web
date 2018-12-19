@@ -29,7 +29,6 @@ class TrainDetail extends React.Component{
 
     componentDidMount() {
         let qid = this.props.match.params.qid
-        //console.log(JSON.parse(this.props.location.state))
         //let item = JSON.parse(this.props.location.state.item)
         let ids = (this.props.location.state.ids)
         this.setState({

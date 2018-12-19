@@ -37,8 +37,9 @@ class Requester {
     constructor(header={}, url) {
         //this.host = 'http://192.168.0.101:8080/foodsafety'
         //this.host = 'http://test.linkitchen.com/'
-        this.host = 'http://lilyfoodsafety.com/'
+        //this.host = 'http://lilyfoodsafety.com/'
         //this.host = 'http://47.97.123.55/'
+        this.host = 'http://192.168.0.111:8011/'
         this.version = '1.0.0'
         this.url = url
         this.header = header
@@ -386,3 +387,31 @@ export const doCancelOption = (planId,auditeId) => {
     formData.append('auditeId',auditeId);
     return new Requester(_POST_(formData),'/rest/assess/doCancelOption').do_fetch();
 }
+// export const submitQuestion = (subResultId,rightOrNot,rOption) =>{
+    // let formData = new FormData();
+    // formData.append('subResultId',subResultId);
+    // formData.append('rightOrNot',rightOrNot);
+    // formData.append('rOption',rOption);
+export const submitQuestion = (subResultId,rightOrNot,rOption) =>{
+    return new Requester(_POST_(),('/rest/subject/doQuestion?subResultId='+subResultId+'&rightOrNot='+rightOrNot+'&rOption='+rOption)).do_fetch();
+}
+export const submit = (resultId) =>{
+    
+    return new Requester(_POST_(),('/rest/subject/submitQuestion?resultId='+resultId)).do_fetch();
+}
+export const buildExamine = (examineName,examineType,userId) =>{
+    return new Requester(_POST_(),('/rest/subject/buildExamine?examineName='+examineName+'&examineType='+examineType+'&userId='+userId)).do_fetch();
+}
+
+export const getCheckResults = () => {
+    return new Requester(_POST_(),'/rest/subject/getCheckResults').do_fetch();
+}
+export const getOneCheckResult = (resultId) => {
+    return new Requester(_GET_(),('/rest/subject/getOneCheckResult?resultId='+resultId)).do_fetch();
+}
+
+
+export const personalpassCheckResult = (userId,isPass,start,pagesize,doneName) => {
+    return new Requester(_POST_(),('/rest/subject/getCheckResults?userId='+userId+'&isPass='+isPass+'&start='+start+'&pagesize='+pagesize+'&doneName='+doneName)).do_fetch();
+}
+

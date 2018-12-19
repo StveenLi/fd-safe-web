@@ -124,7 +124,7 @@ class StartAuditPage extends React.Component{
                         <Picker
                             cols={1}
                             title={<InputItem style={{margin:5,height:30}} placeholder="输入要搜索的门店名" onChange={(v)=>this._bindSearchRest(v)} ></InputItem>}
-                                data={resOptions}
+                            data={resOptions}
                             value={this.state.sValue}
                             onOk={(v) => this.selectResTrue(v)}
                             onChange={v => this.setState({ sValue: v })}

@@ -1,75 +1,317 @@
 /**
  * Created by lixin on 2018/4/20.
  */
-
-
 import React from 'react'
-import { Accordion, List,NavBar,Icon,Badge} from 'antd-mobile';
-import styles,{BLUE,GREY} from '../config/style'
-
-
-class CheckQuestion extends React.Component{
+import ReactDOM from 'react-dom'
+import { Toast, NavBar, Icon, Badge, Modal } from 'antd-mobile';
+import { submitQuestion, submit, buildExamine } from '../config/api'
+import styles, { BLUE, GREY } from '../config/style';
+// const CheckboxItem = Checkbox.CheckboxItem;
+// import Radio from 'rc-radio';
+// import 'rc-radio/assets/index.css';
+const alert = Modal.alert;
+class CheckQuestion extends React.Component {
 
     // 构造
-      constructor(props) {
+    constructor(props) {
         super(props);
         // 初始状态
-        this.state = {};
-      }
+        this.state = {
+            value: '',
+            disabled: false,
+            checked: null,
+            r: 'a',
+            index: 0,
+            list: '',
+            titleAnwer: [],
+            resultId: ''
+
+        }
+    }
+    componentDidMount() {
+        Toast.loading('题库正在生成中...')
+        const data = this.props.location.state;
+        const examineName = data[0].examineName,
+            userId = data[1].userId,
+            examineType = data[2].examineType;
+            
+
+        buildExamine(examineName, examineType, userId).then(data => {
+            if (data.success) {
+                this.setState({
+                    list: data.list,
+                    resultId: data.resultId
+                })
+                Toast.hide()
+                
+            }
+        })
+        
+        Array.prototype.indexOf = function (val) {
+            for (var i = 0; i < this.length; i++) {
+                if (this[i] == val) return i;
+            }
+            return -1;
+        };
+        Array.prototype.remove = function (val) {
+            var index = this.indexOf(val);
+            if (index > -1) {
+                this.splice(index, 1);
+            }
+        };
+
+    }
+    componentDidUpdate() {
+        const { list, titleAnwer } = this.state;
+        for (let i = 0, length = list.length; i < length; i++) {
+            titleAnwer[i] = [];
+        }
+
+    }
+
+
+    //回到上一题的时候去不改按下一题的时候会出现rOption=undefind
+    prevquestion = () => {
+        const that = this;
+        const { index, titleAnwer } = this.state;
+        if (index == 0) {
+            Toast.fail('这是第一题！');
+            return;
+        }
+        //console.log( titleAnwer[index])
+        that.setState({
+            index: index - 1,
+        });
+        ReactDOM.findDOMNode(that.refs.move).style.left = -(index - 1) * 100 + '%'
+        // that.refs.move.style.left = -(index - 1) * 100 + '%'
+    }
+
+    nextquestion = () => {
+        const that = this;
+        const { index, list, titleAnwer } = this.state;
+        //console.log(titleAnwer)
+        //console.log(titleAnwer[index])
+        if (titleAnwer[index].length) {
+            if (index == list.length - 1) {
+                Toast.fail('已经是最后一题了！');
+                return;
+            }
+            //单选判断
+            var rightOrNot,
+                rOption;
+            var subResultId = list[index].subResultId;
+            if (list[index].subjectType == 1) {
+                rOption = titleAnwer[index];
+                if (rOption == list[index].answer) {
+                    rightOrNot = 1;
+                } else {
+                    rightOrNot = 0
+                }
+
+            } else {
+                //多选判断
+                rOption = titleAnwer[index].join(",");
+                if (rOption == list[index].answer) {
+                    rightOrNot = 1;
+                } else {
+                    rightOrNot = 0
+                }
+            }
+            //console.log(subResultId, rightOrNot, rOption)
+            submitQuestion(subResultId, rightOrNot, rOption).then(data => {
+                if (data.success) {
+                    that.setState({
+                        index: index + 1,
+                    });
+                    that.refs.move.style.left = -(index + 1) * 100 + '%'
+                }
+            })
+            
+        } else {
+            Toast.fail('请重新选择答案！');
+        }
+        //console.log(titleAnwer[index])
+
+    }
+    checkAnswer = (e) => {
+        const { titleAnwer, index } = this.state;
+        titleAnwer[index] = e.target.value;
+        //console.log(titleAnwer[index])
+    }
+
+
+    checkAnswerbox = (e) => {
+        const { titleAnwer, index } = this.state;
+        if (e.target.checked) {
+            titleAnwer[index].push(e.target.value)
+            titleAnwer[index].sort()
+        } else {
+            titleAnwer[index].remove(e.target.value)
+        }
+        console.log(titleAnwer[index])
+    }
+
+
+    submint() {
+
+        const { index, list, titleAnwer, resultId } = this.state;
+        if (index == list.length - 1) {
+            //单选判断
+            var rightOrNot,
+                rOption;
+            var subResultId = list[index].subResultId;
+            if (list[index].subjectType == 1) {
+                rOption = titleAnwer[index][0];
+                if (rOption == list[index].answer) {
+                    rightOrNot = 1;
+                } else {
+                    rightOrNot = 0
+                }
+
+            } else {
+                //多选判断
+                rOption = titleAnwer[index].join(",");
+                if (rOption == list[index].answer) {
+                    rightOrNot = 1;
+                } else {
+                    rightOrNot = 0
+                }
+
+            }
+
+            submitQuestion(subResultId, rightOrNot, rOption).then(data => {
+                if (data.success) {
+                    //传数据
+                    submit(resultId).then(data => {
+                        if (data.success) {
+                            //console.log(data)
+                            this.props.history.push('/PersonalBasicResult', [{ data }])
+                        }
+                    })
+                    //this.props.history.push('/PersonalBasicResult')
+                }
+            })
+
+        } else {
+            Toast.fail('请答完题再提交喔');
+            return;
+        }
+
+
+
+    }
 
     back = e => {
-        const {history} = this.props
-        history.goBack();
-    };
-    render(){
+        alert('返回', '确定不保存该题数据直接返回吗？', [
+            { text: '取消', onPress: () => console.log('cancel'), style: 'default' },
+            {
+                text: '确定', onPress: () => {
+                    this.props.history.goBack();
+                }
+            },
+        ])
 
-        return <div>
+    };
+    render() {
+        return <div style={{ backgroundColor: '#fff', width: '100vw', overflow: 'hidden' }}>
             <NavBar
                 mode="light"
                 icon={<Icon type="left" />}
                 onLeftClick={() => this.back()}
+                style={{ width: '100vw' }}
             >线上考核</NavBar>
+            <div style={{ position: 'absolute', top: '45px', width: '100vw', height: '100vh', overflow: 'hidden' }}>
+                <ul
+                    style={{
+                        position: 'absolute',
+                        width: '(this.state.list.length)00%',
+                        margin: 0,
+                        top: 0,
+                        left: 0,
+                        padding: 0,
+                        overflow: 'hidden',
+                        backgroundColor: 'white',
+                        listStyle: 'none'
+                    }}
+                    ref='move'>
+                    {
+                        this.state.list.length > 0 && this.state.list.map((itemTitle, index) => {
+                            return (
+                                <li key={index}
+                                    style={{ position: 'relative', float: 'left', width: '100vw', height: '100vh', margin: 0, padding: 0, }}>
+                                    <div style={{ margin: '5px 15px 0 15px', padding: '15px 0', borderBottom: '1px solid #eee', display: 'flex', flexDirection: 'row', fontSize: 16 }}>
+                                        <span style={{ marginRight: 5 }}>
+                                            <i style={{ fontStyle: 'normal', color: 'rgb(12, 81, 193)' }}>{this.state.index + 1}</i>/{this.state.list.length}
+                                        </span>
+                                        <div style={{ letterSpacing: 1 }}>{itemTitle.title}</div>
+                                    </div>
+                                    <div style={{ backgroundColor: '#fff', padding: 15, textAlign: 'left' }}>
+                                        <p style={{ width: '50px', height: '20px', textAlign: 'center', borderRadius: 5, fontSize: 12, lineHeight: '20px', backgroundColor: 'rgb(12, 81, 193)', color: 'white' }}>{itemTitle.subjectType == 1 ? '单选' : '多选'}</p>
+                                        <div>
 
-            <div style={{marginTop:45,backgroundColor:BLUE,paddingTop:15,paddingLeft:15,paddingBottom:70,color:'#fff',display:'flex',flexDirection:'row',fontSize:16}}>
-                01、请问当餐厅出现蟑螂怎么办?
-            </div>
-            <div style={{backgroundColor:'#fff',padding:15,textAlign:'left'}}>
-                <div>
-                    <div style={{display:'flex',flexDirection:'row',paddingTop:15,paddingBottom:15}}>
-                        <Badge text="A" hot style={{ marginLeft: 12 ,backgroundColor: BLUE,padding:5,width:18,borderRadius:15}} />
-                        <div style={{marginLeft:10,padding:5}}>立即报警</div>
-                    </div>
-                </div>
-                <div>
-                    <div style={{display:'flex',flexDirection:'row',paddingTop:15,paddingBottom:15}}>
-                        <Badge text="B" hot style={{ marginLeft: 12 ,backgroundColor: BLUE,padding:5,width:18,borderRadius:15}} />
-                        <div style={{marginLeft:10,padding:5}}>洒水</div>
-                    </div>
-                </div>
-                <div>
-                    <div style={{display:'flex',flexDirection:'row',paddingTop:15,paddingBottom:15}}>
-                        <Badge text="C" hot style={{ marginLeft: 12 ,backgroundColor: BLUE,padding:5,width:18,borderRadius:15}} />
-                        <div style={{marginLeft:10,padding:5}}>撒蟑螂药。</div>
-                    </div>
-                </div>
-                <div>
-                    <div style={{display:'flex',flexDirection:'row',paddingTop:15,paddingBottom:15}}>
-                        <Badge text="D" hot style={{ marginLeft: 12 ,backgroundColor: BLUE,padding:5,width:18,borderRadius:15}} />
-                        <div style={{marginLeft:10,padding:5}}>找人捕捉</div>
-                    </div>
+                                            {
+                                                itemTitle.optionList.map((item, indexOptions) => {
+                                                    if (itemTitle.subjectType == 1) {
+                                                        return (
+
+                                                            <div key={indexOptions} style={{ padding: 8 }} onChange={this.checkAnswer.bind(this)} >
+                                                                <label style={{ display: 'flex', letterSpacing: 1 }}>
+                                                                    <input type='radio' name={itemTitle.title} value={item.optionCode} style={{ verticalAlign: 'middle' }} />
+                                                                    <Badge text={item.optionCode} style={{ margin: '0 10px 0 5px', backgroundColor: 'rgb(12, 81, 193)', borderRadius: '50%' }} />
+                                                                    {item.optionTitle}
+                                                                </label>
+                                                            </div>
+
+                                                        );
+                                                    } else {
+                                                        return (
+
+                                                            <div key={indexOptions} style={{ padding: 8 }}  >
+                                                                {<label style={{ display: 'flex', letterSpacing: 1 }}>
+                                                                    <input type='checkbox' name={itemTitle.optionTitle}
+                                                                        value={item.optionCode}
+                                                                        style={{ verticalAlign: 'middle' }}
+                                                                        onChange={this.checkAnswerbox.bind(this)}
+
+                                                                    />
+                                                                    <Badge text={item.optionCode} style={{ margin: '0 10px 0 5px', backgroundColor: 'rgb(12, 81, 193)', borderRadius: '50%' }} />
+                                                                    {item.optionTitle}
+                                                                </label>}
+                                                            </div>
+
+                                                        );
+                                                    }
+
+                                                })
+                                            }
+                                        </div>
+                                    </div>
+                                    {/* <div style={{ textAlign: 'center', position: 'absolute', bottom: 35, width: '100vw', display: 'flex', backgroundColor: '#fff', paddingTop: 15, paddingBottom: 15 }}>
+                                        <div onClick={this.prevquestion.bind(this)} style={{ flex: 1, backgroundColor: 'rgb(12, 81, 193)', color: 'white', lineHeight: '35px', borderRadius: 15 }}>上一题</div>
+                                        <div onClick={this.submint.bind(this)} style={{ margin: '0 3px', flex: 1, backgroundColor: 'rgb(12, 81, 193)', color: 'white', lineHeight: '35px', borderRadius: 15 }}>提交</div>
+                                        <div onClick={this.nextquestion.bind(this)} style={{ flex: 1, backgroundColor: 'rgb(12, 81, 193)', color: 'white', lineHeight: '35px', borderRadius: 15 }}>下一题</div>
+                                    </div> */}
+                                    {/* <div style={{ textAlign: 'center', position: 'fixed', bottom: 0, width: '100vw', display: 'flex', backgroundColor: '#fff', paddingTop: 15, paddingBottom: 15 }}>
+                                        <div onClick={this.prevquestion.bind(this)} style={{ flex: 1, backgroundColor: 'rgb(12, 81, 193)', color: 'white', lineHeight: '35px', borderRadius: 15 }}>上一题</div>
+                                        <div onClick={this.submint.bind(this)} style={{ margin: '0 3px', flex: 1, backgroundColor: 'rgb(12, 81, 193)', color: 'white', lineHeight: '35px', borderRadius: 15 }}>提交</div>
+                                        <div onClick={this.nextquestion} style={{ flex: 1, backgroundColor: 'rgb(12, 81, 193)', color: 'white', lineHeight: '35px', borderRadius: 15 }}>下一题</div>
+                                    </div> */}
+                                </li>
+                            );
+                        })
+                    }
+
+                </ul>
+                <div style={{ textAlign: 'center', position: 'fixed', bottom: 0, width: '100vw', display: 'flex', backgroundColor: '#fff', paddingTop: 15, paddingBottom: 15 }}>
+                    <div onClick={this.prevquestion.bind(this)} style={{ flex: 1, backgroundColor: 'rgb(12, 81, 193)', color: 'white', lineHeight: '35px', borderRadius: 15 }}>上一题</div>
+                    <div onClick={this.submint.bind(this)} style={{ margin: '0 3px', flex: 1, backgroundColor: 'rgb(12, 81, 193)', color: 'white', lineHeight: '35px', borderRadius: 15 }}>提交</div>
+                    <div onClick={this.nextquestion} style={{ flex: 1, backgroundColor: 'rgb(12, 81, 193)', color: 'white', lineHeight: '35px', borderRadius: 15 }}>下一题</div>
                 </div>
             </div>
 
-            <div style={{textAlign:'center',position:'fixed',bottom:0,width:'100%',display:'flex',backgroundColor:'#fff',paddingTop:15,paddingBottom:15}}>
-                <div style={{flex:1}}>上一题</div>
-                <div
-                    style={{flex:1}}>提交</div>
-                <div style={{flex:1}}>下一题</div>
-            </div>
-        </div>
+        </div >
+
     }
 
 }
-
-
 export default CheckQuestion

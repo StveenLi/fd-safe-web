@@ -36,11 +36,6 @@ class AuditQuestions extends React.Component{
         ])
 
     };
-    //back = e => {
-    //
-    //    const {history} = this.props
-    //    history.push('/startAudit');
-    //};
     onChange = (key) => {
         console.log(key);
     }

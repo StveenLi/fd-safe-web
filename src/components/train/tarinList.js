@@ -38,6 +38,7 @@ class TrainList extends React.Component{
         })
 
         getTrainList(item.auditeId).then((data) => {
+            console.log(data)
             if(data.success){
                 this.setState({
                     tlist:data.one.childs
