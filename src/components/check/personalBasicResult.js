@@ -14,7 +14,7 @@ class PersonalBasicResult extends React.Component{
         }
     }
     componentDidMount(){
-        console.log(this.props.location.state[0].data.one.subjectType)
+        console.log(this.props.location.state[0].data.one)
        
     }
     // back = e => {
@@ -50,7 +50,7 @@ class PersonalBasicResult extends React.Component{
             }}>
                 <div>
                     <div>答题人:&nbsp;{this.state.resultScorl.doneName}</div>
-                    <div style={{ margin:'10px 0'}}>答对题数:&nbsp;{this.state.resultScorl.sumNum}题&nbsp;(共{this.state.resultScorl.subjectType == 0?40:30}题)</div>
+                    <div style={{ margin:'10px 0'}}>答对题数:&nbsp;{this.state.resultScorl.sumNum}题&nbsp;(共{this.state.resultScorl.subjectType == 0?30:40}题)</div>
                     <div>考核题库:&nbsp;{this.state.resultScorl.subjectType == 0?'基础题库':'升级题库'}</div>
                     <div style={{ margin:'10px 0'}}>考核时间:&nbsp;{this.state.resultScorl.createTime}</div>
                 </div>

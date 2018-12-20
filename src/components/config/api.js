@@ -39,7 +39,8 @@ class Requester {
         //this.host = 'http://api.map.baidu.com/place/v2'
         //this.host = 'http://test.linkitchen.com/'
         //this.host = 'http://lilyfoodsafety.com/'
-        this.host = 'http://localhost:8011/'
+        //this.host = 'http://localhost:8011/'
+        this.host = 'http://192.168.0.100:8011/'
         this.version = '1.0.0'
         this.url = url
         this.header = header
@@ -73,12 +74,9 @@ export const getUserInfo = () =>{
     return new Requester(_GET_(),'/getUser').do_fetch();
 }
 
-
 export const getPlanByCanting = () =>{
     return new Requester(_POST_({userId:1,cantingId:1}),'/rest/assess/getPlanByCanting').do_fetch();
 }
-
-
 
 export const login = (phone,vaildCode) => {
     let formData = new FormData();

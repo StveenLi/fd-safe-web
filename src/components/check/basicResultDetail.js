@@ -26,7 +26,7 @@ class BasicResultDetail extends React.Component {
     }
     back = e => {
         const { history } = this.props
-        history.goBack();
+        history.push('/home');
     };
 
     render() {
@@ -53,12 +53,12 @@ class BasicResultDetail extends React.Component {
                     renderTab={tab => <span>{tab.title}</span>}
                 >
 
-                    <div style={{ margin: '15px', padding: '8px', backgroundColor: 'white', borderRadius: '10px', whiteSpace: 'wrap' }}>
+                    <div style={{ width:'calc(100% - 30px)',margin: '15px', padding: '8px', backgroundColor: 'white', borderRadius: '10px', whiteSpace: 'wrap' }}>
                         {/* 全部题目第二题 */}
                         {
                             this.state.list.length > 0 && this.state.list.map((item, index) => {
                                 return (
-                                    <div key={index} style={{ padding: '8px', borderBottom: '1px solid #f3f3f3' }}>
+                                    <div key={index} style={{width:'calc(100% - 16px)', padding: '8px', borderBottom: '1px solid #f3f3f3' }}>
                                         <div style={{padding:'10px 0', textAlign: 'left', whiteSpace: 'wrap', letterSpacing: 1 }}>{index + 1}、{item.subjectTitle}</div>
                                         <div style={{ display: 'flex', margin: '5px 0' }}>
                                             <div style={{ width: '31%' }}>您的回答:&nbsp;</div>
@@ -105,13 +105,13 @@ class BasicResultDetail extends React.Component {
 
                     </div>
 
-                    <div style={{ margin: '15px', padding: '8px', backgroundColor: 'white', borderRadius: '10px', whiteSpace: 'wrap' }}>
+                    <div style={{ width:'calc(100% - 30px)',margin: '15px', padding: '8px', backgroundColor: 'white', borderRadius: '10px', whiteSpace: 'wrap' }}>
                         {/* 错题集第一题 */}
                         {
                             this.state.list.length && this.state.list.map((item, index) => {
                                 if (item.answer !== item.rOption) {
                                     return (
-                                        <div key={index} style={{ padding:8,borderBottom: '1px solid #f3f3f3' }}>
+                                        <div key={index} style={{width:'calc(100% - 16px)', padding:8,borderBottom: '1px solid #f3f3f3' }}>
                                             <div style={{padding:'10px 0', textAlign: 'left', whiteSpace: 'wrap', letterSpacing: 1 }}>{index + 1}、{item.subjectTitle}</div>
                                             <div style={{ display: 'flex', margin: '5px 0' }}>
                                                 <div style={{ width: '31%' }}>您的回答:&nbsp;</div>

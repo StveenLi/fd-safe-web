@@ -24,7 +24,11 @@ class CheckQuestion extends React.Component {
             index: 0,
             list: '',
             titleAnwer: [],
-            resultId: ''
+            resultId: '',
+            prevDisplay:false,
+            nextDisplay:true,
+            sunbmit:false,
+            
 
         }
     }
@@ -43,7 +47,17 @@ class CheckQuestion extends React.Component {
                     resultId: data.resultId
                 })
                 Toast.hide()
-                
+                var array = [];
+                data.list.map((item,index)=>{
+                    if(item.subjectType == 1){
+                        array[index] = ''
+                    }else{
+                        array[index] = []
+                    }
+                })
+                this.setState({
+                    titleAnwer:array
+                })
             }
         })
         
@@ -63,22 +77,27 @@ class CheckQuestion extends React.Component {
     }
     componentDidUpdate() {
         const { list, titleAnwer } = this.state;
-        for (let i = 0, length = list.length; i < length; i++) {
-            titleAnwer[i] = [];
-        }
+        
 
     }
 
 
-    //回到上一题的时候去不改按下一题的时候会出现rOption=undefind
+    //
     prevquestion = () => {
         const that = this;
-        const { index, titleAnwer } = this.state;
-        if (index == 0) {
-            Toast.fail('这是第一题！');
-            return;
+        const { index, titleAnwer,prevDisplay,nextDisplay,sunbmit,list } = this.state;
+        if (index == 1) {
+            this.setState({
+                prevDisplay:!prevDisplay,
+            })
         }
-        //console.log( titleAnwer[index])
+        if(index == list.length - 1){
+            this.setState({
+                nextDisplay:!nextDisplay,
+                sunbmit:!sunbmit
+            })
+        }
+        
         that.setState({
             index: index - 1,
         });
@@ -88,14 +107,23 @@ class CheckQuestion extends React.Component {
 
     nextquestion = () => {
         const that = this;
-        const { index, list, titleAnwer } = this.state;
+        const { index, list, titleAnwer,prevDisplay,sunbmit,nextDisplay} = this.state;
+        console.log(titleAnwer[index])
+        
         //console.log(titleAnwer)
-        //console.log(titleAnwer[index])
+        
         if (titleAnwer[index].length) {
-            if (index == list.length - 1) {
-                Toast.fail('已经是最后一题了！');
-                return;
+            if(index == 0){
+                this.setState({
+                    prevDisplay:!prevDisplay,
+                })
             }
+           
+            if(index == list.length -2)
+            this.setState({
+                nextDisplay:!nextDisplay,
+                sunbmit:!sunbmit
+            })
             //单选判断
             var rightOrNot,
                 rOption;
@@ -128,15 +156,20 @@ class CheckQuestion extends React.Component {
             })
             
         } else {
-            Toast.fail('请重新选择答案！');
+            Toast.fail('请选择答案！');
+            
+            
         }
         //console.log(titleAnwer[index])
 
     }
     checkAnswer = (e) => {
-        const { titleAnwer, index } = this.state;
+        let { titleAnwer, index } = this.state;
         titleAnwer[index] = e.target.value;
-        //console.log(titleAnwer[index])
+        this.setState({
+            titleAnwer:titleAnwer
+        })
+        
     }
 
 
@@ -148,7 +181,11 @@ class CheckQuestion extends React.Component {
         } else {
             titleAnwer[index].remove(e.target.value)
         }
+        this.setState({
+            titleAnwer:titleAnwer
+        })
         console.log(titleAnwer[index])
+        
     }
 
 
@@ -161,7 +198,7 @@ class CheckQuestion extends React.Component {
                 rOption;
             var subResultId = list[index].subResultId;
             if (list[index].subjectType == 1) {
-                rOption = titleAnwer[index][0];
+                rOption = titleAnwer[index];
                 if (rOption == list[index].answer) {
                     rightOrNot = 1;
                 } else {
@@ -303,9 +340,9 @@ class CheckQuestion extends React.Component {
 
                 </ul>
                 <div style={{ textAlign: 'center', position: 'fixed', bottom: 0, width: '100vw', display: 'flex', backgroundColor: '#fff', paddingTop: 15, paddingBottom: 15 }}>
-                    <div onClick={this.prevquestion.bind(this)} style={{ flex: 1, backgroundColor: 'rgb(12, 81, 193)', color: 'white', lineHeight: '35px', borderRadius: 15 }}>上一题</div>
-                    <div onClick={this.submint.bind(this)} style={{ margin: '0 3px', flex: 1, backgroundColor: 'rgb(12, 81, 193)', color: 'white', lineHeight: '35px', borderRadius: 15 }}>提交</div>
-                    <div onClick={this.nextquestion} style={{ flex: 1, backgroundColor: 'rgb(12, 81, 193)', color: 'white', lineHeight: '35px', borderRadius: 15 }}>下一题</div>
+                    <div onClick={this.prevquestion.bind(this)} style={{ display:(this.state.prevDisplay)?'block':'none',flex: 1, backgroundColor: 'rgb(12, 81, 193)', color: 'white', lineHeight: '35px', borderRadius: 15 }}>上一题</div>
+                    <div onClick={this.nextquestion} style={{ display:(this.state.nextDisplay)?'block':'none',flex: 1, backgroundColor: 'rgb(12, 81, 193)', color: 'white', lineHeight: '35px', borderRadius: 15 }}>下一题</div>
+                    <div onClick={this.submint.bind(this)} style={{ display:(this.state.sunbmit)?'block':'none',margin: '0 3px', flex: 1, backgroundColor: 'rgb(12, 81, 193)', color: 'white', lineHeight: '35px', borderRadius: 15 }}>提交</div>
                 </div>
             </div>
 

@@ -68,7 +68,7 @@ class HistoryQuestionAll extends React.Component {
                 mode="light"
                 icon={<Icon type="left" />}
                 onLeftClick={() => this.back()}
-            >创建考核</NavBar>
+            >线上考核</NavBar>
             <div style={{ textAlign: 'center', marginTop: '55px' }}>
                 <div style={{ padding: '10px 0', backgroundColor: 'rgb(12, 81, 193)', fontWeight: 'bold', fontSize: '18px', color: 'white' }}>考核列表</div>
                 <div style={{
@@ -161,7 +161,7 @@ class HistoryQuestionAll extends React.Component {
 
                                     }}>
                                         <div>
-                                            <div style={{ margin: '15px 0' }}>答对题数:&nbsp;{item.sumNum}题&nbsp;(共{item.subjectType == 0 ? 40 : 30}题)</div>
+                                            <div style={{ margin: '15px 0' }}>答对题数:&nbsp;{item.sumNum}题&nbsp;(共{item.subjectType == 0 ? 30 : 40}题)</div>
                                             <div>考核题库:&nbsp;{item.subjectType == 0? '基础题库' : '升级题库'}</div>
                                             <div style={{ margin: '15px 0' }}>考核时间:&nbsp;{item.createTime}</div>
                                         </div>
