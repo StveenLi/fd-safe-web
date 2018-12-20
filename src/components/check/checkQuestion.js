@@ -75,12 +75,7 @@ class CheckQuestion extends React.Component {
         };
 
     }
-    componentDidUpdate() {
-        const { list, titleAnwer } = this.state;
-        
-
-    }
-
+    
 
     //
     prevquestion = () => {
@@ -108,10 +103,7 @@ class CheckQuestion extends React.Component {
     nextquestion = () => {
         const that = this;
         const { index, list, titleAnwer,prevDisplay,sunbmit,nextDisplay} = this.state;
-        console.log(titleAnwer[index])
-        
-        //console.log(titleAnwer)
-        
+        //console.log(titleAnwer[index])
         if (titleAnwer[index].length) {
             if(index == 0){
                 this.setState({
@@ -184,15 +176,15 @@ class CheckQuestion extends React.Component {
         this.setState({
             titleAnwer:titleAnwer
         })
-        console.log(titleAnwer[index])
+        //console.log(titleAnwer[index])
         
     }
 
 
     submint() {
-
         const { index, list, titleAnwer, resultId } = this.state;
-        if (index == list.length - 1) {
+        
+        if (titleAnwer[index].length) {
             //单选判断
             var rightOrNot,
                 rOption;
@@ -222,7 +214,7 @@ class CheckQuestion extends React.Component {
                     submit(resultId).then(data => {
                         if (data.success) {
                             //console.log(data)
-                            this.props.history.push('/PersonalBasicResult', [{ data }])
+                            this.props.history.replace('/PersonalBasicResult', [{ data }])
                         }
                     })
                     //this.props.history.push('/PersonalBasicResult')

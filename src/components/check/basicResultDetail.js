@@ -9,10 +9,12 @@ class BasicResultDetail extends React.Component {
         this.state = {
             resultId: this.props.location.state[0].resultId,
             doneName: this.props.location.state[1].doneName,
+            order: this.props.location.state[2].order,
             list: ''
         }
     };
     componentDidMount() {
+        //console.log(this.props.location)
         Toast.loading('正在加载中...')
         const { resultId, doneName } = this.state;
         getOneCheckResult(resultId).then(data => {
@@ -25,8 +27,14 @@ class BasicResultDetail extends React.Component {
         })
     }
     back = e => {
+        const{order} = this.state;
         const { history } = this.props
-        history.push('/home');
+        if(order == 'pass'){
+            history.goBack();
+        }else{
+            history.push('/home');
+        }
+        
     };
 
     render() {

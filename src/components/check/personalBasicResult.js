@@ -23,7 +23,7 @@ class PersonalBasicResult extends React.Component{
     // };
     getOneCheckResult = ()=>{
        const {resultScorl} = this.state
-        this.props.history.push('/basicResultDetail',[{resultId:resultScorl.id},{doneName:resultScorl.doneName}])
+        this.props.history.push('/basicResultDetail',[{resultId:resultScorl.id},{doneName:resultScorl.doneName},{order:'nopass'}])
     }
      
     render(){
@@ -52,7 +52,7 @@ class PersonalBasicResult extends React.Component{
                     <div>答题人:&nbsp;{this.state.resultScorl.doneName}</div>
                     <div style={{ margin:'10px 0'}}>答对题数:&nbsp;{this.state.resultScorl.sumNum}题&nbsp;(共{this.state.resultScorl.subjectType == 0?30:40}题)</div>
                     <div>考核题库:&nbsp;{this.state.resultScorl.subjectType == 0?'基础题库':'升级题库'}</div>
-                    <div style={{ margin:'10px 0'}}>考核时间:&nbsp;{this.state.resultScorl.createTime}</div>
+                    <div style={{ margin:'10px 0'}}>考核时间:&nbsp;<span style={{fontSize:10}}>{this.state.resultScorl.formatCreateTime}</span></div>
                 </div>
                 <div style={{textAlign:'center'}}>
                     <div>考核结果</div>

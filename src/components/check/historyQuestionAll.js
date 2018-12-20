@@ -28,6 +28,7 @@ class HistoryQuestionAll extends React.Component {
                     this.setState({
                         list: data.list
                     })
+                    //console.log(data.list)
                     Toast.hide()
                 }
             })
@@ -91,7 +92,7 @@ class HistoryQuestionAll extends React.Component {
                     <Picker
                         cols={1}
                         data={typeOptions}
-                        value={tValue}
+                        value={this.state.isPass}
                         onOk={(v) => this.setState({ isPass: v })}
                         onChange={v => this.setState({ isPass: v })}
                     >
@@ -131,7 +132,7 @@ class HistoryQuestionAll extends React.Component {
                             return (
                                 <div
                                     key={index}
-                                    onClick={() => this.props.history.push('/basicResultDetail',[{resultId:item.id},{doneName:item.doneName}])}
+                                    onClick={() => this.props.history.push('/basicResultDetail',[{resultId:item.id},{doneName:item.doneName},{order:'pass'}])}
                                     style={{
                                         marginTop: 20,
                                         padding: '10px 20px',
@@ -163,7 +164,7 @@ class HistoryQuestionAll extends React.Component {
                                         <div>
                                             <div style={{ margin: '15px 0' }}>答对题数:&nbsp;{item.sumNum}题&nbsp;(共{item.subjectType == 0 ? 30 : 40}题)</div>
                                             <div>考核题库:&nbsp;{item.subjectType == 0? '基础题库' : '升级题库'}</div>
-                                            <div style={{ margin: '15px 0' }}>考核时间:&nbsp;{item.createTime}</div>
+                                            <div style={{ margin: '15px 0', }}>考核时间:&nbsp;<span style={{fontSize:10}}>{item.formatCreateTime}</span></div>
                                         </div>
                                         <div style={{ textAlign: 'center' }}>
                                             <div style={{
