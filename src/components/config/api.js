@@ -38,9 +38,9 @@ class Requester {
         //this.host = 'http://192.168.0.124:8080/foodsafety'
         //this.host = 'http://api.map.baidu.com/place/v2'
         //this.host = 'http://test.linkitchen.com/'
-        //this.host = 'http://lilyfoodsafety.com/'
+        this.host = 'http://lilyfoodsafety.com/'
         //this.host = 'http://localhost:8011/'
-        this.host = 'http://192.168.0.100:8011/'
+        //this.host = 'http://192.168.0.100:8011/'
         this.version = '1.0.0'
         this.url = url
         this.header = header
