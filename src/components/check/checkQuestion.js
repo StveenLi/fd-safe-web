@@ -287,9 +287,9 @@ class CheckQuestion extends React.Component {
 
                                                             <div key={indexOptions} style={{width:'calc(100% - 16px)', padding: 8 }} onChange={this.checkAnswer.bind(this)} >
                                                                 <label style={{width:'100%',overflow:'hidden', letterSpacing: 1 }}>
-                                                                    <input type='radio' name={itemTitle.title} value={item.optionCode} style={{width:13,height:13,display:'inline-block',verticalAlign: 'top' }} />
-                                                                    <Badge text={item.optionCode} style={{display:'inline-block',width:10,height:19, margin:'0 5px', backgroundColor: 'rgb(12, 81, 193)', borderRadius: '50%',verticalAlign: 'middle'  }} />
-                                                                    {/* <div style={{width:'80%',display:'inline-block'}}>{item.optionTitle}</div> */}
+                                                                    <input type='radio' name={itemTitle.title} value={item.optionCode} style={{width:14,height:14, }} />
+                                                                    <Badge text={item.optionCode} style={{display:'inline-block',width:10,height:19, margin:'0 5px', backgroundColor: 'rgb(12, 81, 193)', borderRadius: '50%',verticalAlign: 'top'  }} />
+                                                                    {/* <div style={{width:'80%',display:'inline-block',verticalAlign: 'top'}}>{item.optionTitle}</div> */}
                                                                     {item.optionTitle}
                                                                 </label>
                                                             </div>
@@ -302,7 +302,7 @@ class CheckQuestion extends React.Component {
                                                                 {<label style={{width:'100%', overflow:'hidden',letterSpacing: 1 }}>
                                                                     <input type='checkbox' name={itemTitle.optionTitle}
                                                                         value={item.optionCode}
-                                                                        style={{width:13,height:13, verticalAlign: 'top' }}
+                                                                        style={{width:14,height:14,  }}
                                                                         onChange={this.checkAnswerbox.bind(this)}
 
                                                                     />
