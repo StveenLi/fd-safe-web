@@ -156,6 +156,7 @@ class CheckQuestion extends React.Component {
 
     }
     checkAnswer = (e) => {
+        //e.preventDefault()
         let { titleAnwer, index } = this.state;
         titleAnwer[index] = e.target.value;
         this.setState({
@@ -166,6 +167,7 @@ class CheckQuestion extends React.Component {
 
 
     checkAnswerbox = (e) => {
+        //e.preventDefault()
         const { titleAnwer, index } = this.state;
         if (e.target.checked) {
             titleAnwer[index].push(e.target.value)
@@ -283,10 +285,11 @@ class CheckQuestion extends React.Component {
                                                     if (itemTitle.subjectType == 1) {
                                                         return (
 
-                                                            <div key={indexOptions} style={{ padding: 8 }} onChange={this.checkAnswer.bind(this)} >
-                                                                <label style={{ display: 'flex', letterSpacing: 1 }}>
-                                                                    <input type='radio' name={itemTitle.title} value={item.optionCode} style={{ verticalAlign: 'middle' }} />
-                                                                    <Badge text={item.optionCode} style={{ margin: '0 10px 0 5px', backgroundColor: 'rgb(12, 81, 193)', borderRadius: '50%' }} />
+                                                            <div key={indexOptions} style={{width:'calc(100% - 16px)', padding: 8 }} onChange={this.checkAnswer.bind(this)} >
+                                                                <label style={{width:'100%',overflow:'hidden', letterSpacing: 1 }}>
+                                                                    <input type='radio' name={itemTitle.title} value={item.optionCode} style={{width:13,height:13,display:'inline-block',verticalAlign: 'top' }} />
+                                                                    <Badge text={item.optionCode} style={{display:'inline-block',width:10,height:19, margin:'0 5px', backgroundColor: 'rgb(12, 81, 193)', borderRadius: '50%',verticalAlign: 'middle'  }} />
+                                                                    {/* <div style={{width:'80%',display:'inline-block'}}>{item.optionTitle}</div> */}
                                                                     {item.optionTitle}
                                                                 </label>
                                                             </div>
@@ -295,15 +298,16 @@ class CheckQuestion extends React.Component {
                                                     } else {
                                                         return (
 
-                                                            <div key={indexOptions} style={{ padding: 8 }}  >
-                                                                {<label style={{ display: 'flex', letterSpacing: 1 }}>
+                                                            <div key={indexOptions} style={{width:'calc(100% - 16px)', padding: 8 }}  >
+                                                                {<label style={{width:'100%', overflow:'hidden',letterSpacing: 1 }}>
                                                                     <input type='checkbox' name={itemTitle.optionTitle}
                                                                         value={item.optionCode}
-                                                                        style={{ verticalAlign: 'middle' }}
+                                                                        style={{width:13,height:13, verticalAlign: 'top' }}
                                                                         onChange={this.checkAnswerbox.bind(this)}
 
                                                                     />
-                                                                    <Badge text={item.optionCode} style={{ margin: '0 10px 0 5px', backgroundColor: 'rgb(12, 81, 193)', borderRadius: '50%' }} />
+                                                                    <Badge text={item.optionCode} style={{display:'inline-block',verticalAlign: 'top',width:10,height:19,margin:'0 5px', backgroundColor: 'rgb(12, 81, 193)', borderRadius: '50%' }} />
+                                                                    {/* <div style={{width:'80%',display:'inline-block',verticalAlign: 'top'}}>{item.optionTitle}</div> */}
                                                                     {item.optionTitle}
                                                                 </label>}
                                                             </div>
