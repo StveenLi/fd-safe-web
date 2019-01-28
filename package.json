@@ -19,6 +19,7 @@
     "react-signature-canvas": "^1.0.0-alpha.1",
     "react-sticky": "^6.0.2",
     "react-viewer": "^2.4.0",
+    "react-watermark-module": "^1.2.0",
     "react-zmage": "^0.1.7",
     "trim-canvas": "^0.1.2"
   },

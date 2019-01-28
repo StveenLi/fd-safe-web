@@ -43,7 +43,7 @@ import PersonalBasicResult from '../check/personalBasicResult'
 import BasicResultDetail from '../check/basicResultDetail'
 import HistoryQuestionAll from '../check/historyQuestionAll'
 import CheckQuestionUpGrade from '../check/checkQuestionUpGrade'
-
+import Qualifications from '../home/qualifications'
 const Routes = () => (
             <Switch>
 
@@ -81,7 +81,7 @@ const Routes = () => (
                 <PrivateRoute path="/basicResultDetail" component={BasicResultDetail} />
                 <PrivateRoute path="/historyQuestionAll" component={HistoryQuestionAll} />
                 <PrivateRoute path="/checkQuestionUpGrade" component={CheckQuestionUpGrade} />
-
+                <Route path="/qualifications" component={Qualifications}/>
             </Switch>
 )
 

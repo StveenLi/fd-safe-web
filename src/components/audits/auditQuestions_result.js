@@ -59,17 +59,22 @@ class AuditQuestions extends React.Component{
     }
 
     toFuncPage(){
+
         const {reserSignUrl,auditerSignUrl,signText,url1,url2} = this.state
+        let that = this;
         if(url1==''||url2==''){
             Toast.fail('双方签名确认之后才可提交',1);
         }else{
-            doStatistics(this.state.locationState.planId,url1,url2,signText).then(data => {
-                if(data.success){
-                    this.props.history.push('/auditComplete',[{planId:this.state.locationState.planId,transmitParam:data.list,resId:this.state.locationState.resId,typeId:this.state.locationState.typeId}]);
-                }else {
-                    Toast.fail(data.msg,1)
-                }
-            })
+            Toast.loading('审核中……请稍后', 5, function () {
+                doStatistics(that.state.locationState.planId,url1,url2,signText).then(data => {
+                    if(data.success){
+                        that.props.history.push('/auditComplete',[{planId:that.state.locationState.planId,transmitParam:data.list,resId:that.state.locationState.resId,typeId:that.state.locationState.typeId}]);
+                    }else {
+                        Toast.fail(data.msg,1)
+                    }
+                })
+            }, true);
+
         }
 
     }

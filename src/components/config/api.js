@@ -39,7 +39,7 @@ class Requester {
         //this.host = 'http://api.map.baidu.com/place/v2'
         //this.host = 'http://test.linkitchen.com/'
         this.host = 'http://lilyfoodsafety.com/'
-        //this.host = 'http://localhost:8011/'
+        //this.host = 'http://192.168.0.200:8011/'
         //this.host = 'http://192.168.0.100:8011/'
         this.version = '1.0.0'
         this.url = url
@@ -407,3 +407,8 @@ export const getOneCheckResult = (resultId) => {
 export const personalpassCheckResult = (userId,isPass,start,pagesize,doneName) => {
     return new Requester(_POST_(),('/rest/subject/getCheckResults?userId='+userId+'&isPass='+isPass+'&start='+start+'&pagesize='+pagesize+'&doneName='+doneName)).do_fetch();
 }
+
+export const getResQualifications = (code) => {
+    return new Requester(_POST_(),('/rest/assess/query?code='+code)).do_fetch();
+}
+
