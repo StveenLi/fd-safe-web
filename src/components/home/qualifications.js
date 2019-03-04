@@ -101,28 +101,45 @@ class Qualifications extends React.Component {
 
 
     render() {
-        let {resData,requestData,resDataIndex} = this.state
+        let {resData,requestData,resDataIndex} = this.state;
+        //过期
+        let overdue = false;
+        if(requestData.length>0&&resDataIndex!=null){
+            let resDate = requestData[resDataIndex].effectiveDate;
+            let dateArr = resDate.split('/');
+            let year = dateArr[0];
+            let month = parseInt(dateArr[1]);
+            //console.log('月份:'+month)
+            let day = parseInt(dateArr[2]);
+            resDate = new Date(year,month-1,day);
+            //console.log(resDate.format('yyyy-MM-dd'))
+
+            if(resDate < new Date()){
+                overdue = true;
+            }
+        }
+
 
         return (
 
             <div style={{textAlign:'center',background:'#fff'}}>
                 <div class="d-linegradient" style={{padding:30,fontSize:25,color:'#fff',textAlign:'center',textShadow:'5px 2px 6px #000'}}>百合花放心餐厅资质认证</div>
                 <div style={{display:'flex',flexDirection:'row',background:'#efeff4'}}>
-                    <SearchBar style={{flex:1}} placeholder="餐厅编号或证书编号搜索" onChange={(v) => this.searchChange(v)}/>
+                    <SearchBar style={{flex:1}} placeholder="餐厅名称或证书编号搜索" onChange={(v) => this.searchChange(v)}/>
                     <Picker onOk={(v) => this.chooseRes(v)} data={resData} itemStyle={{textAlign:'center'}} cols="1" extra="搜索" ><Button onClick={() => this.searchSub()} style={{height:28,lineHeight:'28px',margin:'8px 0',fontSize:14,padding:'0 12px'}}>搜索</Button></Picker>
                 </div>
-                {requestData.length>0&&resDataIndex!=null?
+                {requestData.length>0&&resDataIndex!=null&&!overdue?
                     <div>
                         <div style={{fontSize:20,padding:10}}>{requestData[resDataIndex].ccTname}</div>
                         <div style={{padding:5,color:'rgb(12, 81, 193)'}}>证书编号:{requestData[resDataIndex].code}</div>
                         <div style={{padding:5,color:'rgb(12, 81, 193)'}}>有效期至 {requestData[resDataIndex].effectiveDate}</div>
-                    </div>:<div style={{padding:30,fontSize:20}}>暂无证书数据</div>
+                    </div>:overdue?<div style={{padding:30,fontSize:20,color:'red'}}>证书已经过期</div>:<div style={{padding:30,fontSize:20}}>暂无证书数据</div>
 
                 }
                 <div style={{borderBottom:'1px solid #EBEBEB',margin:'10px 20px 0 20px'}}></div>
                 {requestData.length>0&&resDataIndex!=null?
 
-                <canvas id="myCanvas" width={320} height={500} style={{marginTop:20}}>您的浏览器不支持Canvas</canvas>:null
+                <canvas id="myCanvas" width={320} height={500} style={{marginTop:20,display:overdue?'none':''}}>您的浏览器不支持Canvas</canvas>:null
                     }
                 <img id="img" src={imagePath} style={{display:'none'}}/>
                 {/*<div>
