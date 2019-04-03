@@ -87,18 +87,19 @@ class mainComponent extends React.Component{
             </div>
 
             <div style={{display:'flex',padding:15}}>
-                <div style={{marginLeft:15,marginRight:15}}>通知</div>
+                <div style={{marginLeft:15,marginRight:15,color:'#CD3333',fontWeight:'bold'}}>提醒:
+                </div>
                 <div style={{flex:1}}></div>
-                <NavLink to="/message"
-                         activeStyle={{color: 'black'}}
-                >
-                    <div style={{marginLeft:15,marginRight:15}}>查看更多 ></div>
-                </NavLink>
+                {/*<NavLink to="/message"*/}
+                         {/*activeStyle={{color: 'black'}}*/}
+                {/*>*/}
+                    {/*<div style={{marginLeft:15,marginRight:15}}>查看更多 ></div>*/}
+                {/*</NavLink>*/}
             </div>
 
-            <div style={{marginLeft:15,marginRight:15}}>
+            <div style={{marginLeft:15,marginRight:15,textAlign:'left',color:'#CD3333',fontWeight:'bold'}}>
 
-                {
+                {/*
                     this.props.noticeList.map((noticeItem,index) => {
                         return <div key={index} style={{borderTopRightRadius:5,borderTopLeftRadius:5,display:'flex',flexDirection:'row',backgroundColor:'#fff',padding:15,borderBottomColor:'#eaeefe',borderBottomWidth:1,borderBottomStyle:'solid'}}>
                             <Badge dot style={{ marginLeft: 12, padding: '3px 3px',marginTop:3, backgroundColor: GREY }} />
@@ -108,8 +109,11 @@ class mainComponent extends React.Component{
                             </div>
                         </div>
                     })
-                }
-
+                */}
+                <div style={{padding:10}}>周审核每周一生成审核计划</div>
+                <div style={{padding:10}}>季度审核每季度第一天生成审核计划</div>
+                <div style={{padding:10}}>审核周期内只能做一次审核</div>
+                <div style={{padding:10}}>审核报告可自动发送到您的邮箱，请注意查收。</div>
 
             </div>
 

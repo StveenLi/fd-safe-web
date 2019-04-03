@@ -19,7 +19,8 @@ class TrainDetail extends React.Component{
             //titem:{},
             qid:'',
             fullWeb:{},
-            ids:[]
+            ids:[],
+            vid:''
         };
       }
     back = e => {
@@ -29,8 +30,6 @@ class TrainDetail extends React.Component{
 
     componentDidMount() {
         let qid = this.props.match.params.qid
-        //console.log(JSON.parse(this.props.location.state))
-        //let item = JSON.parse(this.props.location.state.item)
         let ids = (this.props.location.state.ids)
         this.setState({
             //titem:item,
@@ -39,7 +38,8 @@ class TrainDetail extends React.Component{
         })
         getTrainDetail(qid).then(data=>{
             this.setState({
-                fullWeb:data.list[0]
+                fullWeb:data.list[0],
+                vid:data.list[0].fileUrl
             })
             if(data.list[0].fuwenben!=null){
                 document.getElementById('iu').innerHTML = data.list[0].fuwenben;
@@ -78,6 +78,7 @@ class TrainDetail extends React.Component{
 
     render(){
         const {fullWeb} = this.state
+        const {vid} = this.state
         return <div>
 
             <div style={{borderBottomColor:GREY,borderWidth:1,borderBottomStyle:'solid'}}>
@@ -92,9 +93,14 @@ class TrainDetail extends React.Component{
                 <div style={{padding:15,fontSize:14}}>
                     {fullWeb.title}
                 </div>
-
+                <div style={{background:'#fff'}}>
+                    {
+                        vid !=null?<video style={{width:'100%'}} src={vid} controls="controls">
+                        </video>:null
+                    }
                 <div style={{background:'#fff',padding:20,textAlign:'center'}} id="iu">
 
+                </div>
                 </div>
                 <div style={{textAlign:'center',position:'fixed',bottom:0,width:'100%',display:'flex',backgroundColor:'#fff',paddingTop:15,paddingBottom:15}}>
                     <div style={{flex:1}} onClick={() => this.previousQuestion()}>

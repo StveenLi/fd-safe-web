@@ -105,13 +105,13 @@ class CheckIndex extends React.Component{
                         block='true' 
                         onClick={this.toBasicChecking.bind(this)}
                         style={{margin:'20px 15px',backgroundColor:'rgb(12, 81, 193)'}}
-                    >基础题库</Button>
+                    >食品安全员</Button>
                     <Button 
                         type='primary' 
                         block='true' 
                         style={{margin:15,backgroundColor:'rgb(12, 81, 193)'}}
                         onClick={this.toUpgradeChecking.bind(this)}
-                    >升级题库</Button>
+                    >百合花审核员</Button>
                 </div>
             </div> 
 

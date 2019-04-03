@@ -20,6 +20,7 @@ import AuditQuestionsByList from '../audits/auditQuestionsByList'
 import AuditQuestionsResult from '../audits/auditQuestions_result'
 import QuestionDetail from '../audits/questionDetail_N'
 //import QuestionDetail from '../audits/questionDetail'
+import DiverseyLogin from '../user/diverseyLogin'
 import TrainIndex from '../train/tarinIndex'
 import Message from '../user/message'
 import CheckIndex from '../check/checkIndex'
@@ -48,6 +49,7 @@ const Routes = () => (
             <Switch>
 
                 <Route exact path="/" component={Login}/>
+                <Route exact path="/diverseyLogin" component={DiverseyLogin}/>
                 <PrivateRoute path="/home" component={HomeIndex}/>
                 <PrivateRoute path="/audits" component={AuditPage}/>
                 <PrivateRoute path="/startAudit" component={StartAuditPage}/>

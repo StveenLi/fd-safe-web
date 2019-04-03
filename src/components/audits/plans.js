@@ -5,7 +5,7 @@
 
 import React from 'react'
 import { NavBar,Icon, List,Button} from 'antd-mobile';
-import {queryPlanList,user,doAddPlan} from '../config/api'
+import {queryPlanList,user,doAddPlan,doAddPlan2} from '../config/api'
 import {BLUE} from '../config/style'
 const Item = List.Item;
 
@@ -19,7 +19,8 @@ class PlanPage extends React.Component{
         super(props);
         // 初始状态
         this.state = {
-            dataList:[]
+            dataList:[],
+
         };
       }
     back = e => {
@@ -59,16 +60,29 @@ class PlanPage extends React.Component{
         })
     }
 
+    addNewPlan2(){
+        doAddPlan2().then(data => {
+            if(data.success){
+                this.props.history.replace('/auditsPlan')
+            }
+        })
+    }
+
     render(){
 
         const {dataList} = this.state
+        console.log('user')
+        console.log(user.isTestUser)
         return <div>
             <div><NavBar
                 mode="light"
                 icon={<Icon type="left" />}
                 rightContent={
-        user.isTestUser==1?<div style={{textAlign:'center',margin: '5px'}}>
-                        <Button type="ghost" inline size="small" style={{ marginTop: '4px' }} onClick={() => this.addNewPlan()}>新增</Button></div>:null
+        user.isTestUser==1?(<div style={{textAlign:'center',margin: '5px'}}>
+                        <Button type="ghost" inline size="small" style={{ marginTop: '4px' }} onClick={() => this.addNewPlan()}>新增</Button></div>):
+            user.isTestUser==2?(<div style={{textAlign:'center',margin: '5px'}}>
+                    <Button type="ghost" inline size="small" style={{ marginTop: '4px' }} onClick={() => this.addNewPlan2()}>新增</Button></div>):
+            null
       }
                 onLeftClick={() => this.back()}
             >审核计划</NavBar></div>
@@ -97,11 +111,7 @@ class PlanPage extends React.Component{
 
                     }
                 </List>
-
             </div>
-
-
-
         </div>
     }
 

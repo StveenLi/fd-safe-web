@@ -17,8 +17,19 @@ class PersonalIndex extends React.Component{
       }
 
     logout(){
+
+
         localStorage.setItem('isLogin',false);
-        this.props.history.push('/')
+        let loginWay = localStorage.getItem('loginWay');
+        if(loginWay == 'baihehua'){
+            this.props.history.push('/')
+        }
+        else if (loginWay == 'diversey'){
+            this.props.history.push('/diverseyLogin')
+        }else{
+            this.props.history.push('/')
+        }
+
     }
 
 

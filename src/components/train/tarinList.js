@@ -6,7 +6,7 @@
 import React from 'react'
 import { NavBar,Icon, List,Accordion} from 'antd-mobile';
 import { StickyContainer, Sticky } from 'react-sticky';
-import {getTrainList} from '../config/api'
+import {getTrainList,getLawTrainData} from '../config/api'
 
 import styles,{GREY,BLUE} from '../config/style'
 const Item = List.Item;
@@ -18,7 +18,8 @@ class TrainList extends React.Component{
         // 初始状态
         this.state = {
             titem:{},
-            tlist:[]
+            tlist:[],
+            lawTrainList:[]
         };
       }
     back = e => {
@@ -44,7 +45,16 @@ class TrainList extends React.Component{
                 })
             }
         })
+
+
     }
+
+    loadLawTrain(){
+        console.log()
+
+    }
+
+
     render(){
         const {titem,tlist} = this.state;
         let ids = [];

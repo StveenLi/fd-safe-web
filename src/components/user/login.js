@@ -56,6 +56,7 @@ class Login extends Component{
         login(phone,vaildCode).then(data => {
            if(data.success){
                localStorage.setItem('isLogin',true);
+               localStorage.setItem('loginWay','baihehua')
                localStorage.setItem('userInfo',JSON.stringify(data.one));
                this.props.history.push('/home')
            }else{

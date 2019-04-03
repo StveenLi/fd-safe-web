@@ -6,6 +6,8 @@ import './config'
 
 export const user = JSON.parse(localStorage.getItem('userInfo'));
 
+export const currentHost = "http://lilyfoodsafety.com/"
+
 const _isUndefined = (tmp) => typeof(tmp) == "undefined"?'':tmp;
 //默认的GET Header
 const _GET_ = () =>  {
@@ -35,12 +37,11 @@ const _POST_ = (body) => {
 class Requester {
 
     constructor(header={}, url) {
-        //this.host = 'http://192.168.0.124:8080/foodsafety'
         //this.host = 'http://api.map.baidu.com/place/v2'
-        //this.host = 'http://test.linkitchen.com/'
+        // this.host = 'http://test.linkitchen.com/'
+        // this.host = 'http://192.168.0.182:8080/foodsafety'
         this.host = 'http://lilyfoodsafety.com/'
-        //this.host = 'http://192.168.0.200:8011/'
-        //this.host = 'http://192.168.0.100:8011/'
+
         this.version = '1.0.0'
         this.url = url
         this.header = header
@@ -95,6 +96,12 @@ export const doAddPlan = (phone) => {
     let formData = new FormData();
     formData.append('userId',user.id);
     return new Requester(_POST_(formData),'/rest/user/doAddPlan').do_fetch();
+}
+
+export const doAddPlan2 = (phone) => {
+    let formData = new FormData();
+    formData.append('userId',user.id);
+    return new Requester(_POST_(formData),'/rest/user/doAddTestPlan').do_fetch();
 }
 
 export const getNotice = () => {
@@ -412,3 +419,15 @@ export const getResQualifications = (code) => {
     return new Requester(_POST_(),('/rest/assess/query?code='+code)).do_fetch();
 }
 
+export const getLawTrainData = (contentGroup) => {
+    let formData = new FormData();
+    formData.append('contentGroup',contentGroup);
+    return new Requester(_POST_(formData),'/rest/notice/TrainAndLowNotice').do_fetch();
+}
+
+
+export const findLawDetail = (id) => {
+    let formData = new FormData();
+    formData.append('id',id);
+    return new Requester(_POST_(formData),'/rest/notice/findDetail').do_fetch();
+}

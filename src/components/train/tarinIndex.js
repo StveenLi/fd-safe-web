@@ -6,7 +6,7 @@
 import React from 'react'
 import { NavBar,Icon,Picker,Tabs, WhiteSpace,Button,SearchBar, List} from 'antd-mobile';
 import { StickyContainer, Sticky } from 'react-sticky';
-import {getTrainIndex} from '../config/api'
+import {getLawTrainData, getTrainIndex} from '../config/api'
 import styles,{GREY,BLUE} from '../config/style'
 const Item = List.Item;
 const Brief = Item.Brief;
@@ -16,7 +16,8 @@ class TrainIndex extends React.Component{
         super(props);
         // 初始状态
         this.state = {
-            tlist:[]
+            tlist:[],
+            lawTrainList:[]
         };
       }
     back = e => {
@@ -30,17 +31,28 @@ class TrainIndex extends React.Component{
 
     componentDidMount() {
         getTrainIndex().then(data => {
-            console.log(data)
             if(data.success){
                 this.setState({
                     tlist:data.list
                 })
             }
         })
+        getLawTrainData('PTPX').then((data) => {
+            if(data.success){
+                this.setState({
+                    lawTrainList:data.list
+                })
+            }
+        })
     }
 
+    toLawDetailPage(data){
+        this.props.history.push('/lawDetail',data);
+    }
+
+
     render(){
-        const {tlist} = this.state
+        const {tlist,lawTrainList} = this.state
         return <div>
 
             <div style={{borderBottomColor:GREY,borderWidth:1,borderBottomStyle:'solid'}}>
@@ -67,6 +79,24 @@ class TrainIndex extends React.Component{
                         </div>
                     </div>
                     })
+                }
+
+                {lawTrainList.map((item,i) =>{
+                    return <div key={i} style={{background:'#fff',position:'relative',borderBottomStyle:'solid',borderColor:GREY}}
+                                onClick={() => {this.props.history.push('/lawDetail',item)}}>
+                        <div style={{padding:20,fontSize:18}}>{item.title}
+                        </div>
+                        <div style={{padding:'0 20px 20px 20px',display:'flex',flexDirection:'row',color:BLUE}}>
+                            <div>
+                                <img style={{width:20,marginRight:10}} src={require('../assets/icon/train_icon.png')}></img>
+                            </div>
+                            <div style={{marginLeft:20}}>无类目</div>
+                        </div>
+                        <div style={{position:'absolute',bottom:0,right:0}}>
+                            <img style={{width:100}} src={require('../assets/icon/train_item.png')}></img>
+                        </div>
+                    </div>
+                })
                 }
             </div>
         </div>
