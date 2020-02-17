@@ -3,10 +3,12 @@
  */
 import {getTrainDetail} from '../config/api'
 import React from 'react'
-import {NavBar,Icon,Button,Toast} from 'antd-mobile'
+import {NavBar,Icon,Button,Toast,Modal} from 'antd-mobile'
 import {
     NavLink,Link
 } from 'react-router-dom'
+
+const alert = Modal.alert;
 class CheckIndex extends React.Component{
 
 
@@ -21,6 +23,7 @@ class CheckIndex extends React.Component{
         }
         
       }
+
       componentDidMount(){
         
 
@@ -53,10 +56,38 @@ class CheckIndex extends React.Component{
             return;
         }
     }
+	
+	toPublicChecking(){
+		const {examineName} = this.state;
+		var userId = JSON.parse(localStorage.getItem('userInfo')).id;
+		if(examineName){
+		    this.props.history.push('/checkQuestion',[{examineName:examineName},{userId:userId},{examineType:2}])
+		}else{
+		    Toast.fail('请输入答题人名字！');
+		    return;
+		}
+	}
     back = e => {
         const {history} = this.props
         history.push('home')
     };
+    areaChecking(){
+        const {examineName} = this.state;
+        let userId = JSON.parse(localStorage.getItem('userInfo')).id;
+        if(!examineName){
+            Toast.fail('请输入答题人名字！');
+            return;
+        }
+        alert('选择职能', <div>请选择对应人职能</div>, [
+            { text: '采购', onPress: () => this.props.history.push('/checkQuestion',[{examineName:examineName},{userId:userId},{examineType:20}]) },
+            { text: '库房', onPress: () => this.props.history.push('/checkQuestion',[{examineName:examineName},{userId:userId},{examineType:21}]) },
+            { text: '粗加工间', onPress: () => this.props.history.push('/checkQuestion',[{examineName:examineName},{userId:userId},{examineType:30}]) },
+            { text: '烹饪间', onPress: () => this.props.history.push('/checkQuestion',[{examineName:examineName},{userId:userId},{examineType:40}]) },
+            { text: '专间', onPress: () => this.props.history.push('/checkQuestion',[{examineName:examineName},{userId:userId},{examineType:50}]) },
+            { text: '前厅', onPress: () => this.props.history.push('/checkQuestion',[{examineName:examineName},{userId:userId},{examineType:60}]) },
+            { text: '洗消间', onPress: () => this.props.history.push('/checkQuestion',[{examineName:examineName},{userId:userId},{examineType:70}]) },
+        ])
+    }
     render(){
         const Height = document.documentElement.clientHeight
         const { value } = this.state;
@@ -105,13 +136,26 @@ class CheckIndex extends React.Component{
                         block='true' 
                         onClick={this.toBasicChecking.bind(this)}
                         style={{margin:'20px 15px',backgroundColor:'rgb(12, 81, 193)'}}
-                    >食品安全员</Button>
+                    >食品安全题库</Button>
                     <Button 
                         type='primary' 
                         block='true' 
                         style={{margin:15,backgroundColor:'rgb(12, 81, 193)'}}
                         onClick={this.toUpgradeChecking.bind(this)}
-                    >百合花审核员</Button>
+                    >百合花题库</Button>
+                    <Button
+                        type='primary'
+                        block='true'
+                        style={{margin:15,backgroundColor:'rgb(12, 81, 193)',marginTop:30}}
+                        onClick={() =>  this.areaChecking()}
+                    >区域题库</Button>
+					
+					<Button
+					    type='primary'
+					    block='true'
+					    style={{margin:15,backgroundColor:'rgb(12, 81, 193)',marginTop:30}}
+					    onClick={() =>  this.toPublicChecking()}
+					>国家市场监督管理局试题</Button>
                 </div>
             </div> 
 

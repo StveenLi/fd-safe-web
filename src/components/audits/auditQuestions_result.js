@@ -6,7 +6,7 @@ import React from 'react'
 import { Accordion, List,NavBar,Icon,Button,Toast,InputItem} from 'antd-mobile';
 import SignatureCanvas from 'react-signature-canvas'
 import SignaturePad from '../signature/index.js'
-import {screenWidth,FONTGREY,GREY,BLUE} from '../config/style'
+import styles,{screenWidth,FONTGREY,GREY,BLUE} from '../config/style'
 import {getAddressByXY,checkUnStandard,doStatistics,uploadByBase64} from '../config/api'
 import Zmage from 'react-zmage'
 import Sign from './sign'
@@ -30,7 +30,9 @@ class AuditQuestions extends React.Component{
             isSignPage:false,
             url1:'',
             url2:'',
-            currentSign:1
+            currentSign:1,
+			nd:'',
+			bhh:''
         };
       }
 
@@ -60,13 +62,22 @@ class AuditQuestions extends React.Component{
 
     toFuncPage(){
 
-        const {reserSignUrl,auditerSignUrl,signText,url1,url2} = this.state
+        const {resAuditList,reserSignUrl,auditerSignUrl,signText,url1,url2,nd,bhh} = this.state
         let that = this;
+		if(resAuditList.auditId == 338){
+			if(nd == '' || bhh == ''){
+				Toast.fail('必选项选择之后才能提交',1);
+				return;
+			}
+		}
+		let standardDemand = nd == 'accord'?'F_0':nd == 'bfqs'?'BF_-6':nd == 'qs'?'Q_-10':'BSY_0';
+		let standardAnnounce = bhh == 'accord'?'F_0':bhh == 'unaccord'?'N_-6':'BSY_0';
+		
         if(url1==''||url2==''){
             Toast.fail('双方签名确认之后才可提交',1);
         }else{
-            Toast.loading('审核中……请稍后', 5, function () {
-                doStatistics(that.state.locationState.planId,url1,url2,signText).then(data => {
+            Toast.loading('审核中……请稍后', 2, function () {
+                doStatistics(that.state.locationState.planId,url2,url1,signText,standardDemand,standardAnnounce).then(data => {
                     if(data.success){
                         that.props.history.push('/auditComplete',[{planId:that.state.locationState.planId,transmitParam:data.list,resId:that.state.locationState.resId,typeId:that.state.locationState.typeId}]);
                     }else {
@@ -74,9 +85,7 @@ class AuditQuestions extends React.Component{
                     }
                 })
             }, true);
-
         }
-
     }
     clear = () => {
         this.sigPad.clear();
@@ -224,22 +233,6 @@ class AuditQuestions extends React.Component{
 
 
     }
-    //savePosition(position){
-    //    const {locationState} = this.state;
-    //    localStorage.setItem('Latitude',position.coords.latitude);
-    //    localStorage.setItem('Longitude',position.coords.longitude);
-    //    this.setState({
-    //        locationX:position.coords.longitude,
-    //        locationY:position.coords.latitude
-    //    })
-    //    getAddressByXY(locationState.resId[0],position.coords.longitude,position.coords.latitude).then(data => {
-    //        if(data.success){
-    //            this.setState({hereAddress:data.address});
-    //        }else{
-    //            this.setState({hereAddress:data.msg});
-    //        }
-    //    })
-    //}
 
     toSign(curr){
         this.setState({
@@ -247,9 +240,48 @@ class AuditQuestions extends React.Component{
             currentSign:curr
         })
     }
+	_handleNDAccord(){
+		this.setState({
+			nd:'accord'
+		})
+	}
+	
+	_handleNDBfqs(){
+		this.setState({
+			nd:'bfqs'
+		})
+	}
+	_handleNDQS(){
+		this.setState({
+			nd:'qs'
+		})
+	}
+	_handleNDNouse(){
+		this.setState({
+			nd:'nouse'
+		})
+	}
+	_handleBHHAccord(){
+		this.setState({
+			bhh:'accord'
+		})
+	}
+	_handleBHHUnaccord(){
+		this.setState({
+			bhh:'unaccord'
+		})
+	}
+	_handleBHHNouse(){
+		this.setState({
+			bhh:'nouse'
+		})
+	}
+	
+	
+	
     render(){
 
-        const {resAuditList,isSignPage,url1,url2,currentSign} = this.state;
+        const {resAuditList,isSignPage,url1,url2,currentSign,nd,bhh} = this.state;
         let childAssess = [];
         if(resAuditList.childAssess instanceof Array){
             childAssess = resAuditList.childAssess;
@@ -271,28 +303,54 @@ class AuditQuestions extends React.Component{
                         this.setAudits(childAssess)
                     }
             </div>
-                    <div style={{margin:'10px 0'}}>
-                        <div style={{margin: '0 5px 5px 10px',display:'flex',flexDirection:'row'}}>
-                            <img style={{marginTop:3}} src={require('../assets/icon/signature.png')} width={20} height={20}></img>
-                            <div style={{margin: '5px 5px 5px 10px',flex:1}}>餐厅负责人签名:</div>
-                            <div style={{margin: '5px 5px 5px 10px',color:BLUE}} onClick={() => this.toSign(1)}>去签名 ></div>
-                        </div>
-                        <div>
-                            <img src={url1}></img>
-                        </div>
-                    </div>
+			{resAuditList.auditeId == 338?
+				<div>
+				<div style={{padding:'10px 15px',background:'#fff',fontSize:16}}>
+					<div>
+						<span style={{color:'red'}}>*</span>年度报告数量是否符合规定要求(<span style={{color:'red'}}>必选</span>)			
+					</div>
+					<div style={{display:'flex',flexDirection:'row',fontSize:10,padding:'15px 0'}}>
+						<div style={nd=='accord'?styles.no_use_blue:styles.kfx_panel} onClick={()=>this._handleNDAccord()}><span style={nd=='accord'?{color:'#fff'}:{color:'black'}}>符合标准</span><br/>不扣分</div>
+						<div style={nd=='bfqs'?styles.no_use_blue:styles.kfx_panel} onClick={()=>this._handleNDBfqs()}><span style={nd=='bfqs'?{color:'#fff'}:{color:'black'}}>部分缺失</span><br/>扣6分</div>
+						<div style={nd=='qs'?styles.no_use_blue:styles.kfx_panel} onClick={()=>this._handleNDQS()}><span style={nd=='qs'?{color:'#fff'}:{color:'black'}}>缺失</span><br/>扣10分</div>
+						<div style={nd=='nouse'?styles.no_use_blue:styles.kfx_panel} onClick={()=>this._handleNDNouse()}><span style={nd=='nouse'?{color:'#fff'}:{color:'black'}}>不适用</span><br/>不扣分</div>
+					</div>
+				</div>
+				<div style={{padding:'10px 15px',background:'#fff',fontSize:16}}>
+					<div>
+						<span style={{color:'red'}}>*</span>百合花工程看板是否按照要求制作、公示(<span style={{color:'red'}}>必选</span>)			
+					</div>
+					<div style={{display:'flex',flexDirection:'row',fontSize:10,padding:'15px 0'}}>
+						<div style={bhh=='accord'?styles.no_use_blue:styles.kfx_panel}><span style={bhh=='accord'?{color:'#fff'}:{color:'black'}} onClick={()=>this._handleBHHAccord()}>符合标准</span><br/>不扣分</div>
+						<div style={bhh=='unaccord'?styles.no_use_blue:styles.kfx_panel}><span style={bhh=='unaccord'?{color:'#fff'}:{color:'black'}} onClick={()=>this._handleBHHUnaccord()}>不符合标准</span><br/>扣6分</div>
+						<div style={bhh=='nouse'?styles.no_use_blue:styles.kfx_panel}><span style={bhh=='nouse'?{color:'#fff'}:{color:'black'}} onClick={()=>this._handleBHHNouse()}>不适用</span><br/>不扣分</div>
+					</div>
+				</div>
+				</div>:''
+			}
+			
+			<div style={{margin:'10px 0'}}>
+				<div style={{margin: '0 5px 5px 10px',display:'flex',flexDirection:'row'}}>
+					<img style={{marginTop:3}} src={require('../assets/icon/signature.png')} width={20} height={20}></img>
+					<div style={{margin: '5px 5px 5px 10px',flex:1}}>餐厅负责人签名:</div>
+					<div style={{margin: '5px 5px 5px 10px',color:BLUE}} onClick={() => this.toSign(1)}>去签名 ></div>
+				</div>
+				<div>
+					<img src={url1}></img>
+				</div>
+			</div>
 
-                    <div style={{margin:'10px 0'}}>
-                        <div style={{margin: '0 5px 5px 10px',display:'flex',flexDirection:'row'}}><img style={{marginTop:3}} src={require('../assets/icon/signature.png')} width={20} height={20}></img>
-                            <div style={{margin: '5px 5px 5px 10px',flex:1}}>审核员签名:</div>
-                            <div style={{margin: '5px 5px 5px 10px',color:BLUE}} onClick={() => this.toSign(2)}>去签名 ></div>
+			<div style={{margin:'10px 0'}}>
+				<div style={{margin: '0 5px 5px 10px',display:'flex',flexDirection:'row'}}><img style={{marginTop:3}} src={require('../assets/icon/signature.png')} width={20} height={20}></img>
+					<div style={{margin: '5px 5px 5px 10px',flex:1}}>审核员签名:</div>
+					<div style={{margin: '5px 5px 5px 10px',color:BLUE}} onClick={() => this.toSign(2)}>去签名 ></div>
 
-                        </div>
-                        <div>
-                            <img src={url2}></img>
+				</div>
+				<div>
+					<img src={url2}></img>
 
-                        </div>
-                    </div>
+				</div>
+			</div>
 
             <div style={{marginTop:10,marginBottom:85}}>
                 <div style={{margin: '5px 5px 5px 10px',display:'flex',flexDirection:'row'}}>

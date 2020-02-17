@@ -1,7 +1,7 @@
 
 
 import React from 'react'
-import { NavBar} from 'antd-mobile';
+import { NavBar,Toast} from 'antd-mobile';
 import {BLUE,GREY} from '../config/style'
 import echarts from 'echarts/lib/echarts';
 import 'echarts/lib/component/tooltip';
@@ -9,7 +9,7 @@ import 'echarts/lib/component/title';
 import 'echarts/lib/chart/bar';
 import 'echarts/lib/chart/pie';
 
-import {getKeyOption} from '../config/api'
+import {getKeyOption,toSendEmail} from '../config/api'
 class AuditComplete extends React.Component{
 
 
@@ -24,7 +24,10 @@ class AuditComplete extends React.Component{
             //不符合的关键项
             keys:[],
             //严重不符合
-            importants:[]
+            importants:[],
+			bing:[],
+			standardAnnounce_name:'',
+			standardDemand_name:''
         };
       }
 
@@ -32,20 +35,35 @@ class AuditComplete extends React.Component{
         let transmitParam = [];
         let indicatorList = [];
         let dataVals = [];
+		let that = this;
         if(this.props.history.location.state instanceof Array){
             transmitParam =  this.props.history.location.state[0].transmitParam;
         }
+		this.setState({
+			bing:transmitParam
+		})
 
         for(let tran of transmitParam){
             if(tran.name==='SJZF'){
                 this.state.sumCore = tran.value;
+            }else if(tran.name!=='ZF'){
+				if(tran.name != 'standardAnnounce'&&tran.name != 'standardDemand'){
+					let text = '';
+					tran.name.length<7?text=tran.name:text=tran.name.substr(0,7)+'\n'+tran.name.substr(7,tran.name.length)
+					indicatorList.push({ text: text, max: 100 });
+					dataVals.push(parseInt(tran.value))
+				}
             }
-            else if(tran.name!=='ZF'){
-                let text = '';
-                tran.name.length<7?text=tran.name:text=tran.name.substr(0,7)+'\n'+tran.name.substr(7,tran.name.length)
-                indicatorList.push({ text: text, max: 100 });
-                dataVals.push(parseInt(tran.value))
-            }
+			if(tran.name =='standardDemand'){
+				that.setState({
+					standardDemand_name : tran.value == 'BSY_0'?'不适用':tran.value == 'F_0'?'符合标准':tran.value == 'BF_-6'?'部分缺失':tran.value == 'Q_-10'?'缺失':'暂无'
+				})
+			}
+			if(tran.name =='standardAnnounce'){
+				that.setState({
+					standardAnnounce_name : tran.value == 'F_0'?'符合标准':tran.value == 'N_-6'?'不符合标准':tran.value == 'BSY_0'?'不适用':'暂无'
+				})
+			}
         }
 
         this.setState({
@@ -144,6 +162,10 @@ class AuditComplete extends React.Component{
                 })
             }
         })
+
+        toSendEmail(this.props.history.location.state[0].planId).then((data) => {
+            Toast.success(data.msg, 1)
+        })
         var myChart = echarts.init(document.getElementById("typeStatics"));
         myChart.setOption(this.state.option);
     }
@@ -152,7 +174,7 @@ class AuditComplete extends React.Component{
         history.goBack();
     };
     render(){
-
+		const {standardDemand_name,standardAnnounce_name} = this.state
         let scoreColor = this.state.importants.length>3?'#ff5b5b':this.state.keys.length>0?'#ff5b5b':this.state.sumCore>=80?'#0cc1a3':'#ff5b5b'
         return <div style={{textAlign:'center'}}>
             <NavBar
@@ -165,7 +187,7 @@ class AuditComplete extends React.Component{
                 <div style={{marginLeft:120,marginTop:-20}}>分</div>
             </div>
 
-            <div style={{background:'#fff',padding:15,color:scoreColor}}>{scoreColor === '#ff5b5b'?'本次审核未通过':'本次审核通过'}</div>
+            {/*<div style={{background:'#fff',padding:15,color:scoreColor}}>{scoreColor === '#ff5b5b'?'本次审核未通过':'本次审核通过'}</div>*/}
 
 
             <div style={{textAlign:'left',marginTop:10}}>
@@ -180,14 +202,21 @@ class AuditComplete extends React.Component{
                     return <div key={index} style={{background:GREY,padding:10,color:'#ff5b5b'}}>{key.name.substr(2,key.name.length)}</div>
                 })}
             </div>
+			
+			<div style={{marginTop:10,display:'flex',flexDirection:'row',background:'#fff'}}>
+			    <div style={{padding:15,fontSize:16}}>年度报告</div>
+			    <div style={{flex:1,textAlign:'right',padding:15,fontSize:16,color:'#4876FF'}}>{standardDemand_name}</div>
+			</div>
+			
+			<div style={{marginTop:10,display:'flex',flexDirection:'row',background:'#fff'}}>
+			    <div style={{padding:15,fontSize:16}}>百合花工程看板</div>
+			    <div style={{flex:1,textAlign:'right',padding:15,fontSize:16,color:'#4876FF'}}>{standardAnnounce_name}</div>
+			</div>
 
             <div id="typeStatics" style={{height:400,padding:-20,backgroundColor: '#fff',marginTop:10 }}></div>
             <div style={{fontSize:18,color:'#fff',padding: 15,textAlign:'center',backgroundColor:BLUE}}
                  onClick={() => this.props.history.push('/audits')}
             >完成</div>
-
-
-
         </div>
     }
 }

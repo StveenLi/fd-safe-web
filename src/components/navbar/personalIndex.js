@@ -29,7 +29,11 @@ class PersonalIndex extends React.Component{
         }else{
             this.props.history.push('/')
         }
+    }
 
+
+    toContractPage(){
+        this.props.history.push('/contractPage')
     }
 
 
@@ -55,7 +59,13 @@ class PersonalIndex extends React.Component{
                         </div>
                     </div>
                 </div>
+
                 <div style={styles.personal_item}>
+                    <div sytle={{display:'flex',flexDirection: 'row'}} onClick={() => this.toContractPage()}>
+                        <div>合同信息</div>
+                    </div>
+                </div>
+                <div style={{marginTop:10,padding: 15, alignItems: 'center', backgroundColor: 'white'}}>
                     <div sytle={{display:'flex',flexDirection: 'row'}}>
                         <div>分享</div>
                     </div>
@@ -67,12 +77,7 @@ class PersonalIndex extends React.Component{
                     </div>
             </div>
         )
-
-
     }
-
-
-
 }
 
 

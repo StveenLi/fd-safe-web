@@ -19,9 +19,13 @@ import AuditQuestions from '../audits/auditQuestions'
 import AuditQuestionsByList from '../audits/auditQuestionsByList'
 import AuditQuestionsResult from '../audits/auditQuestions_result'
 import QuestionDetail from '../audits/questionDetail_N'
-//import QuestionDetail from '../audits/questionDetail'
+import TestDemo from '../test/test'
+import ContractList from '../user/contract/contractList'
+import AddContract from '../user/contract/addContract'
+
 import DiverseyLogin from '../user/diverseyLogin'
 import TrainIndex from '../train/tarinIndex'
+
 import Message from '../user/message'
 import CheckIndex from '../check/checkIndex'
 import FuncPage from '../audits/funcPage'
@@ -39,12 +43,16 @@ import PrivateRoute from './PrivateRoute'
 import VideoTrain from '../audits/videoTrain'
 import ImgDetailTrain from '../audits/imgTrain'
 import TrainList from '../train/tarinList'
+
 import TrainDetail from '../train/tarinDetail'
 import PersonalBasicResult from '../check/personalBasicResult'
 import BasicResultDetail from '../check/basicResultDetail'
 import HistoryQuestionAll from '../check/historyQuestionAll'
 import CheckQuestionUpGrade from '../check/checkQuestionUpGrade'
 import Qualifications from '../home/qualifications'
+import TrainIndex2 from '../test/tarinIndex'
+
+import imgth from '../test/imgth'
 const Routes = () => (
             <Switch>
 
@@ -63,6 +71,8 @@ const Routes = () => (
                 <PrivateRoute path="/radar" component={StaticsRadar}/>
                 <PrivateRoute path="/questionDetail" component={QuestionDetail}/>
                 <PrivateRoute path="/train" component={TrainIndex}/>
+				<PrivateRoute path="/trainNodes" component={TrainIndex2}/>
+				
                 <PrivateRoute path="/message" component={Message}/>
                 <PrivateRoute path="/check" component={CheckIndex}/>
                 <PrivateRoute path="/func" component={FuncPage}/>
@@ -83,7 +93,14 @@ const Routes = () => (
                 <PrivateRoute path="/basicResultDetail" component={BasicResultDetail} />
                 <PrivateRoute path="/historyQuestionAll" component={HistoryQuestionAll} />
                 <PrivateRoute path="/checkQuestionUpGrade" component={CheckQuestionUpGrade} />
+
+                <PrivateRoute path="/contractPage" component={ContractList} />
+                <PrivateRoute path="/addContract" component={AddContract} />
+
                 <Route path="/qualifications" component={Qualifications}/>
+                <Route path="/testDemo" component={TestDemo}/>
+				<Route path="/imgth" component={imgth}/>
+				
             </Switch>
 )
 

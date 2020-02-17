@@ -430,8 +430,6 @@ class Report extends React.Component{
                 </List>
             </div>
             <div style={{position:'fixed',bottom:0,width:'100%',display:'block',display:'flex',flexDirection:'row'}}>
-                {/*<Button style={{flex:1}} onClick={() => this.props.history.push('/reportDetail')}>重置</Button>*/}
-
                 <Button style={{flex:1,background:BLUE}}  type="primary" onClick={() => this.serachReport()}>提交</Button>
             </div>
 

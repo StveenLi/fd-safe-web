@@ -151,6 +151,7 @@ class HistoryQuestionAll extends React.Component {
                                             borderColor: (item.score >= 90) ? 'green' : 'red',
                                             borderRadius: '25px',
                                             textAlign: 'center',
+											margin:'0 0 10px 0'
 
 
                                         }}>{item.score >= 90 ? '合格' : '不合格'}</div>
@@ -163,7 +164,7 @@ class HistoryQuestionAll extends React.Component {
                                     }}>
                                         <div>
                                             <div style={{ margin: '15px 0' }}>答对题数:&nbsp;{item.sumNum}题&nbsp;(共{item.subjectType == 0 ? 30 : 40}题)</div>
-                                            <div>考核题库:&nbsp;{item.subjectType == 0? '基础题库' : '升级题库'}</div>
+                                            <div>考核题库:&nbsp;{item.subjectType == 0? '食品安全题库' : item.subjectType == 1?'百合花题库':item.subjectType == 20?'区域题库（采购）':item.subjectType == 21?'区域题库（库房）':item.subjectType == 30?'区域题库（粗加工间）':item.subjectType == 40?'区域题库（烹饪间）':item.subjectType == 50?'区域题库（专间）':item.subjectType == 60?'区域题库（前厅）':item.subjectType == 70?'区域题库（洗消间）':'其它'}</div>
                                             <div style={{ margin: '15px 0', }}>考核时间:&nbsp;<span style={{fontSize:10}}>{item.formatCreateTime}</span></div>
                                         </div>
                                         <div style={{ textAlign: 'center' }}>

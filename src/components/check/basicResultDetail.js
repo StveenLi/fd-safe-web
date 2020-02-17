@@ -49,7 +49,7 @@ class BasicResultDetail extends React.Component {
                 onLeftClick={() => this.back()}
                 style={{ width: '100vw' }}
             >线上考核</NavBar>
-
+            
             <div style={{ textAlign: 'center', marginTop: '55px' }}>
                 <div style={{ padding: '10px 0', backgroundColor: 'rgb(12, 81, 193)', fontWeight: 'bold', fontSize: '18px', color: 'white' }}>{this.state.doneName}考核详情</div>
                 <Tabs
@@ -57,10 +57,9 @@ class BasicResultDetail extends React.Component {
                     initialPage={0}
                     swipeable='false'
                     tabBarActiveTextColor='rgb(12, 81, 193)'
-                    tabBarUnderlineStyle='rgb(12, 81, 193)'
                     renderTab={tab => <span>{tab.title}</span>}
                 >
-
+            
                     <div style={{ width:'calc(100% - 30px)',margin: '15px', padding: '8px', backgroundColor: 'white', borderRadius: '10px', whiteSpace: 'wrap' }}>
                         {/* 全部题目第二题 */}
                         {
@@ -81,11 +80,11 @@ class BasicResultDetail extends React.Component {
                                                             </div>
                                                         )
                                                     })
-
-
-
+            
+            
+            
                                                 }
-
+            
                                             </div>
                                         </div>
                                         <div style={{ display: 'flex', margin: '8px 0 5px 0' }}>
@@ -94,12 +93,12 @@ class BasicResultDetail extends React.Component {
                                                 {
                                                     item.answerOptionList.length && item.answerOptionList.map((itemanswer, indexanswer) => {
                                                         return (
-
+            
                                                             <div key={indexanswer} style={{ textAlign: 'left', marginBottom: '3px' }}>
                                                                 <Badge text={itemanswer.optionCode} style={{ display: 'inline-block', backgroundColor: 'rgb(12, 81, 193)' }} />
                                                                 <div style={{ display: 'inline-block', width: '78%', marginLeft: '5px', wordBreak: 'break-all', verticalAlign: 'top', color: 'red', letterSpacing: 1 }}>{itemanswer.optionTitle}</div>
                                                             </div>
-
+            
                                                         )
                                                     })
                                                 }
@@ -107,12 +106,12 @@ class BasicResultDetail extends React.Component {
                                         </div>
                                     </div>
                                 )
-
+            
                             })
                         }
-
+            
                     </div>
-
+            
                     <div style={{ width:'calc(100% - 30px)',margin: '15px', padding: '8px', backgroundColor: 'white', borderRadius: '10px', whiteSpace: 'wrap' }}>
                         {/* 错题集第一题 */}
                         {
@@ -136,7 +135,7 @@ class BasicResultDetail extends React.Component {
                                                     })
                                                 }
                                                    
-
+                                
                                                 </div>
                                             </div>
                                             <div style={{ display: 'flex', margin: '8px 0 5px 0' }}>
@@ -145,16 +144,16 @@ class BasicResultDetail extends React.Component {
                                                 {
                                                     item.answerOptionList.length && item.answerOptionList.map((itemanswer, indexanswer) => {
                                                         return (
-
+                                
                                                             <div key={indexanswer} style={{ textAlign: 'left', marginBottom: '3px' }}>
                                                                 <Badge text={itemanswer.optionCode} style={{ display: 'inline-block', backgroundColor: 'rgb(12, 81, 193)' }} />
                                                                 <div style={{ display: 'inline-block', width: '78%', marginLeft: '5px', wordBreak: 'break-all', verticalAlign: 'top', color: 'red', letterSpacing: 1 }}>{itemanswer.optionTitle}</div>
                                                             </div>
-
+                                
                                                         )
                                                     })
                                                 }
-
+                                
                                                 </div>
                                             </div>
                                         </div>

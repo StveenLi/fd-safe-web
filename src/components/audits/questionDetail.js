@@ -39,13 +39,6 @@ class QuestionDetail extends React.Component{
         alert('返回','确定不保存该题数据直接返回吗？' ,[
             { text: '取消', onPress: () => console.log('cancel'), style: 'default' },
             { text: '确定', onPress: () => {
-                //const {history} = this.props;
-                //const {locationState} = this.state;
-                //let transmitParam = {};
-                //transmitParam.resId = locationState.resId;
-                //transmitParam.typeId = locationState.typeId;
-                //transmitParam.planId = locationState.planId;
-                //history.replace('/auditQuestions',[{transmitParam:transmitParam}]);
                 this.props.history.goBack();
             } },
         ])

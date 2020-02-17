@@ -25,6 +25,7 @@ const _POST_ = (body) => {
     return({
         method: 'POST',
         headers: {
+            
             'Accept': 'application/json',
             contentType: "application/x-www-form-urlencoded"
         },
@@ -38,10 +39,10 @@ class Requester {
 
     constructor(header={}, url) {
         //this.host = 'http://api.map.baidu.com/place/v2'
-        // this.host = 'http://test.linkitchen.com/'
-        // this.host = 'http://192.168.0.182:8080/foodsafety'
-        this.host = 'http://lilyfoodsafety.com/'
-
+        this.host = 'https://feiqu.linkitchen.com/FSafe/'
+        // this.host = 'http://192.168.0.106:8081/FS'
+        // this.host = 'http://lilyfoodsafety.com/'
+        // this.host = 'http://192.168.31.29:8080/FSafe'
         this.version = '1.0.0'
         this.url = url
         this.header = header
@@ -182,12 +183,14 @@ export const getBrandName = () => {
 
 
 //提交审核
-export const doStatistics = (planId,signUrl,ownSignUrl,signCn) => {
+export const doStatistics = (planId,signUrl,ownSignUrl,signCn,standardDemand,standardAnnounce) => {
     let formData = new FormData();
     formData.append('planId',planId);
     formData.append('signUrl',signUrl);
     formData.append('ownSignUrl',ownSignUrl);
     formData.append('signCn',signCn);
+	formData.append('standardDemand',standardDemand);
+	formData.append('standardAnnounce',standardAnnounce);
     return new Requester(_POST_(formData),'/rest/assess/doStatistics').do_fetch();
 }
 
@@ -431,3 +434,67 @@ export const findLawDetail = (id) => {
     formData.append('id',id);
     return new Requester(_POST_(formData),'/rest/notice/findDetail').do_fetch();
 }
+
+export const toSendEmail = (planId) => {
+    let formData = new FormData();
+    formData.append('planId',planId);
+    return new Requester(_POST_(formData),'/rest/assess/toSendEmail').do_fetch();
+}
+
+export const addContract = (name,expirationDate,effectiveDate) => {
+    let formData = new FormData();
+    formData.append('name',name);
+    formData.append('expirationDate',expirationDate);
+    formData.append('effectiveDate',effectiveDate);
+    formData.append('userId',user.id);
+    return new Requester(_POST_(formData),'/rest/contract/doAddContract').do_fetch();
+}
+
+export const updateContract = (id,name,expirationDate,effectiveDate) => {
+    let formData = new FormData();
+    formData.append('id',id)
+    formData.append('name',name);
+    formData.append('expirationDate',expirationDate);
+    formData.append('effectiveDate',effectiveDate);
+    formData.append('userId',user.id);
+    return new Requester(_POST_(formData),'/rest/contract/doUpdateContract').do_fetch();
+}
+
+export const queryContractList = () => {
+    let formData = new FormData();
+    formData.append('id',user.id);
+    return new Requester(_POST_(formData),'/rest/contract/queryByUserId').do_fetch();
+}
+
+
+export const remindContract = () => {
+    let formData = new FormData();
+    formData.append('id',user.id);
+    return new Requester(_POST_(formData),'/rest/contract/remindContract').do_fetch();
+}
+
+
+export const findOrg = () => {
+    let formData = new FormData();
+    formData.append('id',user.id);
+    return new Requester(_POST_(formData),'/rest/organize/findOrg').do_fetch();
+}
+
+
+export const getNews = () => {
+    let formData = new FormData();
+    return new Requester(_POST_(formData),'/rest/common/queryNews').do_fetch();
+}
+
+export const getAllContent = () => {
+    let formData = new FormData();
+    return new Requester(_POST_(formData),'/rest/notice/getAllContent').do_fetch();
+}
+
+export const getByContent = (contentGroup) => {
+    let formData = new FormData();
+	formData.append('contentGroup',contentGroup)
+    return new Requester(_POST_(formData),'/rest/notice/getByContent').do_fetch();
+}
+
+

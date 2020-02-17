@@ -103,7 +103,6 @@ class CheckQuestion extends React.Component {
     nextquestion = () => {
         const that = this;
         const { index, list, titleAnwer,prevDisplay,sunbmit,nextDisplay} = this.state;
-        //console.log(titleAnwer[index])
         if (titleAnwer[index].length) {
             if(index == 0){
                 this.setState({
@@ -117,9 +116,9 @@ class CheckQuestion extends React.Component {
                 sunbmit:!sunbmit
             })
             //单选判断
-            var rightOrNot,
+            let rightOrNot,
                 rOption;
-            var subResultId = list[index].subResultId;
+            let subResultId = list[index].subResultId;
             if (list[index].subjectType == 1) {
                 rOption = titleAnwer[index];
                 if (rOption == list[index].answer) {
@@ -137,7 +136,7 @@ class CheckQuestion extends React.Component {
                     rightOrNot = 0
                 }
             }
-            //console.log(subResultId, rightOrNot, rOption)
+            console.log(subResultId, rightOrNot, rOption)
             submitQuestion(subResultId, rightOrNot, rOption).then(data => {
                 if (data.success) {
                     that.setState({
@@ -148,12 +147,8 @@ class CheckQuestion extends React.Component {
             })
             
         } else {
-            Toast.fail('请选择答案！');
-            
-            
+            Toast.fail('请选择答案！');    
         }
-        //console.log(titleAnwer[index])
-
     }
     checkAnswer = (e) => {
         //e.preventDefault()
@@ -191,6 +186,7 @@ class CheckQuestion extends React.Component {
             var rightOrNot,
                 rOption;
             var subResultId = list[index].subResultId;
+			console.log(index)
             if (list[index].subjectType == 1) {
                 rOption = titleAnwer[index];
                 if (rOption == list[index].answer) {
@@ -215,11 +211,9 @@ class CheckQuestion extends React.Component {
                     //传数据
                     submit(resultId).then(data => {
                         if (data.success) {
-                            //console.log(data)
                             this.props.history.replace('/PersonalBasicResult', [{ data }])
                         }
                     })
-                    //this.props.history.push('/PersonalBasicResult')
                 }
             })
 

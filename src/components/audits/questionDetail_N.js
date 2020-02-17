@@ -39,13 +39,6 @@ class QuestionDetail extends React.Component{
         alert('返回','确定不保存该题数据直接返回吗？' ,[
             { text: '取消', onPress: () => console.log('cancel'), style: 'default' },
             { text: '确定', onPress: () => {
-                //const {history} = this.props;
-                //const {locationState} = this.state;
-                //let transmitParam = {};
-                //transmitParam.resId = locationState.resId;
-                //transmitParam.typeId = locationState.typeId;
-                //transmitParam.planId = locationState.planId;
-                //history.replace('/auditQuestions',[{transmitParam:transmitParam}]);
                 this.props.history.goBack();
             } },
         ])
@@ -76,20 +69,6 @@ class QuestionDetail extends React.Component{
     };
     subQuestion(){
         let {locationState,auditId,remarkList,chooseValues} = this.state;
-
-        //for(let remark of remarkList){
-        //    //如果未选择
-        //    if(chooseValues.indexOf(remark.itemId)===-1){
-        //        if(remark.isKey!=4){
-        //            if((!remark.content||remark.content==='')&&(!remark.images||remark.images.length===0)){
-        //                Toast.fail('请全部做完再提交！', 1);
-        //                return;
-        //            }
-        //        }
-        //    }
-        //
-        //}
-        //this.initSubJsonController(1,false,true)
         const {history} = this.props;
         let transmitParam = {};
         transmitParam.resId = locationState.resId;
@@ -164,15 +143,6 @@ class QuestionDetail extends React.Component{
                     videoUrl:data.one.videoUrl,
                     remarkList:remarkList
                 })
-
-                //if(this.props.history.location.state[0].transmitParam.willRemarkPage){
-                //    let item = this.props.history.location.state[0].transmitParam.optionItem;
-                //    this.setState({
-                //        currentQuestion:item.title,
-                //        currentItem:item.auditeId,
-                //        toRemarkPage:true
-                //    })
-                //}
             }
         })
     }
@@ -212,7 +182,6 @@ class QuestionDetail extends React.Component{
             subJson.supAuditeId = item.supAuditeId;
 
             //如果选择了
-            
             if(isNoUse){
                 subJson.ownPoint = 0
             }else if(chooseValues.indexOf(item.auditeId)>-1){
@@ -297,22 +266,6 @@ class QuestionDetail extends React.Component{
             Toast.fail('已经是最后一题了！', 1);
             return;
         }
-
-        //for(let remark of remarkList){
-        //    //如果未选择
-        //    if(chooseValues.indexOf(remark.itemId)===-1){
-        //        if(remark.isKey!=4){
-        //            if((!remark.content||remark.content==='')&&(!remark.images||remark.images.length===0)){
-        //                Toast.fail('请全部做完再提交！', 1);
-        //                return;
-        //            }
-        //        }
-        //    }
-        //
-        //}
-        //this.initSubJsonController(1);
-
-
         let nextAuditId = locationState.questionIds[locationState.questionIds.indexOf(parseInt(auditId))+1];
         this.props.history.replace(`/questionDetail/${nextAuditId}`,[{transmitParam:locationState}]);
     }
@@ -393,16 +346,7 @@ class QuestionDetail extends React.Component{
                 currentItem:JSON.stringify(item)
             })
         }else{
-
             this.showAlert(item)
-            //let subJson = {}
-            //subJson.auditeId = item.auditeId;
-            //subJson.planId = locationState.planId;
-            //subJson.supAuditeId = item.supAuditeId;
-            //subJson.ownPoint = null;
-            //subJson.supPoint = item.supPoint;
-            //subJson.isKey = 2;
-            //this._setOption(subJson);
         }
     }
 
@@ -434,11 +378,6 @@ class QuestionDetail extends React.Component{
             { text: '详情', onPress: () => this.alertToRemark(item), style: 'default' },
             { text: '重选', onPress: () => this.alertToReturn(item) },
         ]);
-        //setTimeout(() => {
-        //    // 可以调用close方法以在外部close
-        //    console.log('auto close');
-        //    alertInstance.close();
-        //}, 1000);
     };
 
     alertToRemark(item){
@@ -450,14 +389,6 @@ class QuestionDetail extends React.Component{
     alertToReturn(item){
         const {locationState} = this.state;
         this._cleanOption(locationState.planId,item.auditeId);
-        //let subJson = {}
-        //subJson.auditeId = item.auditeId;
-        //subJson.planId = locationState.planId;
-        //subJson.supAuditeId = item.supAuditeId;
-        //subJson.ownPoint = null;
-        //subJson.supPoint = item.supPoint;
-        //subJson.isKey = 2;
-        //this._setOption(subJson);
     }
     
      getCheckBoxList(initQuestionItem){

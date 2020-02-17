@@ -4,9 +4,9 @@
 
 
 import React from 'react'
-import { NavBar,Icon,Picker,Tabs, WhiteSpace,Button,SearchBar, List} from 'antd-mobile';
+import { NavBar,Icon,Picker,Tabs, WhiteSpace,Button,SearchBar, List,Toast} from 'antd-mobile';
 import { StickyContainer, Sticky } from 'react-sticky';
-import {getLawTrainData, getTrainIndex,getAllContent} from '../config/api'
+import {getByContent} from '../config/api'
 import styles,{GREY,BLUE} from '../config/style'
 const Item = List.Item;
 const Brief = Item.Brief;
@@ -17,7 +17,8 @@ class TrainIndex extends React.Component{
         // 初始状态
         this.state = {
             tlist:[],
-            lawTrainList:[]
+            lawTrainList:[],
+			title:''
         };
       }
     back = e => {
@@ -25,16 +26,18 @@ class TrainIndex extends React.Component{
         history.goBack();
     };
 
-    toListPage(item){
-        this.props.history.push('/trainList',[{item:JSON.stringify(item)}])
-    }
-
     componentDidMount() {
-		getAllContent().then((data) => {
+		let cg = this.props.location.state.contentGroup
+		Toast.loading('加载中……', 0, true);
+		this.setState({
+			title:this.props.location.state.title
+		})
+		getByContent(cg).then((data) => {
 			if(data.success){
 				this.setState({
                     lawTrainList:data.list
                 })
+				Toast.hide()
 			}
 		})
     }
@@ -45,7 +48,7 @@ class TrainIndex extends React.Component{
 
 
     render(){
-        const {tlist,lawTrainList} = this.state
+        const {tlist,lawTrainList,title} = this.state
         return <div>
 
             <div style={{borderBottomColor:GREY,borderWidth:1,borderBottomStyle:'solid'}}>
@@ -54,7 +57,7 @@ class TrainIndex extends React.Component{
                     icon={<Icon type="left" />}
                     onLeftClick={() => this.back()}
                 >培训</NavBar>
-                <div style={{marginTop:50}}></div>
+                <div style={{marginTop:50,background:BLUE,padding:10,fontSize:18,textAlign:'center',color:'#fff'}}>{title}</div>
 
                 {tlist.map((item,i) =>{
                     return <div key={i} style={{background:'#fff',position:'relative',borderBottomStyle:'solid',borderColor:GREY}}
@@ -76,7 +79,7 @@ class TrainIndex extends React.Component{
 
                 {lawTrainList.map((item,i) =>{
                     return <div key={i} style={{background:'#fff',position:'relative',borderBottomStyle:'solid',borderColor:GREY}}
-                                onClick={() => {this.props.history.push('/trainNodes',item)}}>
+                                onClick={() => {this.props.history.push('/lawDetail',item)}}>
                         <div style={{padding:20,fontSize:18}}>{item.title}
                         </div>
                         <div style={{padding:'0 20px 20px 20px',display:'flex',flexDirection:'row',color:BLUE}}>

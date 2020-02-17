@@ -6,7 +6,7 @@
 import React from 'react'
 import { NavBar,Icon, List,Accordion} from 'antd-mobile';
 import { StickyContainer, Sticky } from 'react-sticky';
-import {getTrainList,getLawTrainData} from '../config/api'
+import {getTrainList,getLawTrainData,getAllContent} from '../config/api'
 
 import styles,{GREY,BLUE} from '../config/style'
 const Item = List.Item;
@@ -45,12 +45,9 @@ class TrainList extends React.Component{
                 })
             }
         })
-
-
     }
 
     loadLawTrain(){
-        console.log()
 
     }
 

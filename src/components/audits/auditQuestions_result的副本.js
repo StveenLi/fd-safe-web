@@ -60,7 +60,7 @@ class AuditQuestions extends React.Component{
         }else if(signText == ''){
             Toast.fail('餐厅负责人签名标注不能为空',1);
         }else{
-            doStatistics(this.state.locationState.planId,reserSignUrl,auditerSignUrl,signText).then(data => {
+            doStatistics(this.state.locationState.planId,auditerSignUrl,reserSignUrl,signText).then(data => {
                 if(data.success){
                     this.props.history.push('/auditComplete',[{planId:this.state.locationState.planId,transmitParam:data.list,resId:this.state.locationState.resId,typeId:this.state.locationState.typeId}]);
                 }else {
@@ -251,7 +251,7 @@ class AuditQuestions extends React.Component{
                 <Accordion.Panel header="确认签名">
                     <div style={{margin:'10px 0'}}>
                         <div style={{margin: '0 5px 5px 10px',display:'flex',flexDirection:'row'}}><img style={{marginTop:3}} src={require('../assets/icon/signature.png')} width={20} height={20}></img>
-                            <div style={{margin: '5px 5px 5px 10px'}}>餐厅负责人签名:</div>
+                            <div style={{margin: '5px 5px 5px 10px'}}>餐厅负责人签名11:</div>
                         </div>
                         <div></div>
                     </div>

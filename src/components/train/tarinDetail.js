@@ -44,7 +44,7 @@ class TrainDetail extends React.Component{
             if(data.list[0].fuwenben!=null){
                 document.getElementById('iu').innerHTML = data.list[0].fuwenben;
             }else {
-                document.getElementById('iu').innerHTML = '暂无培训数据';
+                document.getElementById('iu').innerHTML = '<div style="text-align: center">暂无培训数据</div>';
             }
         })
     }
@@ -98,7 +98,7 @@ class TrainDetail extends React.Component{
                         vid !=null?<video style={{width:'100%'}} src={vid} controls="controls">
                         </video>:null
                     }
-                <div style={{background:'#fff',padding:20,textAlign:'center'}} id="iu">
+                <div style={{background:'#fff',padding:20,marginBottom:150}} id="iu">
 
                 </div>
                 </div>
