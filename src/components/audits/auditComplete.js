@@ -202,16 +202,16 @@ class AuditComplete extends React.Component{
                     return <div key={index} style={{background:GREY,padding:10,color:'#ff5b5b'}}>{key.name.substr(2,key.name.length)}</div>
                 })}
             </div>
-			
-			<div style={{marginTop:10,display:'flex',flexDirection:'row',background:'#fff'}}>
+			{standardAnnounce_name == '暂无'||standardDemand_name == '暂无'?'':<div style={{marginTop:10,display:'flex',flexDirection:'row',background:'#fff'}}>
 			    <div style={{padding:15,fontSize:16}}>年度报告</div>
 			    <div style={{flex:1,textAlign:'right',padding:15,fontSize:16,color:'#4876FF'}}>{standardDemand_name}</div>
-			</div>
+			</div>}
 			
-			<div style={{marginTop:10,display:'flex',flexDirection:'row',background:'#fff'}}>
+			{standardAnnounce_name == '暂无'||standardDemand_name == '暂无'?'':<div style={{marginTop:10,display:'flex',flexDirection:'row',background:'#fff'}}>
 			    <div style={{padding:15,fontSize:16}}>百合花工程看板</div>
 			    <div style={{flex:1,textAlign:'right',padding:15,fontSize:16,color:'#4876FF'}}>{standardAnnounce_name}</div>
-			</div>
+			</div>}
+			
 
             <div id="typeStatics" style={{height:400,padding:-20,backgroundColor: '#fff',marginTop:10 }}></div>
             <div style={{fontSize:18,color:'#fff',padding: 15,textAlign:'center',backgroundColor:BLUE}}
