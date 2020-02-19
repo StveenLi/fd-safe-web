@@ -188,7 +188,7 @@ class mainComponent extends React.Component{
                             <span style={styles.home_func_item}>考核</span></NavLink>
                     </div>
                     <div style={{padding:'0px 10px 10px 10px',position: 'relative'}}>
-                        <NavLink to="/law">
+                        <NavLink to="/lawIndex">
                             <img style={{maxWidth:'100%'}}  alt="" src={require('../assets/icon/nav04.png')}></img>
                             <span style={styles.home_func_item}>法律</span></NavLink>
                     </div>

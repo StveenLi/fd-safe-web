@@ -32,7 +32,7 @@ class TrainIndex extends React.Component{
 		this.setState({
 			title:this.props.location.state.title
 		})
-		getByContent(cg).then((data) => {
+		getByContent(cg,'PX').then((data) => {
 			if(data.success){
 				this.setState({
                     lawTrainList:data.list

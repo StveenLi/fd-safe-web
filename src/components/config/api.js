@@ -486,14 +486,16 @@ export const getNews = () => {
     return new Requester(_POST_(formData),'/rest/common/queryNews').do_fetch();
 }
 
-export const getAllContent = () => {
+export const getAllContent = (type) => {
     let formData = new FormData();
+	formData.append('type',type);
     return new Requester(_POST_(formData),'/rest/notice/getAllContent').do_fetch();
 }
 
-export const getByContent = (contentGroup) => {
+export const getByContent = (contentGroup,type) => {
     let formData = new FormData();
 	formData.append('contentGroup',contentGroup)
+	formData.append('type',type)
     return new Requester(_POST_(formData),'/rest/notice/getByContent').do_fetch();
 }
 

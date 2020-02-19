@@ -52,6 +52,9 @@ import CheckQuestionUpGrade from '../check/checkQuestionUpGrade'
 import Qualifications from '../home/qualifications'
 import TrainIndex2 from '../test/tarinIndex'
 
+import LawIndex from '../law/lawIndex'
+import LawNode from '../law/lawNode'
+
 import imgth from '../test/imgth'
 const Routes = () => (
             <Switch>
@@ -96,6 +99,9 @@ const Routes = () => (
 
                 <PrivateRoute path="/contractPage" component={ContractList} />
                 <PrivateRoute path="/addContract" component={AddContract} />
+				<PrivateRoute path="/lawIndex" component={LawIndex} />
+				<PrivateRoute path="/lawNode" component={LawNode} />
+				
 
                 <Route path="/qualifications" component={Qualifications}/>
                 <Route path="/testDemo" component={TestDemo}/>

@@ -30,7 +30,7 @@ class TrainIndex extends React.Component{
     }
 
     componentDidMount() {
-		getAllContent().then((data) => {
+		getAllContent('PX').then((data) => {
 			if(data.success){
 				this.setState({
                     lawTrainList:data.list
