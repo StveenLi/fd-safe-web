@@ -69,8 +69,8 @@ class AuditQuestions extends React.Component{
 			Toast.fail('必选项选择之后才能提交',1);
 			return;
 		}
-		let standardDemand = nd == 'accord'?'F_0':nd == 'bfqs'?'BF_-6':nd == 'qs'?'Q_-10':'BSY_0';
-		let standardAnnounce = bhh == 'accord'?'F_0':bhh == 'unaccord'?'N_-6':'BSY_0';
+		let standardDemand = nd == 'accord'?'F_0':nd == 'bfqs'?'BF_-6':nd == 'qs'?'Q_-10':nd == 'nouse'?'BSY_0':'';
+		let standardAnnounce = bhh == 'accord'?'F_0':bhh == 'unaccord'?'N_-6':bhh == 'nouse'?'BSY_0':'';
 		
         if(url1==''||url2==''){
             Toast.fail('双方签名确认之后才可提交',1);
