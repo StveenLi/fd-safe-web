@@ -57,7 +57,7 @@ class LawNode extends React.Component{
                     mode="light"
                     icon={<Icon type="left" />}
                     onLeftClick={() => this.back()}
-                >培训</NavBar>
+                >法律</NavBar>
                 <div style={{marginTop:50,background:BLUE,padding:10,fontSize:18,textAlign:'center',color:'#fff'}}>{title}</div>
 
                 {tlist.map((item,i) =>{
