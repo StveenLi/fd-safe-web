@@ -64,11 +64,10 @@ class AuditQuestions extends React.Component{
 
         const {resAuditList,reserSignUrl,auditerSignUrl,signText,url1,url2,nd,bhh} = this.state
         let that = this;
-		if(resAuditList.auditId == 338){
-			if(nd == '' || bhh == ''){
-				Toast.fail('必选项选择之后才能提交',1);
-				return;
-			}
+		if(resAuditList.auditeId == 338&&(nd == '' || bhh == '')){
+			console.log('in')
+			Toast.fail('必选项选择之后才能提交',1);
+			return;
 		}
 		let standardDemand = nd == 'accord'?'F_0':nd == 'bfqs'?'BF_-6':nd == 'qs'?'Q_-10':'BSY_0';
 		let standardAnnounce = bhh == 'accord'?'F_0':bhh == 'unaccord'?'N_-6':'BSY_0';
