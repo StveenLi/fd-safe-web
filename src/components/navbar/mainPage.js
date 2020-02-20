@@ -213,7 +213,7 @@ class mainComponent extends React.Component{
 
             </div>
 */}
-			<div id="show" style={{height:300,marginLeft:15,marginRight:15,textAlign:'left',fontWeight:'bold',overflowY:'scroll',overflowX:'scroll'}}>
+			<div id="show" style={{height:300,marginLeft:15,marginRight:15,textAlign:'left',overflowY:'scroll',overflowX:'scroll'}}>
 				<div style={{whiteSpace: 'pre-wrap',width:345,padding:10}} id="content">{news.content}</div>
 			</div>
             <Modal
