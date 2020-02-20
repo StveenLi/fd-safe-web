@@ -27,7 +27,7 @@ class TrainIndex extends React.Component{
     };
 
     componentDidMount() {
-		let cg = this.props.location.state.contentGroup
+		let cg = this.props.location.state.title
 		Toast.loading('加载中……', 0, true);
 		this.setState({
 			title:this.props.location.state.title
